@@ -25,7 +25,7 @@
 	        removePlugins: 'elementspath',
 	        resize_enabled: false,
 	        height: '300px',
-	        filebrowserImageUploadUrl: '${basePath}uploadImg?fileType=image&workType=note' // *** [2] 不同页面上传的地址有可能不一样哦 ***
+	        filebrowserImageUploadUrl: '${basePath}uploadImg?fileType=image&workType=note', // *** [2] 不同页面上传的地址有可能不一样哦 ***
 	    });
 		
 		// 设置 CKEditor 中的内容
