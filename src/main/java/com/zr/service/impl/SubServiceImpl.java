@@ -1,17 +1,24 @@
 package com.zr.service.impl;
 
 import java.util.List;
+import com.zr.model.Sub;
+import com.zr.service.SubService;
 
 import com.zr.dao.SubDao;
 import com.zr.dao.impl.SubDaoImpl;
 import com.zr.model.Subject;
-import com.zr.service.SubService;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
-public class SubServiceImpl implements SubService {
+public class SubServiceImpl implements SubService{
 	SubDao subDao = new SubDaoImpl();
+  
+	@Override
+	public List<Sub> selectSubsByMsg(String subType, int subCrateTime, String STcheck, String SCTcheck) {
+		// TODO Auto-generated method stub
+		return null;
+	}
   
 	@Override
 	public JSONObject getSubsByPageAndPagesize(int page, int pageSize) {
