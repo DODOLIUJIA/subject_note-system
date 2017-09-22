@@ -26,4 +26,32 @@ public interface NoteService {
 	 * @return
 	 */
 	public JSONObject getnoteBypageAndpagesize(String n_lname,int page ,int pagesize);
+	/**
+	 * 插入
+	 * @param userid
+	 * @param notetitle
+	 * @param notetext
+	 * @param notesummary
+	 * @return
+	 */
+	public int insertnote(int userid,String notetitle ,String notetext,String notesummary);
+	/**
+	 * 得到noteid
+	 * @param notetitle
+	 * @return
+	 */
+	public int getnoteid(String notetitle);
+	/**
+	 * 
+	 * @param noteid
+	 * @param n_lid
+	 * @return
+	 */
+	public int insertNote_lable(int noteid,int n_lid);
+	/**
+	 * 
+	 * @param n_lname
+	 * @return
+	 */
+	public int getN_lid(String n_lname);
 }

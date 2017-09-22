@@ -30,4 +30,28 @@ public class NoteServiceimpl implements NoteService {
 		return json;
 	}
 
+	@Override
+	public int insertnote(int userid, String notetitle, String notetext, String notesummary) {
+		int i = ndao.insertnoteByuidAndnote(userid, notetitle, notetext, notesummary);
+		return i;
+	}
+
+	@Override
+	public int getnoteid(String notetitle) {
+		int i = ndao.selectNoteid(notetitle);
+		return i;
+	}
+
+	@Override
+	public int insertNote_lable(int noteid, int n_lid) {
+		int i = ndao.insertNote_lable(noteid, n_lid);
+		return i;
+	}
+
+	@Override
+	public int getN_lid(String n_lname) {
+		int i = ndao.selectN_lid(n_lname);
+		return i;
+	}
+
 }

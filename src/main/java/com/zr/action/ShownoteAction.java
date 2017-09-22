@@ -39,10 +39,12 @@ public class ShownoteAction extends HttpServlet {
 		request.setCharacterEncoding("utf8");
 		response.setCharacterEncoding("utf8");
 		List<Note> notes = ns.getallnotesByn_lname("java");
-		JSONArray json = JSONArray.fromObject(notes);
+		
+		JSONArray json = new JSONArray();
+		 json = JSONArray.fromObject(notes);
 		 PrintWriter pw = response.getWriter();
 		pw.write(json.toString());
-	//	System.out.println(json.toString());
+		//System.out.println(json.toString());
 	}
 
 }

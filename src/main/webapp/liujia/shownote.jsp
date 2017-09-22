@@ -113,7 +113,7 @@
              <div id="head">                    
                      <a id ="cancel" href="#">取消</a>
                      <a id ="insert1" href="#">添加</a>
-                 <input id="title" type="text" placeholder="请输入笔记标题">
+                 <input id="title" name="title" type="text" placeholder="请输入笔记标题">
                  <span id="biao">标题：  </span>            
              </div>
              <div >
@@ -138,7 +138,7 @@
 	    			for(var i=0 ;i<data.length ;i++){
 	    			//	console.log(data[i].noteid);
 	    				$("#tbody").append("<tr><td>"+(i+1)+"</td>"+"<td style='display:none;'>"+data[i].noteid+"</td>"+
-								"<td>"+data[i].notetitle+"</td>"+"<td>"+data[i].notesummary+"</td>"+"</tr>");
+								"<td><a href='looknote.jsp'>"+data[i].notetitle+"</a></td>"+"<td>"+data[i].notesummary+"</td>"+"</tr>");
 					}
 	    	  }
 	       });
@@ -175,7 +175,8 @@
 	       }
 	       function getContent(){
 	       	var content = CKEDITOR.instances.editor.getData();
-	       console.log(content);
+	     //  console.log(content);
+	       return content;
 	       }
 	      
 	       	$("#insert1").linkbutton({
@@ -203,13 +204,20 @@
 	      });
          function add(){
         	 var title = $("#title").val();
-        	// getContent();  	 
+        	 var content = getContent() ;
+        	 console.log(content)
         	$.ajax({
-        		url:'insertnote',
-        		data:"notetitle="+title+"notetext"+getContent(),
+        		url:'${basePath}insertnote',
+        		data:"title="+title+"&notetext="+content,
         		type : 'post',
 				dataType : 'json',
-				
+				success:function(data){
+					if(data==1){
+						select();
+					}else{
+						location.href = "shownote.jsp";
+					}
+				}
         	});
          }
      	$("#cancel").click(function() {
