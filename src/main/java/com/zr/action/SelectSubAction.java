@@ -2,6 +2,7 @@ package com.zr.action;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,15 +11,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.zr.model.Subject;
+import com.zr.service.SubService;
+import com.zr.service.impl.SubServiceImpl;
+
 import net.sf.json.JSONObject;
 
 /**
+ * 吴尚鑫
  * Servlet implementation class SelectSubAction
  */
 @WebServlet("/selectsub")
 public class SelectSubAction extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+	 SubService sbs = new SubServiceImpl();
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -42,16 +48,23 @@ public class SelectSubAction extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String sublabel = request.getParameter("sublabel");
-		String subCrateTime = request.getParameter("subCrateTime");
-		String STcheck = request.getParameter("STcheck");
-		String SCTcheck = request.getParameter("SCTcheck");
 		HttpSession session = request.getSession();
-		session.setAttribute("sublabel", sublabel);
-		session.setAttribute("subCrateTime", subCrateTime);
-		session.setAttribute("STcheck", STcheck);
-		session.setAttribute("SCTcheck", SCTcheck);
-		System.out.println(sublabel);
+		String sublabel = "";
+		int subCrateTime=0;
+		int STcheck = Integer.parseInt(request.getParameter("STcheck"));
+		int SCTcheck = Integer.parseInt(request.getParameter("SCTcheck"));
+		if(STcheck==1&&SCTcheck==0){
+			 sublabel = request.getParameter("sublabel");
+			 List<Subject> subs = sbs.selectSubsByMsg(sublabel, subCrateTime, STcheck, SCTcheck);
+			 session.setAttribute("Subs", subs);
+		}else if(STcheck==0&&SCTcheck==1){
+			subCrateTime = Integer.parseInt(request.getParameter("subCrateTime"));
+			List<Subject> subs = sbs.selectSubsByMsg(sublabel, subCrateTime, STcheck, SCTcheck);
+			session.setAttribute("Subs", subs);
+		}else if(STcheck>SCTcheck){
+			
+		}
+		
 		JSONObject j = new JSONObject();
 		PrintWriter pw = response.getWriter();
 		pw.write(j.toString());

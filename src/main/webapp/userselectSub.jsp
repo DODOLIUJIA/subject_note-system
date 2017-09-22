@@ -23,9 +23,7 @@
 	src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js 
 
 "></script>
-<!-- 引入ck -->
-<script src="${basePath}statics/ckeditor/ckeditor.js">
-	
+
 </script>
 <!-- 字体设置 -->
 <style>
@@ -41,51 +39,29 @@
 </head>
 <script type="text/javascript">
 	$(function() {
-		//判断题目类型是否被点击 是为1 反之为0
+		//判断题目类型被点击次数 
 		var STcheck = 0;
-		//判断出题时间是否被点击 是为1 反之为0
+		//判断出题时间被点击次数
 		var SCTcheck = 0;
-		$("li").click(function() {
-			var link = $(this).find('a').attr('target');
+		//设置题目标签点击事件
+		$("[name='subCrateTime']").click(function(){
+			var sublabel = $(this).html();
+			var link = $(this).attr('target');
 			console.log(link);
-			if ($(this).find('a').attr('name') == 'sublabel') {
-				var subtype = $(this).find('a').html();
-				STcheck = 1;
-				console.log('STcheck=' + STcheck);
-				$.ajax({
-					url : 'selectsub',
-					type : 'post',
-					data : {
-						'sublabel' : sublabel,
-						'STcheck' : STcheck,
-						'SCTcheck' : SCTcheck
-					},
-					dataType : 'json',
-					success : function() {
-
-						$('#center').load(link);
-					}
-				})
-
-			} else if($(this).find('a').attr('name') == 'subCrateTime'){
-				var subCrateTimes = $(this).find('a').html();
-				SCTcheck = 1;
-				$.ajax({
-					url : 'selectsub',
-					type : 'post',
-					data : {
-						'subCrateTime' : subCrateTime,
-						'STcheck' : STcheck,
-						'SCTcheck' : SCTcheck
-					},
-					dataType : 'json',
-					success : function() {
-						$('#center').load(link);
-					}
-				})
-			}
-
-		})
+			STcheck++;
+			console.log(STcheck);
+			$.ajax({
+				url:'selectsub',
+				type:'post',
+				data:{'subCrateTime':subCrateTime,'STcheck':STcheck,'SCTcheck':SCTcheck},
+				success:function(){
+					$("#center").load(link);
+				}
+			})
+	
+		});
+		//设置出题时间点击事件
+		$("")
 
 	});
 </script>
