@@ -34,7 +34,11 @@ public class SubDaoImpl implements SubDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
-			JDBCUtil.closeJDBC(pst, con);
+			try {
+				JDBCUtil.closeJDBC(pst, con);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 
 		return subCount;
@@ -59,19 +63,23 @@ public class SubDaoImpl implements SubDao {
 			ResultSet rs = pst.executeQuery();
 			while(rs.next()) {
 				Subject subject = new Subject();
-				subject.setSubid(rs.getInt("subid"));
-				subject.setSubsummary(rs.getString("subsummary"));
-				subject.setSubtext(rs.getString("subtext"));
-				subject.setSubtype(rs.getInt("subtype"));
-				subject.setSubaccuracy(rs.getString("subaccuracy"));
-				subject.setSubanswer(rs.getString("subanswer"));
-				subject.setSubtime(rs.getInt("subtime"));
+				subject.setSubId(rs.getInt("subid"));
+				subject.setSubSummary(rs.getString("subsummary"));
+				subject.setSubText(rs.getString("subtext"));
+				subject.setSubType(rs.getInt("subtype"));
+				subject.setSubAccuracy(rs.getString("subaccuracy"));
+				subject.setSubAnswer(rs.getString("subanswer"));
+				subject.setSubTime(rs.getInt("subtime"));
 				subjects.add(subject);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
-			JDBCUtil.closeJDBC(pst, con);
+			try {
+				JDBCUtil.closeJDBC(pst, con);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 
 		return subjects;
@@ -100,7 +108,11 @@ public class SubDaoImpl implements SubDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
-			JDBCUtil.closeJDBC(pst, con);
+			try {
+				JDBCUtil.closeJDBC(pst, con);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return ja;
 	}
@@ -123,7 +135,11 @@ public class SubDaoImpl implements SubDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
-			JDBCUtil.closeJDBC(pst, con);
+			try {
+				JDBCUtil.closeJDBC(pst, con);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return subtypes;
   }

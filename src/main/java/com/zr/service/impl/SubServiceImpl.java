@@ -12,7 +12,7 @@ import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 public class SubServiceImpl implements SubService{
-	SubDao subDao = new SubDaoImpl();
+	SubDao sdao = new SubDaoImpl();
   
 	@Override
 	public List<Sub> selectSubsByMsg(String subType, int subCrateTime, String STcheck, String SCTcheck) {
@@ -23,8 +23,8 @@ public class SubServiceImpl implements SubService{
 	@Override
 	public JSONObject getSubsByPageAndPagesize(int page, int pageSize) {
 		JSONObject  jo = new JSONObject();
-		jo.put("total", subDao.getSubsCount());
-		jo.put("rows", subDao.getSubs((page-1)*pageSize, pageSize));
+		jo.put("total", sdao.getSubsCount());
+		jo.put("rows", sdao.getSubs((page-1)*pageSize, pageSize));
 		return jo;
 
 	}
@@ -32,14 +32,14 @@ public class SubServiceImpl implements SubService{
 	@Override
 	public JSONArray getAllYears() {
 		JSONArray ja = new JSONArray();
-		ja = subDao.getAllYears();
+		ja = sdao.getAllYears();
 		return ja;
 	}
   
 	@Override
 	public JSONArray getAllSubtype() {
 		JSONArray ja = new JSONArray();
-		List<Integer> subtypes = subDao.getAllSubtype();
+		List<Integer> subtypes = sdao.getAllSubtype();
 		for (int i = 0; i < subtypes.size(); i++) {
 			JSONObject jo = new JSONObject();
 			jo.put("id", i+1);
