@@ -1,62 +1,79 @@
 package com.zr.model;
 
 public class Subject {
-	private int subid;
-	private String subsummary;
-	private String subtext;
+
 	private String s_label;
+	private int subId;// 题目ID
+	private String subSummary;// 题目描述
+	private String subText;// 题目内容
+	// 1.简答题，2.填空题，3.单选题，4.多选题
+	private int subType;// 题目类型
+	private String subAccuracy;// 题目准确率
+	private String subAnswer;// 题目答案
+	private int subTime;// 题目创建的年份
+
 	public String getS_label() {
 		return s_label;
 	}
+
 	public void setS_label(String s_label) {
 		this.s_label = s_label;
 	}
-	//1.简答题，2.填空题，3.单选题，4.多选题
-	private int subtype;
-	private String subaccuracy;
-	private String subanswer;
-	private int subtime;
-	public int getSubid() {
-		return subid;
+
+	public int getSubId() {
+		return subId;
 	}
-	public void setSubid(int subid) {
-		this.subid = subid;
+
+	public void setSubId(int subId) {
+		this.subId = subId;
 	}
-	public String getSubsummary() {
-		return subsummary;
+
+	public String getSubSummary() {
+		return subSummary;
 	}
-	public void setSubsummary(String subsummary) {
-		this.subsummary = subsummary;
+
+	public void setSubSummary(String subSummary) {
+		this.subSummary = subSummary;
 	}
-	public String getSubtext() {
-		return subtext;
+
+	public String getSubText() {
+		return subText;
 	}
-	public void setSubtext(String subtext) {
-		this.subtext = subtext;
+
+	public void setSubText(String subText) {
+		this.subText = subText;
 	}
-	public int getSubtype() {
-		return subtype;
+
+	public int getSubType() {
+		return subType;
 	}
-	public void setSubtype(int subtype) {
-		this.subtype = subtype;
+
+	public void setSubType(int subType) {
+		this.subType = subType;
 	}
-	public String getSubaccuracy() {
-		return subaccuracy;
+
+	public String getSubAccuracy() {
+		return subAccuracy;
 	}
-	public void setSubaccuracy(String subaccuracy) {
-		this.subaccuracy = subaccuracy;
+
+	public void setSubAccuracy(String subAccuracy) {
+		this.subAccuracy = subAccuracy;
 	}
-	public String getSubanswer() {
-		return subanswer;
+
+	public String getSubAnswer() {
+		return subAnswer;
 	}
-	public void setSubanswer(String subanswer) {
-		this.subanswer = subanswer;
+
+	public void setSubAnswer(String subAnswer) {
+		this.subAnswer = subAnswer;
 	}
-	public int getSubtime() {
-		return subtime;
+
+	public int getSubTime() {
+		return subTime;
 	}
-	public void setSubtime(int subtime) {
-		this.subtime = subtime;
+
+	public void setSubTime(int subTime) {
+		this.subTime = subTime;
 	}
-	
+
 }

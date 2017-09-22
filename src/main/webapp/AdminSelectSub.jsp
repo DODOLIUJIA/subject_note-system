@@ -37,12 +37,17 @@
 		/* 	sortName : 'subid', 
 			sortOrder : 'acs',  */
 			title : '用户信息列表',
+			queryParams: {
+				'year': $('#year').val(),
+				'subType': $('#subType').val(),
+				'subLabel': $('#subLabel').val(),
+			},
 			columns : [ [
-			{field : 'subid',title : '题号',align:'center',	width : 100	},
+			{field : 'subId',title : '题号',align:'center',	width : 100	},
 			{field : 's_label',title : '标签',align:'center',width : 100}, 
-			{field : 'subsummary',title : '描述',align:'center',width:$(this).width()*0.15}, 
-			{field : 'subtext',title : '题目',align:'center',width:$(this).width()*0.15}, 
-			{field : 'subtype',title : '类型',align:'center',width : 100, 
+			{field : 'subSummary',title : '描述',align:'center',width:$(this).width()*0.15}, 
+			{field : 'subText',title : '题目',align:'center',width:$(this).width()*0.15}, 
+			{field : 'subType',title : '类型',align:'center',width : 100, 
 				formatter:function(value, row, index){
 					var subtype ;
 					if(value == 1) {
@@ -59,9 +64,9 @@
 					
 					return subtype;
 			}},
-			{field : 'subaccuracy',title : '准确率',	align:'center',width : 100}, 
-			{field : 'subanswer',title : '答案',align:'center',width : 100},
-			{field : 'subtime',	title : '时间',	align:'center',width : 100},
+			{field : 'subAccuracy',title : '准确率',	align:'center',width : 100}, 
+			{field : 'subAnswer',title : '答案',align:'center',width : 100},
+			{field : 'subTime',	title : '时间',	align:'center',width : 100},
 			{field:'operate',title:'操作',align:'center',width:$(this).width()*0.1,
 				formatter:function(value, row, index){
 					var del = '<a href="#" name="remove" class="easyui-linkbutton" ></a>';
@@ -71,7 +76,8 @@
 			]],
 			onLoadSuccess:function(data){  
 	       		$("a[name='remove']").linkbutton({text:'删除',plain:true,iconCls:'icon-remove'});  
-	       		$("a[name='edit']").linkbutton({text:'修改',plain:true,iconCls:'icon-edit'});  
+	       		$("a[name='edit']").linkbutton({text:'修改',plain:true,iconCls:'icon-edit'});
+	       		$('#selectsub').datagrid('fixRowHeight');
 			},
 
 		});
@@ -83,22 +89,36 @@
 		}); 
 		/* 题型下拉框 */
 		$('#subType').combobox({    
-		    url:'ShowYearsAndSubtype?type=subtype',    
+		    url:'ShowYearsAndSubtype?type=subType',    
 		    valueField:'id',    
 		    textField:'text'   
 		}); 
-		
-		
+		/* 题型下拉框 */
+		$('#subLabel').combobox({    
+		    url:'ShowYearsAndSubtype?type=subLabel',    
+		    valueField:'id',    
+		    textField:'text'   
+		});
+		//配置提交按钮
+		$("#Search").linkbutton({    
+		    onClick:function(){
+		    	$('#selectsub').datagrid('submit'); 
+		    	$('#selectsub').pagination('refresh');
+		    }
+		}); 
 	});
 </script>
 <body>
 	<div id="tb" style="padding:5px;height:auto">
 		<div>
 			<!-- 年份下拉框 -->
-			年份:<input id="year" name="dept" value="所有">
+			年份:<input id="year" name="yesr" value="所有">
 			<!-- 题型下拉框 -->
-			题型:<input id="subType" name="dept" value="所有">
-			<a href="#" class="easyui-linkbutton" iconCls="icon-search">Search</a>
+			题型:<input id="subType" name="subType" value="所有">
+			<!-- 标签下拉框 -->
+			标签:<input id="subLabel" name="subLabel" value="所有">
+			<!-- 查询按钮 -->
+			<a id="Search" href="#" class="easyui-linkbutton" iconCls="icon-search">Search</a>
 			<div style="float:right;"><a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true">添加</a></div>
 		</div>
 	</div>

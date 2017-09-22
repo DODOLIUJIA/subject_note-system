@@ -46,7 +46,42 @@ public class AdminSelectSubjectAction extends HttpServlet {
 		response.setCharacterEncoding("utf8");
 		int page = Integer.parseInt(request.getParameter("page"));
 		int pageSize = Integer.parseInt(request.getParameter("rows"));
-		JSONObject j = subService.getSubsByPageAndPagesize(page, pageSize);
+		int yearInt = 0;
+		String yearStr = request.getParameter("year");
+		String subType = request.getParameter("subType");
+		String subLabel = request.getParameter("subLabel");
+		JSONObject j = new JSONObject();
+		System.out.println(yearStr);
+		System.out.println(subType);
+		System.out.println(subLabel);
+		if("所有".equals(yearStr) || "所有".equals(subType) || "所有".equals(subLabel)) {
+			System.out.println(123123);
+			j = subService.getSubsByPageAndPagesize(page, pageSize);
+		}else if("所有" == yearStr || subType == "所有" || subLabel != "所有"){
+			j = subService.getSubsByPageAndPagesizeBySubLabel(page, pageSize, subLabel);
+
+		}/*else if("所有" == yearStr || subType != "所有" || subLabel == "所有"){
+			j = subService.getSubsByPageAndPagesizeBySubType(page, pageSize, subType);
+
+		}else if("所有" != yearStr || subType == "所有" || subLabel == "所有"){
+			yearInt = Integer.parseInt(yearStr);
+			j = subService.getSubsByPageAndPagesizeBySubYear(page, pageSize, yearInt);
+
+		}else if("所有" == yearStr || subType != "所有" || subLabel != "所有"){
+			j = subService.getSubsByPageAndPagesizeBySubTypeAndSubLabel(page, pageSize, subType, subLabel);
+
+		}else if("所有" != yearStr || subType == "所有" || subLabel != "所有"){
+			yearInt = Integer.parseInt(yearStr);
+			j = subService.getSubsByPageAndPagesizeByYearAndSubLabel(page, pageSize, yearInt, subLabel);
+
+		}else if("所有" != yearStr || subType != "所有" || subLabel == "所有"){
+			yearInt = Integer.parseInt(yearStr);
+			j = subService.getSubsByPageAndPagesizeByYearAndSubType(page, pageSize, yearInt, subType);
+		}else{
+			yearInt = Integer.parseInt(yearStr);
+			j = subService.getSubsByPageAndPagesizeByYearAndSubTypeAndSubLabel(page, pageSize, yearInt, subType, subLabel);
+
+		}*/
 		PrintWriter pw = response.getWriter();
 		pw.write(j.toString());
 	}

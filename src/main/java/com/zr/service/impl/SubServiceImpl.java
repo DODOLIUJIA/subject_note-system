@@ -12,21 +12,13 @@ import net.sf.json.JSONObject;
 public class SubServiceImpl implements SubService {
 	SubDao subDao = new SubDaoImpl();
 	@Override
-	public JSONObject getSubsByPageAndPagesize(int page, int pageSize) {
-		JSONObject  jo = new JSONObject();
-		jo.put("total", subDao.getSubsCount());
-		jo.put("rows", subDao.getSubs((page-1)*pageSize, pageSize));
-		return jo;
-
-	}
-	@Override
 	public JSONArray getAllYears() {
 		JSONArray ja = new JSONArray();
 		ja = subDao.getAllYears();
 		return ja;
 	}
 	@Override
-	public JSONArray getAllSubtype() {
+	public JSONArray getAllSubType() {
 		JSONArray ja = new JSONArray();
 		List<Integer> subtypes = subDao.getAllSubtype();
 		for (int i = 0; i < subtypes.size(); i++) {
@@ -51,5 +43,30 @@ public class SubServiceImpl implements SubService {
 		}
 		return subtypeS;
 	}
+	
+	@Override
+	public JSONArray getAllSubLabel() {
+		JSONArray ja = new JSONArray();
+		ja = subDao.getAllSubLabel();
+		return ja;
+	}
+	
+	@Override
+	public JSONObject getSubsByPageAndPagesize(int page, int pageSize) {
+		JSONObject  jo = new JSONObject();
+		jo.put("total", subDao.getSubsCount());
+		jo.put("rows", subDao.getSubs((page-1)*pageSize, pageSize));
+		return jo;
 
+	}
+	@Override
+	public JSONObject getSubsByPageAndPagesizeBySubLabel(int page, int pageSize, String subLabel) {
+		JSONObject  jo = new JSONObject();
+		jo.put("total", subDao.getSubsCount());
+		jo.put("rows", subDao.getSubsBySublabel((page-1)*pageSize, pageSize, subLabel));
+		return jo;
+
+	}
+	
+	
 }
