@@ -24,12 +24,12 @@ public class SubServiceImpl implements SubService{
 	 * @return
 	 */
 	@Override
-	public List<Subject> selectSubsByMsg(String sublabel, int subCrateTime, int STcheck, int SCTcheck) {
+	public List<Subject> selectSubsByMsg(String sublabel, int subCrateTime) {
 		List<Subject> subs = new ArrayList<Subject>();
-		if("1".equals(STcheck)&&"0".equals(SCTcheck)){
-			subs = usd.selectSubsBySubType(sublabel);
-		}else if("1".equals(SCTcheck)&&"0".equals(STcheck)){
+		if("".equals(sublabel)&&subCrateTime != 0){
 			subs = usd.selectSubsBySubTime(subCrateTime);
+		}else if(!("".equals(sublabel))&&subCrateTime == 0){
+			subs = usd.selectSubsBySubType(sublabel);
 		}else{
 			subs = usd.selectSubsBySubTypeAndSubTime(sublabel, subCrateTime);
 		}

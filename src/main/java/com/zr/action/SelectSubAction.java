@@ -49,22 +49,12 @@ public class SelectSubAction extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		String sublabel = "";
-		int subCrateTime=0;
-		int STcheck = Integer.parseInt(request.getParameter("STcheck"));
-		int SCTcheck = Integer.parseInt(request.getParameter("SCTcheck"));
-		if(STcheck==1&&SCTcheck==0){
-			 sublabel = request.getParameter("sublabel");
-			 List<Subject> subs = sbs.selectSubsByMsg(sublabel, subCrateTime, STcheck, SCTcheck);
-			 session.setAttribute("Subs", subs);
-		}else if(STcheck==0&&SCTcheck==1){
-			subCrateTime = Integer.parseInt(request.getParameter("subCrateTime"));
-			List<Subject> subs = sbs.selectSubsByMsg(sublabel, subCrateTime, STcheck, SCTcheck);
-			session.setAttribute("Subs", subs);
-		}else if(STcheck>SCTcheck){
-			
-		}
-		
+		String sublabel = request.getParameter("sublabel");
+		int subCrateTime= Integer.parseInt(request.getParameter("subCrateTime"));
+		List<Subject> subs = sbs.selectSubsByMsg(sublabel, subCrateTime);
+		System.out.println("sublabel = "+sublabel);
+		System.out.println("subCrateTime = "+subCrateTime);
+		session.setAttribute("Subs", subs);
 		JSONObject j = new JSONObject();
 		PrintWriter pw = response.getWriter();
 		pw.write(j.toString());

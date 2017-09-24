@@ -39,29 +39,39 @@
 </head>
 <script type="text/javascript">
 	$(function() {
-		//判断题目类型被点击次数 
-		var STcheck = 0;
-		//判断出题时间被点击次数
-		var SCTcheck = 0;
+		//题目标签
+		var sublabel ="";
+		//出题时间
+		var subCrateTime=0;
 		//设置题目标签点击事件
+		$("[name='sublabel']").click(function(){
+			    sublabel = $(this).html();
+				var link = $(this).attr('target');
+				$.ajax({
+					url:'selectsub',
+					type:'post',
+					data:{'sublabel':sublabel,'subCrateTime':subCrateTime},
+					success:function(){
+						$("#center").load(link);
+						sublabel = "";
+					}
+				})
+			
+		});
+		//设置出题时间点击事件
 		$("[name='subCrateTime']").click(function(){
-			var sublabel = $(this).html();
+		        subCrateTime = $(this).html();
 			var link = $(this).attr('target');
-			console.log(link);
-			STcheck++;
-			console.log(STcheck);
 			$.ajax({
 				url:'selectsub',
 				type:'post',
-				data:{'subCrateTime':subCrateTime,'STcheck':STcheck,'SCTcheck':SCTcheck},
+				data:{'sublabel':sublabel,'subCrateTime':subCrateTime},
 				success:function(){
 					$("#center").load(link);
+					subCrateTime = 0;
 				}
 			})
-	
-		});
-		//设置出题时间点击事件
-		$("")
+		})
 
 	});
 </script>
@@ -125,7 +135,6 @@
 				<ul class="thumbnails">
 					<li class="span4">
 						<div class="thumbnail">
-							<img alt="300x200" src="img/people.jpg" />
 							<div class="caption">
 								<h3>冯诺尔曼结构</h3>
 								<p>
@@ -140,7 +149,6 @@
 					</li>
 					<li class="span4">
 						<div class="thumbnail">
-							<img alt="300x200" src="img/city.jpg" />
 							<div class="caption">
 								<h3>哈佛结构</h3>
 								<p>
@@ -154,7 +162,6 @@
 					</li>
 					<li class="span4">
 						<div class="thumbnail">
-							<img alt="300x200" src="img/sports.jpg" />
 							<div class="caption">
 								<h3>改进型哈佛结构</h3>
 								<p>

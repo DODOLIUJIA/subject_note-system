@@ -115,8 +115,8 @@ public class UserSubDaoImpl implements UserSubDao {
 		Connection con = JDBCUtil.getConnection();
 		try {
 			PreparedStatement pst = con.prepareStatement(sql.toString());
-			pst.setString(1, sublabel);
-			pst.setInt(2, subtime);
+			pst.setInt(1, subtime);
+			pst.setString(2, sublabel);
 			ResultSet rs = pst.executeQuery();
 			while (rs.next()) {
 				Subject s = new Subject();

@@ -18,5 +18,5 @@ public interface SubService {
 	 * @param SCTcheck 出题时间选项被点击次数
 	 * @return
 	 */
-public List<Subject> selectSubsByMsg(String sublabel,int subCrateTime,int STcheck,int SCTcheck);
+public List<Subject> selectSubsByMsg(String sublabel,int subCrateTime);
 }
