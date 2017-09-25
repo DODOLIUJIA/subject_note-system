@@ -76,11 +76,18 @@
           position: absolute; 
           height: 100%; 
           width: 100%; 
-          top: 5%; 
-         
+          top: 5%;  
           background: #F5F5F5; 
-           background-size: 100% 100%;
-         
+           background-size: 100% 100%;  
+      }
+      .title{
+          color:blue;
+          cursor:pointer;
+          transform:all 0.5s ;
+      }
+      .title:hover{
+          transform: scale(1.1) ;
+          color:black;
       }
 	</style>
 </head>
@@ -113,7 +120,7 @@
              <div id="head">                    
                      <a id ="cancel" href="#">取消</a>
                      <a id ="insert1" href="#">添加</a>
-                 <input id="title" type="text" placeholder="请输入笔记标题">
+                 <input id="title" name="title" type="text" placeholder="请输入笔记标题">
                  <span id="biao">标题：  </span>            
              </div>
              <div >
@@ -125,8 +132,8 @@
 	</div>
 </body>
 <script type="text/javascript">
+
 	$(function() {
-		
 		 $.ajax({
 	    	  url:'${basePath}shownote',
 	    	  data:'',
@@ -138,10 +145,12 @@
 	    			for(var i=0 ;i<data.length ;i++){
 	    			//	console.log(data[i].noteid);
 	    				$("#tbody").append("<tr><td>"+(i+1)+"</td>"+"<td style='display:none;'>"+data[i].noteid+"</td>"+
-								"<td>"+data[i].notetitle+"</td>"+"<td>"+data[i].notesummary+"</td>"+"</tr>");
-					}
+								"<td><a class='title'   name='"+data[i].noteid+"' href='${basePath}looknote?id="+data[i].noteid+"'>"+data[i].notetitle+"</a></td>"+"<td>"+data[i].notesummary+"</td>"+"</tr>");
+					   
+	    			}
 	    	  }
 	       });
+		
 		function select(){
 			 $.ajax({
 		    	  url:'${basePath}shownote',
@@ -154,8 +163,8 @@
 		    			for(var i=0 ;i<data.length ;i++){
 		    			//	console.log(data[i].noteid);
 		    				$("#tbody").append("<tr><td>"+(i+1)+"</td>"+"<td style='display:none;'>"+data[i].noteid+"</td>"+
-									"<td>"+data[i].notetitle+"</td>"+"<td>"+data[i].notesummary+"</td>"+"</tr>");
-						}
+									"<td><a class='title'   name='"+data[i].noteid+"' href='${basePath}looknote?id="+data[i].noteid+"'>"+data[i].notetitle+"</a></td>"+"<td>"+data[i].notesummary+"</td>"+"</tr>");
+						   	}
 		    	  }
 		       });
 		};
@@ -170,12 +179,13 @@
 	       	filebrowserImageUploadUrl:'${basePath}uploadImg?fileType=image&workType=node'
 	       });
 	       function setContent(){
-	       	CKEDITOR.instances.editor.setDate('');
+	       	CKEDITOR.instances.editor.setData('');
 	       	
 	       }
 	       function getContent(){
 	       	var content = CKEDITOR.instances.editor.getData();
-	       console.log(content);
+	     //  console.log(content);
+	       return content;
 	       }
 	      
 	       	$("#insert1").linkbutton({
@@ -203,13 +213,21 @@
 	      });
          function add(){
         	 var title = $("#title").val();
-        	// getContent();  	 
+        	 var content = getContent() ;
+        	 console.log(title)
         	$.ajax({
-        		url:'insertnote',
-        		data:"notetitle="+title+"notetext"+getContent(),
+        		url:'${basePath}insertnote',
+        		data:"title="+title+"&notetext="+content,
         		type : 'post',
 				dataType : 'json',
-				
+				success:function(data){
+					console.log(data)
+					if(data==1){
+						select();
+					}else{
+						location.href = "shownote.jsp";
+					}
+				}
         	});
          }
      	$("#cancel").click(function() {

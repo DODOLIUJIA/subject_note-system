@@ -26,72 +26,97 @@
 <script type="text/javascript" src="${basePath}statics/js/easyui-lang-zh_CN.js"></script>
 
 <style type="text/css">
+   
    #head{
-        height:40px;
+        height:50px;
         border:1px solid black;
    }
    #back{
-     display: flock;
      float:left;
-	background: blanchedalmond;
-	margin-right: 10px;
-	padding-top:5px;
-	text-align: center;
+     background:#F8F8FF;
+	 margin-left: 30px;
+	 padding-top:5px;
+	 text-align: center;
 	margin-top:5px;
-	display: block;
-	width: 70px;
-	height: 30px;
+	transform:all 0.5s ;
    }
-  #head1 li:hover{
-     background: #F0E68C;
+   #back:HOVER{
+   transform: scale(1.1) rotate(360deg);
    }
    #update{
-      display: flock;
       float:right;
-	 background: blanchedalmond;
 	 margin-right: 30px;
 	 padding-top:5px;
 	 text-align: center;
 	margin-top:5px;
-	display: block;
-	width: 70px;
-	height: 30px;
+	background:#F8F8FF;
+    transform:all 0.5s ;
    }
-     #head1 update:hover{
-     background: #F0E68C;
+   #update:HOVER{
+   transform: scale(1.1) ;
    }
-   #head1 a{
-    color: black;
-	font: 30px;
-	font-family: "微软雅黑";
+   #tabel{
+      margin-top: 10px;
+      margin-left: 10px;
+     border-radius:8px;
    }
-   #head1 a:hover {
-	color: white;
-}
-#se{
-    display:block;
-}
+   #table{
+       text-align: center;
+   }
+   #frame{
+      
+   }
+   #title{
+       height:60px;
+      
+   }
+   #title1{
+
+      height:60px;
+      margin: 0 auto;
+   }
+   #title2{
+      text-align: center;
+   }
 </style>
 </head>
 <script type="text/javascript">
     $(function(){
-    	$("#select").combobox({
-    		
+    	$("#back").click(function(){
+    		location.href='shownote.jsp';
+    		$.ajax({
+    			
+    		})
+    	})
+    	$("#update").click(function(){
+    		location.href='updatenote.jsp';
+    		$.ajax({
+    			
+    		})
     	})
     })
 </script>
 <body>
     <div class="container">
          <div id="head">
-            <ul id="head1">
-                <li id = "back"><a href="shownote.jsp"> 返回</a></li>
-                <li id ="update"><a href="#">编辑</a></li>
-            </ul> 
+             <button class="btn btn-default " id="back">返回</button>
+             <button class="btn btn-default " id="update">修改</button>
          </div>
          <div id="frame">
-                <div id="top">
-                      <div> <input type="text" name="table" id="table" value="  "></div>
-                       <div id="se"> <input id="select" name ="select" ></div>
+                <div id="tabel">
+                      类型：<input type="text" name="table" id="table" disabled="disabled" value="${sessionScope.type}">                   
+                </div>
+                <div id="title">
+                       <div id="title1">
+                          <h2 id="title2">${sessionScope.title}</h2>
+                       </div>
+                </div>
+                <div id="text">
+                      <div class="row">
+                           <div class="col-md-1"></div>
+                           <div class="col-md-10">${sessionScope.text}</div>
+                           <div class="col-md-1"></div>
+                      </div>
                 </div>
          </div>
     </div>

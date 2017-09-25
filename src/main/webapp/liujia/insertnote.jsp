@@ -84,11 +84,11 @@ CKEDITOR.replace('editor',{
 	filebrowserImageUploadUrl:'${basePath}uploadImg?fileType=image&workType=node'
 });
 function setContent(){
-	CKEDITOR.instances.editor.setDate('');
+	CKEDITOR.instances.editor.setData('');
 	
 }
 function getContent(){
-	var content = CKEDITOR.instance.editor.getDate();
+	var content = CKEDITOR.instance.editor.getData();
 }
 $(function(){
 	$("#insert").linkbutton({
