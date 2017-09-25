@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.zr.dao.NoteDao;
 import com.zr.dao.impl.NoteDaoimpl;
+import com.zr.model.N_label;
 import com.zr.model.Note;
 import com.zr.service.NoteService;
 
@@ -51,6 +52,48 @@ public class NoteServiceimpl implements NoteService {
 	@Override
 	public int getN_lid(String n_lname) {
 		int i = ndao.selectN_lid(n_lname);
+		return i;
+	}
+
+	@Override
+	public String getNotetext(int noteid) {
+		String text = ndao.selectNotetext(noteid);
+		return text;
+	}
+
+	@Override
+	public String getNotetitle(int noteid) {
+		String title = ndao.selectNotetitle(noteid);
+		return title;
+	}
+
+	@Override
+	public List<N_label> getNotetabel() {
+		List<N_label> labels=ndao.selectNotelabel();
+		return labels;
+	}
+
+	@Override
+	public int updatelid(int n_lid,int noteid ) {
+		int i = ndao.updatelid(n_lid, noteid);
+		return i;
+	}
+
+	@Override
+	public int updatetext(String notetext,int noteid) {
+		int i = ndao.updatetext(notetext, noteid);
+		return i;
+	}
+
+	@Override
+	public int getlid(String lname) {
+		int i = ndao.selectN_lid(lname);
+		return i;
+	}
+
+	@Override
+	public String getN_lname(int n_lid) {
+		String i= ndao.selectN_lname(n_lid);
 		return i;
 	}
 

@@ -26,6 +26,7 @@
 <script type="text/javascript" src="${basePath}statics/js/easyui-lang-zh_CN.js"></script>
 
 <style type="text/css">
+   
    #head{
         height:50px;
         border:1px solid black;
@@ -59,12 +60,36 @@
       margin-left: 10px;
      border-radius:8px;
    }
+   #table{
+       text-align: center;
+   }
+   #frame{
+      
+   }
+   #title{
+       height:60px;
+      
+   }
+   #title1{
+
+      height:60px;
+      margin: 0 auto;
+   }
+   #title2{
+      text-align: center;
+   }
 </style>
 </head>
 <script type="text/javascript">
     $(function(){
     	$("#back").click(function(){
     		location.href='shownote.jsp';
+    		$.ajax({
+    			
+    		})
+    	})
+    	$("#update").click(function(){
+    		location.href='updatenote.jsp';
     		$.ajax({
     			
     		})
@@ -79,12 +104,20 @@
          </div>
          <div id="frame">
                 <div id="tabel">
-                      类型：<input type="text" name="table" id="table" disabled="disabled">                   
+                      类型：<input type="text" name="table" id="table" disabled="disabled" value="${sessionScope.type}">                   
                 </div>
                 <div id="title">
-                    
+                       <div id="title1">
+                          <h2 id="title2">${sessionScope.title}</h2>
+                       </div>
                 </div>
-                <div id="text"></div>
+                <div id="text">
+                      <div class="row">
+                           <div class="col-md-1"></div>
+                           <div class="col-md-10">${sessionScope.text}</div>
+                           <div class="col-md-1"></div>
+                      </div>
+                </div>
          </div>
     </div>
 </body>

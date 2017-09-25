@@ -2,6 +2,7 @@ package com.zr.dao;
 
 import java.util.List;
 
+import com.zr.model.N_label;
 import com.zr.model.Note;
 /**
  * 
@@ -47,9 +48,45 @@ public interface NoteDao {
 	 */
 	public int updateN_lable(int notecount);
 	/**
-	 * 
+	 * 获取标签id
 	 * @param n_lname
 	 * @return
 	 */
 	public int selectN_lid(String n_lname);
+	/**
+	 * 根据标题选出笔记内容
+	 * @param notetitle
+	 * @return
+	 */
+	public String selectNotetext(int noteid);
+	/**
+	 * 根据笔记id选出笔记标题
+	 * @param noteid
+	 * @return
+	 */
+	public String selectNotetitle(int noteid);
+	/**
+	 * 获取全部的笔记标签
+	 * @return
+	 */
+	public List<N_label> selectNotelabel();
+	/**
+	 * 根据笔记id修改n_lid
+	 * @param noteid
+	 * @return
+	 */
+	public int updatelid( int n_lid,int noteid);
+	/**
+	 * 根据笔记id修改笔记内容
+	 * @param noteid
+	 * @return
+	 */
+	public int updatetext(String notetext,int noteid);
+	/**
+	 * 获取标签名
+	 * @param n_lid
+	 * @return
+	 */
+   public String selectN_lname(int n_lid);
+	
 }

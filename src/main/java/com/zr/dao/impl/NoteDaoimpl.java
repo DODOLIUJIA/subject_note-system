@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.zr.dao.NoteDao;
+import com.zr.model.N_label;
 import com.zr.model.Note;
 import com.zr.util.JDBCUtil;
 
@@ -143,7 +144,7 @@ public class NoteDaoimpl implements NoteDao {
 	    int i = 0;
 		StringBuffer sql = new  StringBuffer();
 		Connection con = JDBCUtil.getConnection();
-		sql.append("update n_lable set notecount = ");
+		sql.append("update n_label set notecount = ");
 		sql.append("(select count(n_lid) as count from note_n_label)");
 		try {
 			PreparedStatement pst = con.prepareStatement(sql.toString());
@@ -177,6 +178,128 @@ public class NoteDaoimpl implements NoteDao {
 			e.printStackTrace();
 		}
 		return lid;
+	}
+
+	@Override
+	public String selectNotetext(int  noteid) {
+		String text = null;
+		StringBuffer sql = new StringBuffer();
+		Connection con = JDBCUtil.getConnection();
+		sql.append("select notetext from note where noteid = ?");
+		try {
+			PreparedStatement pst = con.prepareStatement(sql.toString());
+			pst.setInt(1, noteid);
+			ResultSet rs = pst.executeQuery();
+			if(rs.next()){
+				text = rs.getString("notetext");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return text;
+	}
+
+	@Override
+	public String selectNotetitle(int noteid) {
+		String title = null;
+		StringBuffer sql = new StringBuffer();
+		Connection con = JDBCUtil.getConnection();
+		sql.append("select notetitle from note where noteid = ?");
+		try {
+			PreparedStatement pst = con.prepareStatement(sql.toString());
+			pst.setInt(1, noteid);
+			ResultSet rs = pst.executeQuery();
+			if(rs.next()){
+				title = rs.getString("notetitle");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return title;
+	}
+
+	@Override
+	public List<N_label> selectNotelabel() {
+		List<N_label> labels = new ArrayList<N_label>();
+		StringBuffer sql = new StringBuffer();
+		Connection con = JDBCUtil.getConnection();
+		sql.append("select n_lid,n_lname from n_label");
+		try {
+			PreparedStatement pst = con.prepareStatement(sql.toString());
+			ResultSet rs = pst.executeQuery();
+			while(rs.next()){
+				N_label label = new N_label();
+				label.setN_lid(rs.getInt("n_lid"));
+				label.setN_lname(rs.getString("n_lname"));
+				labels.add(label);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return labels;
+	}
+
+	@Override
+	public int updatelid( int n_lid,int noteid) {
+		int i = 0;
+		StringBuffer sql = new StringBuffer();
+		Connection con = JDBCUtil.getConnection();
+		sql.append("update note_n_label set n_lid = ? where noteid = ? ");
+		try {
+			PreparedStatement pst = con.prepareStatement(sql.toString());
+			pst.setInt(1, n_lid);
+			pst.setInt(2, noteid);
+			i=pst.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return i;
+	}
+
+	@Override
+	public int updatetext(String notetext,int noteid) {
+		int i = 0;
+		StringBuffer sql = new StringBuffer();
+		Connection con = JDBCUtil.getConnection();
+		sql.append("update note set notetext = ? where noteid = ? ");
+		try {
+			PreparedStatement pst = con.prepareStatement(sql.toString());
+			pst.setString(1, notetext);
+			pst.setInt(2, noteid);
+			i=pst.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return i;
+	}
+
+	@Override
+	public String selectN_lname(int n_lid) {
+		String lname = null;
+		StringBuffer sql = new StringBuffer();
+		Connection con = JDBCUtil.getConnection();
+		sql.append("select n_lname from n_label  ");
+		sql.append("where n_label.n_lid=?");
+		
+		try {
+			PreparedStatement pst = con.prepareStatement(sql.toString());
+			pst.setInt(1, n_lid);
+			ResultSet rs = pst.executeQuery();
+			if(rs.next()){
+				lname =rs.getString("n_lname");
+				//System.out.println(lid);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return lname;
 	}
 
 }

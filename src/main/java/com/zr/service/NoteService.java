@@ -2,6 +2,7 @@ package com.zr.service;
 
 import java.util.List;
 
+import com.zr.model.N_label;
 import com.zr.model.Note;
 
 import net.sf.json.JSONObject;
@@ -42,6 +43,12 @@ public interface NoteService {
 	 */
 	public int getnoteid(String notetitle);
 	/**
+	 * 根据标签名的到lid
+	 * @param lname
+	 * @return
+	 */
+	public int getlid(String lname);
+	/**
 	 * 
 	 * @param noteid
 	 * @param n_lid
@@ -54,4 +61,41 @@ public interface NoteService {
 	 * @return
 	 */
 	public int getN_lid(String n_lname);
+	/**
+	 * 根据笔记id得到笔记内容
+	 * @param notetitle
+	 * @return
+	 */
+	public String getNotetext(int noteid);
+	/**
+	 * 根据笔记id得到笔记标题
+	 * @param noteid
+	 * @return
+	 */
+	public String getNotetitle(int noteid);
+	/**
+	 * 得到所有标签
+	 * @return
+	 */
+	public List<N_label> getNotetabel();
+	
+	/**
+	 * 根据笔记id 修改标签
+	 * @param noteid 笔记id
+	 * @return
+	 */
+	public int updatelid(int n_lid,int noteid );
+	/**
+	 * 根据标题修改内容
+	 * @param notetitle
+	 * @return
+	 */
+	public int updatetext(String notetext, int noteid);
+	/**
+	 * 根据标签id得到标签名
+	 * @param n_lid
+	 * @return
+	 */
+	public String getN_lname(int n_lid);
+	
 }

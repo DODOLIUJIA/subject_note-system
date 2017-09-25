@@ -1,6 +1,6 @@
 package com.zr.model;
 
-public class N_lable {
+public class N_label {
 
 	private int n_lid;
 	private String n_lname;

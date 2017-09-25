@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
@@ -19,8 +20,16 @@
   #left{
           	height:300px;
 	        border: 1px solid red;
-	        background: #F0F8FF;
+	      
     }
+    .accordion-heading {
+	color: #0059b2;
+	font-size: 15px;
+	letter-spacing: 1px;
+	text-align: center;
+	margin: 45px 0 10px;
+  
+}
 .li {
 	display: flock;
 	background: blanchedalmond;
@@ -32,13 +41,15 @@
 	width: 100%;
 	height: 40px;
 }
-
+.type{
+     cursor:pointer;
+}
 #ul li:hover {
 	background: #F5F5DC;
 }
 
 #ul a {
-	color: darkslategray;
+	
 	font: 30px;
 	font-family: "微软雅黑";
 }
@@ -58,7 +69,16 @@
     		// console.log(1111);
     		 var link = $(this).find('a').attr("target");
     		 $("#center").load(link);
-    	 }) 
+    	 });
+    	 $.ajax({
+    		url:'${basePath}showtabel',
+    		data:'',
+    		  type:'post',
+	    	  dataType:'json',
+	    	  success:function(data){
+	    		  
+	    	  }
+    	 });
      })
 </script>
 <body>
@@ -66,13 +86,15 @@
 	<div class="container-fluid">
 		<div class="row">
 			<div id="left" class="col-md-3">
-				<ul id="ul">
-					<li  class="li"><a target="shownote.jsp">java</a></li>
-					<li  class="li"><a href="#">bb</a></li>
-					<li  class="li"><a href="#">cc</a></li>
-				</ul>
+					<ul class="list-group">
+						<c:forEach items="${sessionScope.labels}" var="label">
+							<li class="list-group-item"><a href="${basePath}show">${label.n_lname}</a></li>
+						</c:forEach>
+						
+					</ul>
+				
 			</div>
-			<div id="center" class="col-md-9">132131231</div>
+			<div id="center" class="col-md-9"></div>
 			
 		</div>
 	</div>
