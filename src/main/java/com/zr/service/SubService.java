@@ -19,16 +19,6 @@ public interface SubService {
 	 */
 	public List<Sub> selectSubsByMsg(String subType, int subCrateTime, String STcheck, String SCTcheck);
 
-	/**
-	 * 通过页码和显示数量获得题目
-	 * 
-	 * @param pageSize
-	 *            显示数量
-	 * @param page
-	 *            页码
-	 * @return 题目数组
-	 */
-	public JSONObject getSubsByPageAndPagesize(int page, int pageSize);
 
 	/**
 	 * 获取所有年份
