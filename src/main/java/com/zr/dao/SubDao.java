@@ -1,10 +1,9 @@
 package com.zr.dao;
 
 import java.util.List;
-
 import com.zr.model.Subject;
-
 import net.sf.json.JSONArray;
+
 
 public interface SubDao {
 	
@@ -121,4 +120,23 @@ public interface SubDao {
 	 */
 	public void deleteSubBySubId(int subId);
 
+	
+	/**
+	 * 插入一道新的题目
+	 * @param subSummary题目描述
+	 * @param subText题目内容
+	 * @param subType题目类型
+	 * @param subAnswer题目答案
+	 * @param subTime题目创建年份
+	 * @return
+	 */
+	public boolean insertNewSubject(String subSummary,String subText,int subType,String subAnswer,int subTime);
+
+	/**
+	 * 通过题目id来获得一道题目的完整信息
+	 * @param sid题目id
+	 * @return 返回查找到的题目对象，否则返回空
+	 */
+	public Subject getSubjectBySId(int sid);
+	
 }
