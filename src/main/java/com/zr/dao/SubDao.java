@@ -20,6 +20,12 @@ public interface SubDao {
 	 * @return 题目集合
 	 */
 	public List<Subject> getSubs(int start, int pageSize);
+	/**
+	 * 通过题目id查找标签，如有多个进行拼接
+	 * @param subid
+	 * @return
+	 */
+	public String getSublabelBySubid(int subid);
 	
 	/**
 	 * 获取所有年份
@@ -32,6 +38,87 @@ public interface SubDao {
 	 * @return
 	 */
 	public List<Integer> getAllSubtype();
+	
+	/**
+	 * 获取所有题目标签
+	 * @return
+	 */
+	public JSONArray getAllSubLabel();
+	
+	/**
+	 * 通过页码和显示数量和题目标签
+	 * @param start
+	 * @param pageSize
+	 * @param subLabel 题目标签
+	 * @return 题目集合
+	 */
+	public List<Subject> getSubsBySublabel(int start, int pageSize, String subLabel);
+
+	/** 
+	 * 通过页码和显示数量和题目类型
+	 * @param start
+	 * @param pageSize
+	 * @param subType 题目标签
+	 * @return 题目数组
+	 */	
+	public List<Subject> getSubsBySubType(int start, int pageSize, int subTypeI);
+	
+	/**
+	 * 通过页码和显示数量和年份
+	 * @param start 
+	 * @param pageSize
+	 * @param yearInt 年份
+	 * @return 题目数组
+	 */
+	public List<Subject> getSubsBySubYear(int start, int pageSize, int yearInt);
+
+	/**
+	 * 通过页码和显示数量和题型、题标签
+	 * @param start
+	 * @param pageSize
+	 * @param subTypeI 题型
+	 * @param subLabel 题标签
+	 * @return 题目数组
+	 */
+	public List<Subject> getSubsBySubTypeAndSubLabel(int start, int pageSize, int subTypeI, String subLabel);
+	
+	/**
+	 * 通过页码和显示数量和年份、题标签
+	 * @param start
+	 * @param pageSize
+	 * @param subTypeI 年份
+	 * @param subLabel 题标签
+	 * @return 题目数组
+	 */
+	public List<Subject> getSubsBySubYearAndSubLabel(int start, int pageSize, int yearInt, String subLabel);
+
+	/**
+	 * 过页码和显示数量和年份、题型
+	 * @param start
+	 * @param pageSize
+	 * @param yearInt 年份
+	 * @param subTypeI 题型
+	 * @return 题目数组
+	 */
+	public List<Subject> getSubsBySubYearAndSubType(int start, int pageSize, int yearInt, int subTypeI);
+
+	/**
+	 * 过页码和显示数量和年份、题型
+	 * @param start
+	 * @param pageSize
+	 * @param yearInt 年份
+	 * @param subTypeI 题型
+	 * @param subLabel 提标签
+	 * @return
+	 */
+	public List<Subject> getSubsBySubYearAndSubTypeAndSubLabel(int start, int pageSize, int yearInt, int subTypeI, String subLabel);
+
+	
+	/**
+	 * 通过题目id删除题目
+	 * @param subId
+	 */
+	public void deleteSubBySubId(int subId);
 
 	
 	/**

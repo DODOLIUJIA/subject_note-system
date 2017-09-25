@@ -7,6 +7,7 @@ import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 public interface SubService {
+
 	/**
 	 * 通过页面传来的信息选择题目
 	 * 
@@ -41,7 +42,13 @@ public interface SubService {
 	 * 
 	 * @return
 	 */
-	public JSONArray getAllSubtype();
+	public JSONArray getAllSubType();
+	
+	/**
+	 * 获取所有题目标签
+	 * @return
+	 */
+	public JSONArray getAllSubLabel();
 
 	/**
 	 * 把题目类型数字变成翻译
@@ -49,7 +56,96 @@ public interface SubService {
 	 * @param subtype
 	 * @return 题型
 	 */
-	public String changeSubtypeIntToString(int subtype);
+	public String changeSubtypeIntToString(int subType);
+	
+	/**
+	 * 把题目类型汉字变成数字
+	 * @param subtype
+	 * @return 题型
+	 */
+	public int changeSubtypeStringToInt(String subType);
+
+	/**
+	 * 通过页码和显示数量获得题目
+	 * @param pageSize 显示数量
+	 * @param page 页码
+	 * @return 题目分页json对象
+	 */
+	public JSONObject getSubsByPageAndPagesize(int page, int pageSize);
+	
+	/**
+	 * 通过页码和显示数量和题目标签
+	 * @param page 页码
+	 * @param pageSize 数量
+	 * @param subLabel 题目标签
+	 * @return 题目分页json对象
+	 */
+	public JSONObject getSubsByPageAndPagesizeBySubLabel(int page, int pageSize, String subLabel);
+	
+	/**
+	 * 通过页码和显示数量和题目类型
+	 * @param page 页码
+	 * @param pageSize 数量
+	 * @param subType 题目标签
+	 * @return 题目分页json对象
+	 */
+	public JSONObject getSubsByPageAndPagesizeBySubType(int page, int pageSize, String subType);
+	
+	/**
+	 * 通过页码和显示数量和年份
+	 * @param page 页码
+	 * @param pageSize 数量
+	 * @param yearInt 年份
+	 * @return 题目分页json对象
+	 */
+	public JSONObject getSubsByPageAndPagesizeBySubYear(int page, int pageSize, int yearInt);
+	
+	/**
+	 * 通过页码和显示数量、题型、题标签
+	 * @param page
+	 * @param pageSize
+	 * @param subType 题型
+	 * @param subLabel 题标签
+	 * @return 题目分页json对象
+	 */
+	public JSONObject getSubsByPageAndPagesizeBySubTypeAndSubLabel(int page, int pageSize, String subType, String subLabel);
+	
+	/**
+	 * 通过页码和显示数量、年份、题标签
+	 * @param page
+	 * @param pageSize
+	 * @param yearInt
+	 * @param subLabel
+	 * @return 题目分页json对象
+	 */
+	public JSONObject getSubsByPageAndPagesizeByYearAndSubLabel(int page, int pageSize, int yearInt, String subLabel);
+
+	/**
+	 * 通过页码和显示数量、年份、题型
+	 * @param page
+	 * @param pageSize
+	 * @param yearInt 年份
+	 * @param subType 题型
+	 * @return 题目分页json对象
+	 */
+	public JSONObject getSubsByPageAndPagesizeByYearAndSubType(int page, int pageSize, int yearInt, String subType);
+
+	/**
+	 * 通过页码和显示数量、年份、题型、题标签
+	 * @param page 
+	 * @param pageSize
+	 * @param yearInt 年份
+	 * @param subType 题型
+	 * @param subLabel 题标签
+	 * @return 题目分页json对象
+	 */
+	public JSONObject getSubsByPageAndPagesizeByYearAndSubTypeAndSubLabel(int page, int pageSize, int yearInt, String subType, String subLabel);
+
+	/**
+	 * 通过题目id删除题目
+	 * @param subId
+	 */
+	public void deleteSubBySubId(int subId);
 
 	/*
 	 * 插入一道新的题目
