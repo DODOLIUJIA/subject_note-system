@@ -51,6 +51,7 @@ public class SubDaoImpl implements SubDao {
 		sql.append("ON `subject`.subid = `subject_s_label`.subid ");
 		sql.append("LEFT JOIN `s_label` ");
 		sql.append("ON `subject_s_label`.s_lid = `s_label`.s_lid ");
+		sql.append("ORDER BY `subject`.subid ");
 		sql.append("LIMIT ? , ? ");
 		try {
 			con = JDBCUtil.getConnection();
@@ -121,12 +122,16 @@ public class SubDaoImpl implements SubDao {
 			pst = con.prepareStatement(sql.toString());
 			ResultSet rs = pst.executeQuery();
 			int i = 0;
+			JSONObject jo = new JSONObject();
+			jo.put("id", i);
+			jo.put("text", "所有");
+			ja.add(jo);
 			while(rs.next()) {
 				i++;
-				JSONObject jo = new JSONObject();
-				jo.put("id", i);
-				jo.put("text", rs.getInt("subtime"));
-				ja.add(jo);
+				JSONObject jo1 = new JSONObject();
+				jo1.put("id", i);
+				jo1.put("text", rs.getInt("subtime"));
+				ja.add(jo1);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -147,6 +152,7 @@ public class SubDaoImpl implements SubDao {
 			con = JDBCUtil.getConnection();
 			pst = con.prepareStatement(sql.toString());
 			ResultSet rs = pst.executeQuery();
+			subtypes.add(0);
 			while(rs.next()) {
 				Integer subtype = rs.getInt("subtype");
 				subtypes.add(subtype);
@@ -171,12 +177,16 @@ public class SubDaoImpl implements SubDao {
 			pst = con.prepareStatement(sql.toString());
 			ResultSet rs = pst.executeQuery();
 			int i = 0;
+			JSONObject jo = new JSONObject();
+			jo.put("id", i);
+			jo.put("text", "所有");
+			ja.add(jo);
 			while(rs.next()) {
 				i++;
-				JSONObject jo = new JSONObject();
-				jo.put("id", i);
-				jo.put("text", rs.getString("s_lname"));
-				ja.add(jo);
+				JSONObject jo1 = new JSONObject();
+				jo1.put("id", i);
+				jo1.put("text", rs.getString("s_lname"));
+				ja.add(jo1);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -187,8 +197,9 @@ public class SubDaoImpl implements SubDao {
 
 	}
 
+	//通过页码和显示数量和题目标签
 	@Override
-	public Object getSubsBySublabel(int start, int pageSize, String subLabel) {
+	public List<Subject> getSubsBySublabel(int start, int pageSize, String subLabel) {
 		List<Subject> subjects = new ArrayList<Subject>();
 		Connection con = null;
 		PreparedStatement pst = null;
@@ -200,6 +211,7 @@ public class SubDaoImpl implements SubDao {
 		sql.append("LEFT JOIN `s_label` ");
 		sql.append("ON `subject_s_label`.s_lid = `s_label`.s_lid ");
 		sql.append("WHERE `s_label`.s_lname = ? ");
+		sql.append("ORDER BY `subject`.subid ");
 		sql.append("LIMIT ? , ? ");
 		try {
 			con = JDBCUtil.getConnection();
@@ -227,6 +239,322 @@ public class SubDaoImpl implements SubDao {
 		}
 
 		return subjects;
+
+	}
+	
+	//通过页码和显示数量和题目类型
+	@Override
+	public List<Subject> getSubsBySubType(int start, int pageSize, int subTypeI) {
+		List<Subject> subjects = new ArrayList<Subject>();
+		Connection con = null;
+		PreparedStatement pst = null;
+		StringBuffer sql = new StringBuffer("");
+		sql.append("SELECT DISTINCT `subject`.subid, `subject`.subsummary, `subject`.subtext, `subject`.subtype, ");
+		sql.append("`subject`.subaccuracy, `subject`.subanswer, `subject`.subtime ");
+		sql.append("FROM `subject` LEFT JOIN `subject_s_label` ");
+		sql.append("ON `subject`.subid = `subject_s_label`.subid ");
+		sql.append("LEFT JOIN `s_label` ");
+		sql.append("ON `subject_s_label`.s_lid = `s_label`.s_lid ");
+		sql.append("WHERE `subject`.subtype = ? ");
+		sql.append("ORDER BY `subject`.subid ");
+		sql.append("LIMIT ? , ? ");
+		try {
+			con = JDBCUtil.getConnection();
+			pst = con.prepareStatement(sql.toString());
+			pst.setInt(1, subTypeI);
+			pst.setInt(2, start);
+			pst.setInt(3, pageSize);
+			ResultSet rs = pst.executeQuery();
+			while(rs.next()) {
+				Subject subject = new Subject();
+				subject.setSubId(rs.getInt("subid"));
+				subject.setS_label(getSublabelBySubid(rs.getInt("subid")));
+				subject.setSubSummary(rs.getString("subsummary"));
+				subject.setSubText(rs.getString("subtext"));
+				subject.setSubType(rs.getInt("subtype"));
+				subject.setSubAccuracy(rs.getString("subaccuracy"));
+				subject.setSubAnswer(rs.getString("subanswer"));
+				subject.setSubTime(rs.getInt("subtime"));
+				subjects.add(subject);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCUtil.closeJDBC(pst, con);
+		}
+
+		return subjects;
+
+	}
+
+	
+	//通过页码和显示数量和年份
+	@Override
+	public List<Subject> getSubsBySubYear(int start, int pageSize, int yearInt) {
+		List<Subject> subjects = new ArrayList<Subject>();
+		Connection con = null;
+		PreparedStatement pst = null;
+		StringBuffer sql = new StringBuffer("");
+		sql.append("SELECT DISTINCT `subject`.subid, `subject`.subsummary, `subject`.subtext, `subject`.subtype, ");
+		sql.append("`subject`.subaccuracy, `subject`.subanswer, `subject`.subtime ");
+		sql.append("FROM `subject` LEFT JOIN `subject_s_label` ");
+		sql.append("ON `subject`.subid = `subject_s_label`.subid ");
+		sql.append("LEFT JOIN `s_label` ");
+		sql.append("ON `subject_s_label`.s_lid = `s_label`.s_lid ");
+		sql.append("WHERE `subject`.subtime = ? ");
+		sql.append("ORDER BY `subject`.subid ");
+		sql.append("LIMIT ? , ? ");
+		try {
+			con = JDBCUtil.getConnection();
+			pst = con.prepareStatement(sql.toString());
+			pst.setInt(1, yearInt);
+			pst.setInt(2, start);
+			pst.setInt(3, pageSize);
+			ResultSet rs = pst.executeQuery();
+			while(rs.next()) {
+				Subject subject = new Subject();
+				subject.setSubId(rs.getInt("subid"));
+				subject.setS_label(getSublabelBySubid(rs.getInt("subid")));
+				subject.setSubSummary(rs.getString("subsummary"));
+				subject.setSubText(rs.getString("subtext"));
+				subject.setSubType(rs.getInt("subtype"));
+				subject.setSubAccuracy(rs.getString("subaccuracy"));
+				subject.setSubAnswer(rs.getString("subanswer"));
+				subject.setSubTime(rs.getInt("subtime"));
+				subjects.add(subject);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCUtil.closeJDBC(pst, con);
+		}
+
+		return subjects;
+	}
+
+	
+	//通过页码和显示数量和题型、题标签
+	@Override
+	public List<Subject> getSubsBySubTypeAndSubLabel(int start, int pageSize, int subTypeI, String subLabel) {
+		List<Subject> subjects = new ArrayList<Subject>();
+		Connection con = null;
+		PreparedStatement pst = null;
+		StringBuffer sql = new StringBuffer("");
+		sql.append("SELECT DISTINCT `subject`.subid, `subject`.subsummary, `subject`.subtext, `subject`.subtype, ");
+		sql.append("`subject`.subaccuracy, `subject`.subanswer, `subject`.subtime ");
+		sql.append("FROM `subject` LEFT JOIN `subject_s_label` ");
+		sql.append("ON `subject`.subid = `subject_s_label`.subid ");
+		sql.append("LEFT JOIN `s_label` ");
+		sql.append("ON `subject_s_label`.s_lid = `s_label`.s_lid ");
+		sql.append("WHERE `subject`.subtype = ? AND `s_label`.s_lname = ? ");
+		sql.append("ORDER BY `subject`.subid ");
+		sql.append("LIMIT ? , ? ");
+		try {
+			con = JDBCUtil.getConnection();
+			pst = con.prepareStatement(sql.toString());
+			pst.setInt(1, subTypeI);
+			pst.setString(2, subLabel);
+			pst.setInt(3, start);
+			pst.setInt(4, pageSize);
+			ResultSet rs = pst.executeQuery();
+			while(rs.next()) {
+				Subject subject = new Subject();
+				subject.setSubId(rs.getInt("subid"));
+				subject.setS_label(getSublabelBySubid(rs.getInt("subid")));
+				subject.setSubSummary(rs.getString("subsummary"));
+				subject.setSubText(rs.getString("subtext"));
+				subject.setSubType(rs.getInt("subtype"));
+				subject.setSubAccuracy(rs.getString("subaccuracy"));
+				subject.setSubAnswer(rs.getString("subanswer"));
+				subject.setSubTime(rs.getInt("subtime"));
+				subjects.add(subject);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCUtil.closeJDBC(pst, con);
+		}
+
+		return subjects;
+
+	}
+
+
+	@Override
+	public List<Subject> getSubsBySubYearAndSubLabel(int start, int pageSize, int yearInt, String subLabel) {
+		List<Subject> subjects = new ArrayList<Subject>();
+		Connection con = null;
+		PreparedStatement pst = null;
+		StringBuffer sql = new StringBuffer("");
+		sql.append("SELECT DISTINCT `subject`.subid, `subject`.subsummary, `subject`.subtext, `subject`.subtype, ");
+		sql.append("`subject`.subaccuracy, `subject`.subanswer, `subject`.subtime ");
+		sql.append("FROM `subject` LEFT JOIN `subject_s_label` ");
+		sql.append("ON `subject`.subid = `subject_s_label`.subid ");
+		sql.append("LEFT JOIN `s_label` ");
+		sql.append("ON `subject_s_label`.s_lid = `s_label`.s_lid ");
+		sql.append("WHERE `subject`.subtime = ? AND `s_label`.s_lname = ? ");
+		sql.append("ORDER BY `subject`.subid ");
+		sql.append("LIMIT ? , ? ");
+		try {
+			con = JDBCUtil.getConnection();
+			pst = con.prepareStatement(sql.toString());
+			pst.setInt(1, yearInt);
+			pst.setString(2, subLabel);
+			pst.setInt(3, start);
+			pst.setInt(4, pageSize);
+			ResultSet rs = pst.executeQuery();
+			while(rs.next()) {
+				Subject subject = new Subject();
+				subject.setSubId(rs.getInt("subid"));
+				subject.setS_label(getSublabelBySubid(rs.getInt("subid")));
+				subject.setSubSummary(rs.getString("subsummary"));
+				subject.setSubText(rs.getString("subtext"));
+				subject.setSubType(rs.getInt("subtype"));
+				subject.setSubAccuracy(rs.getString("subaccuracy"));
+				subject.setSubAnswer(rs.getString("subanswer"));
+				subject.setSubTime(rs.getInt("subtime"));
+				subjects.add(subject);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCUtil.closeJDBC(pst, con);
+		}
+
+		return subjects;
+
+	}
+
+	@Override
+	public List<Subject> getSubsBySubYearAndSubType(int start, int pageSize, int yearInt, int subTypeI) {
+		List<Subject> subjects = new ArrayList<Subject>();
+		Connection con = null;
+		PreparedStatement pst = null;
+		StringBuffer sql = new StringBuffer("");
+		sql.append("SELECT DISTINCT `subject`.subid, `subject`.subsummary, `subject`.subtext, `subject`.subtype, ");
+		sql.append("`subject`.subaccuracy, `subject`.subanswer, `subject`.subtime ");
+		sql.append("FROM `subject` LEFT JOIN `subject_s_label` ");
+		sql.append("ON `subject`.subid = `subject_s_label`.subid ");
+		sql.append("LEFT JOIN `s_label` ");
+		sql.append("ON `subject_s_label`.s_lid = `s_label`.s_lid ");
+		sql.append("WHERE `subject`.subtime = ? AND `subject`.subtype = ? ");
+		sql.append("ORDER BY `subject`.subid ");
+		sql.append("LIMIT ? , ? ");
+		try {
+			con = JDBCUtil.getConnection();
+			pst = con.prepareStatement(sql.toString());
+			pst.setInt(1, yearInt);
+			pst.setInt(2, subTypeI);
+			pst.setInt(3, start);
+			pst.setInt(4, pageSize);
+			ResultSet rs = pst.executeQuery();
+			while(rs.next()) {
+				Subject subject = new Subject();
+				subject.setSubId(rs.getInt("subid"));
+				subject.setS_label(getSublabelBySubid(rs.getInt("subid")));
+				subject.setSubSummary(rs.getString("subsummary"));
+				subject.setSubText(rs.getString("subtext"));
+				subject.setSubType(rs.getInt("subtype"));
+				subject.setSubAccuracy(rs.getString("subaccuracy"));
+				subject.setSubAnswer(rs.getString("subanswer"));
+				subject.setSubTime(rs.getInt("subtime"));
+				subjects.add(subject);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCUtil.closeJDBC(pst, con);
+		}
+
+		return subjects;
+	}
+
+	@Override
+	public List<Subject> getSubsBySubYearAndSubTypeAndSubLabel(int start, int pageSize, int yearInt, int subTypeI,	String subLabel) {
+		List<Subject> subjects = new ArrayList<Subject>();
+		Connection con = null;
+		PreparedStatement pst = null;
+		StringBuffer sql = new StringBuffer("");
+		sql.append("SELECT DISTINCT `subject`.subid, `subject`.subsummary, `subject`.subtext, `subject`.subtype, ");
+		sql.append("`subject`.subaccuracy, `subject`.subanswer, `subject`.subtime ");
+		sql.append("FROM `subject` LEFT JOIN `subject_s_label` ");
+		sql.append("ON `subject`.subid = `subject_s_label`.subid ");
+		sql.append("LEFT JOIN `s_label` ");
+		sql.append("ON `subject_s_label`.s_lid = `s_label`.s_lid ");
+		sql.append("WHERE `subject`.subtime = ? AND `subject`.subtype = ? AND `s_label`.s_lname = ? ");
+		sql.append("ORDER BY `subject`.subid ");
+		sql.append("LIMIT ? , ? ");
+		try {
+			con = JDBCUtil.getConnection();
+			pst = con.prepareStatement(sql.toString());
+			pst.setInt(1, yearInt);
+			pst.setInt(2, subTypeI);
+			pst.setString(3, subLabel);
+			pst.setInt(4, start);
+			pst.setInt(5, pageSize);
+			ResultSet rs = pst.executeQuery();
+			while(rs.next()) {
+				Subject subject = new Subject();
+				subject.setSubId(rs.getInt("subid"));
+				subject.setS_label(getSublabelBySubid(rs.getInt("subid")));
+				subject.setSubSummary(rs.getString("subsummary"));
+				subject.setSubText(rs.getString("subtext"));
+				subject.setSubType(rs.getInt("subtype"));
+				subject.setSubAccuracy(rs.getString("subaccuracy"));
+				subject.setSubAnswer(rs.getString("subanswer"));
+				subject.setSubTime(rs.getInt("subtime"));
+				subjects.add(subject);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCUtil.closeJDBC(pst, con);
+		}
+
+		return subjects;
+	}
+
+
+	@Override
+	public void deleteSubBySubId(int subId) {
+
+		Connection con = null;
+		PreparedStatement pst1 = null;
+		PreparedStatement pst2 = null;
+		PreparedStatement pst3 = null;
+		StringBuffer sql1 = new StringBuffer("");
+		StringBuffer sql2 = new StringBuffer("");
+		StringBuffer sql3 = new StringBuffer("");
+		sql1.append("DELETE FROM `subject` WHERE `subject`.subid = ? ");
+		sql2.append("DELETE FROM `subject_s_label` WHERE `subject_s_label`.subid = ? ");
+		sql3.append("DELETE FROM `selectanswer` WHERE `selectanswer`.subid = ? ");
+		
+		try {
+			con = JDBCUtil.getConnection();
+			con.setAutoCommit(false);
+			pst1 = con.prepareStatement(sql1.toString());
+			pst2 = con.prepareStatement(sql2.toString());
+			pst3 = con.prepareStatement(sql3.toString());
+			pst1.setInt(1, subId);
+			pst2.setInt(1, subId);
+			pst3.setInt(1, subId);
+			pst1.executeUpdate();
+			pst2.executeUpdate();
+			pst3.executeUpdate();
+			con.commit();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			try {
+				con.rollback();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}finally {
+			JDBCUtil.closeJDBC(pst1, con);
+			JDBCUtil.closeJDBC(pst2, con);
+			JDBCUtil.closeJDBC(pst3, con);
+		}
 
 	}
 
