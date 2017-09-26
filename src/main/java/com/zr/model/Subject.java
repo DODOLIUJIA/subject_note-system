@@ -7,11 +7,11 @@ package com.zr.model;
  * @date 2017/9/21
  */
 public class Subject {
-
-	private String S_label;
+	private String s_label;
 	private int subId;// 题目ID
 	private String subSummary;// 题目描述
 	private String subText;// 题目内容
+	// 1.简答题，2.填空题，3.单选题，4.多选题
 	private int subType;// 题目类型
 	private String subAccuracy;// 题目准确率
 	private String subAnswer;// 题目答案
@@ -22,7 +22,7 @@ public class Subject {
 	}
 
 	public void setS_label(String s_label) {
-		S_label = s_label;
+		this.s_label = s_label;
 	}
 
 	public int getSubId() {
@@ -109,5 +109,4 @@ public class Subject {
 		this.subAnswer = subAnswer;
 		this.subTime = subTime;
 	}
-
 }
