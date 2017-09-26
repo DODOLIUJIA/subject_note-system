@@ -6,6 +6,7 @@ import java.util.List;
 import com.zr.dao.UserSubDao;
 import com.zr.dao.impl.UserSubDaoImpl;
 import com.zr.model.Subject;
+import com.zr.model.SubjectLabel;
 import com.zr.service.SubService;
 /**
  * 
@@ -24,16 +25,34 @@ public class SubServiceImpl implements SubService{
 	 * @return
 	 */
 	@Override
-	public List<Subject> selectSubsByMsg(String sublabel, int subCrateTime) {
+	public List<Subject> selectSubsByMsg(String sublabel, int subCrateTime, int loadtimms) {
 		List<Subject> subs = new ArrayList<Subject>();
 		if("".equals(sublabel)&&subCrateTime != 0){
-			subs = usd.selectSubsBySubTime(subCrateTime);
+			subs = usd.selectSubsBySubTime(subCrateTime, loadtimms);
 		}else if(!("".equals(sublabel))&&subCrateTime == 0){
-			subs = usd.selectSubsBySubType(sublabel);
+			subs = usd.selectSubsBySubType(sublabel, loadtimms);
 		}else{
-			subs = usd.selectSubsBySubTypeAndSubTime(sublabel, subCrateTime);
+			subs = usd.selectSubsBySubTypeAndSubTime(sublabel, subCrateTime, loadtimms);
 		}
 		return subs;
 	}
 
+	/**
+	 * 得到所有的题目标签
+	 * @return
+	 */
+	public List<SubjectLabel> selectSubLabel(){
+		List<SubjectLabel> labels = new ArrayList<SubjectLabel>();
+		labels = usd.selectSubLabel();
+		return labels;
+	}
+	/**
+	 * 得到所有题目的不同的出题时间
+	 * @return
+	 */
+	public List<Subject> selectSubTime(){
+		List<Subject> times = new ArrayList<Subject>();
+		times = usd.selectSubTime();
+		return times;
+	}
 }

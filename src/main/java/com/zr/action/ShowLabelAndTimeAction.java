@@ -13,22 +13,23 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.zr.model.Subject;
+import com.zr.model.SubjectLabel;
 import com.zr.service.SubService;
 import com.zr.service.impl.SubServiceImpl;
 
 import net.sf.json.JSONObject;
 
 /**
- * Servlet implementation class SelectSubAction
+ * Servlet implementation class ShowLabelAndTimeAction
  */
-@WebServlet("/selectSub")
-public class SelectSubAction extends HttpServlet {
+@WebServlet("/showLabelAndTime")
+public class ShowLabelAndTimeAction extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	SubService sbs = new SubServiceImpl();
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SelectSubAction() {
+    public ShowLabelAndTimeAction() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -37,26 +38,20 @@ public class SelectSubAction extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doPost(request, response);
+	doPost(request,response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("utf8");
-		response.setCharacterEncoding("utf8");
+		List<SubjectLabel> labels = sbs.selectSubLabel();
+		List<Subject> times = sbs.selectSubTime();
 		HttpSession session = request.getSession();
-		String sublabel = (String) session.getAttribute("sublabel");
-		int subCrateTime = (int) session.getAttribute("subCrateTime");
-		int loadtimms = Integer.parseInt(request.getParameter("loadtimms"));
-		System.out.println("sublabel = "+sublabel);
-		System.out.println("subCrateTime = "+subCrateTime);
-		List<Subject> subs = new ArrayList<Subject>();
-		subs = sbs.selectSubsByMsg(sublabel, subCrateTime, loadtimms);
+		session.setAttribute("labels", labels);
+		session.setAttribute("times", times);
 		PrintWriter pw = response.getWriter();
 		JSONObject j = new JSONObject();
-		j.put("Subs", subs);
 		pw.write(j.toString());
 	}
 
