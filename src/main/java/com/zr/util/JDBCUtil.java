@@ -7,11 +7,11 @@ import java.sql.Statement;
 
 public class JDBCUtil {
 	 //1.数据库地址  (根据不同的数据标准是不一样)
-	  private  final  static String DBURL = "jdbc:mysql://172.18.23.77:3306/sub_note?useUnicode=true&characterEncoding=UTF8";
-	 // private  final  static String DBURL = "jdbc:mysql://182.61.32.204:3306/sub_note?useUnicode=true&characterEncoding=UTF8";
+	  //private  final  static String DBURL = "jdbc:mysql://172.18.23.77:3306/sub_note?useUnicode=true&characterEncoding=UTF8";
+	  private  final  static String DBURL = "jdbc:mysql://182.61.32.204:3306/sub_note?useUnicode=true&characterEncoding=UTF8";
 	  //2.设置用户和密码
-	  private  final  static String  USERNAME = "root";
-	  private  final  static String  PASSWORD = "root";
+	  private  final  static String  USERNAME = "zxy";
+	  private  final  static String  PASSWORD = "zxyzxy";
 	  //3.设置驱动名称 (根据不同的数据标准是不一样)
 	  private  final  static String  DBDRIVER = "com.mysql.jdbc.Driver";
 	  /**
