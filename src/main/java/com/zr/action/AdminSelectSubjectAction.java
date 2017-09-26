@@ -51,11 +51,7 @@ public class AdminSelectSubjectAction extends HttpServlet {
 		String subType = request.getParameter("subType");
 		String subLabel = request.getParameter("subLabel");
 		JSONObject j = new JSONObject();
-		System.out.println(yearStr);
-		System.out.println(subType);
-		System.out.println(subLabel);
 		if("所有".equals(yearStr) && "所有".equals(subType) && "所有".equals(subLabel) ) {
-			System.out.println(123123);
 			j = subService.getSubsByPageAndPagesize(page, pageSize);
 		}else if("所有".equals(yearStr) && "所有".equals(subType) && subLabel != "所有"){
 			j = subService.getSubsByPageAndPagesizeBySubLabel(page, pageSize, subLabel);

@@ -47,7 +47,7 @@ public interface SubDao {
 	public JSONArray getAllSubLabel();
 	
 	/**
-	 * 通过页码和显示数量和题目标签
+	 * 通过起始位置和显示数量和题目标签
 	 * @param start
 	 * @param pageSize
 	 * @param subLabel 题目标签
@@ -56,7 +56,7 @@ public interface SubDao {
 	public List<Subject> getSubsBySublabel(int start, int pageSize, String subLabel);
 
 	/** 
-	 * 通过页码和显示数量和题目类型
+	 * 通过起始位置和显示数量和题目类型
 	 * @param start
 	 * @param pageSize
 	 * @param subType 题目标签
@@ -65,7 +65,7 @@ public interface SubDao {
 	public List<Subject> getSubsBySubType(int start, int pageSize, int subTypeI);
 	
 	/**
-	 * 通过页码和显示数量和年份
+	 * 通过起始位置和显示数量和年份
 	 * @param start 
 	 * @param pageSize
 	 * @param yearInt 年份
@@ -74,7 +74,7 @@ public interface SubDao {
 	public List<Subject> getSubsBySubYear(int start, int pageSize, int yearInt);
 
 	/**
-	 * 通过页码和显示数量和题型、题标签
+	 * 通过起始位置和显示数量和题型、题标签
 	 * @param start
 	 * @param pageSize
 	 * @param subTypeI 题型
@@ -84,7 +84,7 @@ public interface SubDao {
 	public List<Subject> getSubsBySubTypeAndSubLabel(int start, int pageSize, int subTypeI, String subLabel);
 	
 	/**
-	 * 通过页码和显示数量和年份、题标签
+	 * 通过起始位置和显示数量和年份、题标签
 	 * @param start
 	 * @param pageSize
 	 * @param subTypeI 年份
@@ -94,7 +94,7 @@ public interface SubDao {
 	public List<Subject> getSubsBySubYearAndSubLabel(int start, int pageSize, int yearInt, String subLabel);
 
 	/**
-	 * 过页码和显示数量和年份、题型
+	 * 过起始位置和显示数量和年份、题型
 	 * @param start
 	 * @param pageSize
 	 * @param yearInt 年份
@@ -104,7 +104,7 @@ public interface SubDao {
 	public List<Subject> getSubsBySubYearAndSubType(int start, int pageSize, int yearInt, int subTypeI);
 
 	/**
-	 * 过页码和显示数量和年份、题型
+	 * 过起始位置和显示数量和年份、题型
 	 * @param start
 	 * @param pageSize
 	 * @param yearInt 年份

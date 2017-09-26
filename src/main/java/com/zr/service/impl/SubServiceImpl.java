@@ -132,10 +132,7 @@ public class SubServiceImpl implements SubService {
 	}
 	@Override
 	public void deleteSubBySubId(int subId) {
-		
 		subDao.deleteSubBySubId(subId);
 	}
-	
-	
-	
+
 }

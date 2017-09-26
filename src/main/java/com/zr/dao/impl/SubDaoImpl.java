@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.zr.dao.SubDao;
+import com.zr.model.SubLabel;
 import com.zr.model.Subject;
 import com.zr.util.JDBCUtil;
 
@@ -80,7 +81,6 @@ public class SubDaoImpl implements SubDao {
 		return subjects;
 	}
 	
-	//通过题目id查找标签，如有多个进行拼接
 	public String getSublabelBySubid(int subid) {
 		StringBuffer label = new StringBuffer("");
 		Connection con = null;
@@ -107,7 +107,6 @@ public class SubDaoImpl implements SubDao {
 		}
 		return label.toString();
 	}
-	
 	
 	@Override
 	public JSONArray getAllYears() {
@@ -197,7 +196,6 @@ public class SubDaoImpl implements SubDao {
 
 	}
 
-	//通过页码和显示数量和题目标签
 	@Override
 	public List<Subject> getSubsBySublabel(int start, int pageSize, String subLabel) {
 		List<Subject> subjects = new ArrayList<Subject>();
@@ -242,7 +240,6 @@ public class SubDaoImpl implements SubDao {
 
 	}
 	
-	//通过页码和显示数量和题目类型
 	@Override
 	public List<Subject> getSubsBySubType(int start, int pageSize, int subTypeI) {
 		List<Subject> subjects = new ArrayList<Subject>();
@@ -286,9 +283,7 @@ public class SubDaoImpl implements SubDao {
 		return subjects;
 
 	}
-
 	
-	//通过页码和显示数量和年份
 	@Override
 	public List<Subject> getSubsBySubYear(int start, int pageSize, int yearInt) {
 		List<Subject> subjects = new ArrayList<Subject>();
@@ -331,9 +326,7 @@ public class SubDaoImpl implements SubDao {
 
 		return subjects;
 	}
-
 	
-	//通过页码和显示数量和题型、题标签
 	@Override
 	public List<Subject> getSubsBySubTypeAndSubLabel(int start, int pageSize, int subTypeI, String subLabel) {
 		List<Subject> subjects = new ArrayList<Subject>();
@@ -378,7 +371,6 @@ public class SubDaoImpl implements SubDao {
 		return subjects;
 
 	}
-
 
 	@Override
 	public List<Subject> getSubsBySubYearAndSubLabel(int start, int pageSize, int yearInt, String subLabel) {
@@ -557,5 +549,6 @@ public class SubDaoImpl implements SubDao {
 		}
 
 	}
+
 
 }
