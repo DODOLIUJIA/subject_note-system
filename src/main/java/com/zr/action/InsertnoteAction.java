@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.zr.service.NoteService;
 import com.zr.service.impl.NoteServiceimpl;
@@ -32,11 +33,13 @@ public class InsertnoteAction extends HttpServlet {
 	     // System.out.println(notetitle);
 	      String notetext = request.getParameter("notetext");
 	      //System.out.println(notetext);
-	      String notesummary = notetext.substring(40,66);
-	    //  System.out.println(notesummary);
+	      String notesummary =request.getParameter("notesummary");
+	       //System.out.println(notesummary);
+	      HttpSession session = request.getSession();
+			String lname = (String)session.getAttribute("n_lname");
 	      int i = ns.insertnote(2, notetitle, notetext, notesummary);
 	      int m = ns.getnoteid(notetitle);
-	      int q = ns.getN_lid("java");
+	      int q = ns.getN_lid(lname);
 	      int n = ns.insertNote_lable(m, q);
 	     
 	      JSONObject json = new JSONObject();

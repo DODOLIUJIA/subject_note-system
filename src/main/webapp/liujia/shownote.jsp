@@ -32,42 +32,59 @@
 	src="${basePath}statics/ckeditor/ckeditor.js"></script>
 	<script type="text/javascript" src="${basePath}statics/ckeditor/ckeditor.js"></script>
 	<style type="text/css">
+	  
 	    #insert{
 	       float: right;
 	       margin-right: 50px;
 	       margin-top: 10px;
 	    }
+	
 	    #head{
          height:60px;
-         
          border: 1px solid black;
       }
       #title{
           margin-top: 5px ; 
-          position:relative;
-          left:0;
+          float:left;
+          margin-top:7px;
+          margin-left:2px;
            height: 40px;
-           width: 300px;
+           width: 250px;
            
       }
       #biao{
-         position:relative;
-         right:400px;
-          top:5px;
+          float:left;
+          margin-left:60px;
+          margin-top:7px;
           font-size:30px;
          
+      } 
+       #keyword{
+          margin-top: 5px ; 
+          float:left;
+          margin-top:7px;
+          margin-left:2px;
+           height: 40px;
+           width: 250px;
+           
       }
+      #key{
+          float:left;
+          margin-left:60px;
+          margin-top:7px;
+          font-size:30px;
+         
+      } 
       #cancel{
-         position:relative;
-         left:700px;
-          margin-top: 10px;
-          margin-right: 60px
+       position:relative;
+       right:0px;
+       top:10px;
+      
       }
       #insert1{
-          position:relative;
-          left:500px;
-          margin-top: 10px;
-           margin-right: 30px
+         position:relative;
+       right:0px;
+       top:10px;
       }
       #add{
           display:none;
@@ -76,19 +93,27 @@
           position: absolute; 
           height: 100%; 
           width: 100%; 
-          top: 5%;  
+         top:0px; 
           background: #F5F5F5; 
            background-size: 100% 100%;  
+      }
+      #scan{
+          height:150px;
+          border: 1px solid black;
       }
       .title{
           color:blue;
           cursor:pointer;
-          transform:all 0.5s ;
+         
       }
-      .title:hover{
-          transform: scale(1.1) ;
-          color:black;
-      }
+     #tbody  a {	
+    	font-family: "微软雅黑";
+	   text-decoration : none;   
+    }
+  #tbody   a:hover {
+	color: black;
+	font-size: 15px;
+}
 	</style>
 </head>
 
@@ -117,11 +142,17 @@
 		style="display: none; position: absolute; height: 100%; width: 100%; top: 0%; left: 0%; background: #ffffff; opacity: 0"></div>
 			
 			<form id="add"  >
+			<div id="scan">
+			    
+			</div>
              <div id="head">                    
-                     <a id ="cancel" href="#">取消</a>
+                     <span id="biao">标题：  </span>     
+                    <input id="title" name="title" type="text" placeholder="请输入笔记标题">
+                    <span id="key">关键字：  </span>
+                    <input id="keyword" name="keyword" type="text" placeholder="请输入关键字">
+                    <a id ="cancel" href="#">取消</a>
                      <a id ="insert1" href="#">添加</a>
-                 <input id="title" name="title" type="text" placeholder="请输入笔记标题">
-                 <span id="biao">标题：  </span>            
+                        
              </div>
              <div >
                        <textarea name="desc" id="editor"></textarea>
@@ -213,11 +244,12 @@
 	      });
          function add(){
         	 var title = $("#title").val();
+        	 var keyword = $("#keyword").val();
         	 var content = getContent() ;
         	 console.log(title)
         	$.ajax({
         		url:'${basePath}insertnote',
-        		data:"title="+title+"&notetext="+content,
+        		data:"title="+title+"&notetext="+content+"&notesummary="+keyword,
         		type : 'post',
 				dataType : 'json',
 				success:function(data){

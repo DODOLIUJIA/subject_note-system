@@ -41,8 +41,8 @@ public class ShownoteAction extends HttpServlet {
 		response.setCharacterEncoding("utf8");
 		HttpSession session = request.getSession();
 		String lname = (String)session.getAttribute("n_lname");
-		List<Note> notes = ns.getallnotesByn_lname("java");
-		session.setAttribute("type", "java");
+		List<Note> notes = ns.getallnotesByn_lname(lname);
+		session.setAttribute("type", lname);
 		JSONArray json = new JSONArray();
 		 json = JSONArray.fromObject(notes);
 		 PrintWriter pw = response.getWriter();
