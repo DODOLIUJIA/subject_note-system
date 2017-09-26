@@ -18,7 +18,7 @@ public class Subject {
 	private int subTime;// 题目创建的年份
 
 	public String getS_label() {
-		return S_label;
+		return s_label;
 	}
 
 	public void setS_label(String s_label) {
