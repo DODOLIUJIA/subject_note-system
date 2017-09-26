@@ -74,7 +74,7 @@
 			success : function(result) {
 				$("#result").html(result.data);
 				$("#ocrResult").val("解析中请稍后");
-				$("#ocrResult").attr({readnoly : 'true'});
+				$("#ocrResult").attr({readonly : 'true'});
 				$.ajax({
 					url : "${basePath}AnalyzeImg",
 					type : "POST",
@@ -82,7 +82,7 @@
 						"imgPath" : result
 						},
 					success : function(res){
-						$("#ocrResult").attr({readnoly : 'false'});
+						$("#ocrResult").attr({readonly : 'false'});
 						$("#ocrResult").val("");
 						$("#ocrResult").val(res);
 					}
