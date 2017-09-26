@@ -16,6 +16,7 @@
 <script type="text/javascript" src="${basePath}statics/js/jquery-1.9.1.js"></script>
 <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js "></script>
 
+</script>
 <!-- 字体设置 -->
 <style>
 .accordion-heading {
@@ -25,6 +26,7 @@
 	text-align: center;
 	margin: 45px 0 10px;
 }
+
 .nav-sidebar{
 cursor:pointer;
 }
@@ -37,12 +39,12 @@ body{background-color: #eee;}
         .footer {height: 150px;background-color: #222;margin-top: 5%;color: #fff;padding: 3% 10%;}
         .col-md-4 {text-align: center;}
         .col-md-4 p a{color: #fff;}
+
 </style>
 
 </head>
 <script type="text/javascript">
 	$(function() {
-	
         var timer;
         $(".userfun").mouseover(function () {
             clearTimeout(timer);
@@ -67,6 +69,7 @@ body{background-color: #eee;}
         $(".dropdown-menu li a").mouseout(function(){
             $(this).css("color","white");
         });
+
 		//题目标签
 		var sublabel ="";
 		//出题时间
@@ -76,11 +79,12 @@ body{background-color: #eee;}
 			    sublabel = $(this).html();
 				var link = $(this).attr('target');
 				$.ajax({
-					url:'selectSub',
+					url:'selectsub',
 					type:'post',
 					data:{'sublabel':sublabel,'subCrateTime':subCrateTime},
 					success:function(){
 						$("#center").load(link);
+
 						subCrateTime = 0;
 					}
 				})
@@ -91,7 +95,7 @@ body{background-color: #eee;}
 		        subCrateTime = $(this).html();
 			var link = $(this).attr('target');
 			$.ajax({
-				url:'selectSub',
+				url:'selectsub',
 				type:'post',
 				data:{'sublabel':sublabel,'subCrateTime':subCrateTime},
 				success:function(){
@@ -112,9 +116,9 @@ body{background-color: #eee;}
 		/* var text = $("#subs");
 		text.hide();
 		$("#content").text(text); */
+	  });
 	});
-	
-	
+
 </script>
 
 
@@ -254,6 +258,7 @@ body{background-color: #eee;}
 					</li>
 				</ul>
 			</div>
+
 		</div>
 	</div>
 	
@@ -275,5 +280,11 @@ body{background-color: #eee;}
         <p><a>合作企业</a></p>
     </div>
 </footer>
+
+
+
+		</div>
+	</div>
+	</div>
 </body>
 </html>
