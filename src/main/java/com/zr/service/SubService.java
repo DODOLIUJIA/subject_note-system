@@ -3,7 +3,6 @@ package com.zr.service;
 import java.util.List;
 
 import com.zr.model.Subject;
-import com.zr.model.Sub;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
@@ -20,25 +19,15 @@ public interface SubService {
 	 */
 public List<Subject> selectSubsByMsg(String sublabel,int subCrateTime);
 
-	 * 
+	 /* 
 	 * @param subType
 	 * @param subCrateTime
 	 * @param STcheck
 	 * @param SCTcheck
 	 * @return
 	 */
-	public List<Sub> selectSubsByMsg(String subType, int subCrateTime, String STcheck, String SCTcheck);
+	public List<Subject> selectSubsByMsg(String subType, int subCrateTime, String STcheck, String SCTcheck);
 
-	/**
-	 * 通过页码和显示数量获得题目
-	 * 
-	 * @param pageSize
-	 *            显示数量
-	 * @param page
-	 *            页码
-	 * @return 题目数组
-	 */
-	public JSONObject getSubsByPageAndPagesize(int page, int pageSize);
 
 	/**
 	 * 获取所有年份

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import com.zr.dao.UserSubDao;
 import com.zr.dao.impl.UserSubDaoImpl;
-import com.zr.model.Sub;
 import com.zr.service.SubService;
 
 import com.zr.dao.SubDao;
@@ -21,6 +20,8 @@ import net.sf.json.JSONObject;
  *
  */
 public class SubServiceImpl implements SubService{
+	SubDao subDao = new SubDaoImpl();
+  
     UserSubDao usd = new UserSubDaoImpl();
     
     /**
@@ -45,25 +46,16 @@ public class SubServiceImpl implements SubService{
 	}
   
 	@Override
-	public JSONObject getSubsByPageAndPagesize(int page, int pageSize) {
-		JSONObject  jo = new JSONObject();
-		jo.put("total", sdao.getSubsCount());
-		jo.put("rows", sdao.getSubs((page-1)*pageSize, pageSize));
-		return jo;
-
-	}
-  
-	@Override
 	public JSONArray getAllYears() {
 		JSONArray ja = new JSONArray();
-		ja = sdao.getAllYears();
+		ja = subDao.getAllYears();
 		return ja;
 	}
   
 	@Override
 	public JSONArray getAllSubType() {
 		JSONArray ja = new JSONArray();
-		List<Integer> subtypes = sdao.getAllSubtype();
+		List<Integer> subtypes = subDao.getAllSubtype();
 		for (int i = 0; i < subtypes.size(); i++) {
 			JSONObject jo = new JSONObject();
 			jo.put("id", i+1);
@@ -92,7 +84,7 @@ public class SubServiceImpl implements SubService{
 	
 	@Override
 	public boolean insertNewSub(String subSummary, String subText, int subType, String subAnswer, int subTime) {
-		return sdao.insertNewSubject(subSummary, subText, subType, subAnswer, subTime);
+		return subDao.insertNewSubject(subSummary, subText, subType, subAnswer, subTime);
 	}
 	
 	@Override
@@ -188,7 +180,7 @@ public class SubServiceImpl implements SubService{
 
 	@Override
 	public JSONObject getSubjectBySid(int sid) {
-		Subject s=sdao.getSubjectBySId(sid);
+		Subject s=subDao.getSubjectBySId(sid);
 		JSONObject json=new JSONObject();
 		if(s!=null){
 			json.put("subid", s.getSubId());
@@ -207,5 +199,10 @@ public class SubServiceImpl implements SubService{
 	public static void main(String[] args) {
 		SubServiceImpl s=new SubServiceImpl();
 		System.out.println(s.getSubjectBySid(1));
+	}
+
+	@Override
+	public List<Subject> selectSubsByMsg(String subType, int subCrateTime, String STcheck, String SCTcheck) {
+		return null;
 	}
 }

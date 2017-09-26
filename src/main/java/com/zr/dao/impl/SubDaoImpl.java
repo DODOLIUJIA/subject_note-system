@@ -113,7 +113,12 @@ public class SubDaoImpl implements SubDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
-			JDBCUtil.closeJDBC(pst, con);
+			try {
+				JDBCUtil.closeJDBC(pst, con);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		return label.toString();
 	}
@@ -263,7 +268,11 @@ public class SubDaoImpl implements SubDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
-			JDBCUtil.closeJDBC(pst, con);
+			try {
+				JDBCUtil.closeJDBC(pst, con);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return ja;
 
@@ -307,7 +316,11 @@ public class SubDaoImpl implements SubDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
-			JDBCUtil.closeJDBC(pst, con);
+			try {
+				JDBCUtil.closeJDBC(pst, con);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 
 		return subjects;
@@ -352,7 +365,11 @@ public class SubDaoImpl implements SubDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
-			JDBCUtil.closeJDBC(pst, con);
+			try {
+				JDBCUtil.closeJDBC(pst, con);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 
 		return subjects;
@@ -398,7 +415,11 @@ public class SubDaoImpl implements SubDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
-			JDBCUtil.closeJDBC(pst, con);
+			try {
+				JDBCUtil.closeJDBC(pst, con);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 
 		return subjects;
@@ -444,7 +465,11 @@ public class SubDaoImpl implements SubDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
-			JDBCUtil.closeJDBC(pst, con);
+			try {
+				JDBCUtil.closeJDBC(pst, con);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 
 		return subjects;
@@ -490,7 +515,11 @@ public class SubDaoImpl implements SubDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
-			JDBCUtil.closeJDBC(pst, con);
+			try {
+				JDBCUtil.closeJDBC(pst, con);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 
 		return subjects;
@@ -535,7 +564,11 @@ public class SubDaoImpl implements SubDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
-			JDBCUtil.closeJDBC(pst, con);
+			try {
+				JDBCUtil.closeJDBC(pst, con);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 
 		return subjects;
@@ -580,7 +613,11 @@ public class SubDaoImpl implements SubDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
-			JDBCUtil.closeJDBC(pst, con);
+			try {
+				JDBCUtil.closeJDBC(pst, con);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 
 		return subjects;
@@ -623,9 +660,13 @@ public class SubDaoImpl implements SubDao {
 				e1.printStackTrace();
 			}
 		}finally {
-			JDBCUtil.closeJDBC(pst1, con);
-			JDBCUtil.closeJDBC(pst2, con);
-			JDBCUtil.closeJDBC(pst3, con);
+			try {
+				JDBCUtil.closeJDBC(pst1, con);
+				JDBCUtil.closeJDBC(pst2, con);
+				JDBCUtil.closeJDBC(pst3, con);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 
 	}

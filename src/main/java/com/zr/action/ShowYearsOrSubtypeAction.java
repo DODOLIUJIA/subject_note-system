@@ -52,7 +52,7 @@ public class ShowYearsOrSubtypeAction extends HttpServlet {
 			JSONArray ja = subs.getAllYears();
 			pw.write(ja.toString());
 		}else if("subtype".equals("subtype")) {
-			JSONArray ja = subs.getAllSubtype();
+			JSONArray ja = subs.getAllSubType();
 			pw.write(ja.toString());
 			System.out.println(ja);
 		}
