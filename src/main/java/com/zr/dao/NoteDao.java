@@ -88,5 +88,23 @@ public interface NoteDao {
 	 * @return
 	 */
    public String selectN_lname(int n_lid);
+   /**
+    * 根据笔记id删除笔记
+    * @param noteid
+    * @return
+    */
+   public  int deleteNote(int noteid);
+   /**
+    * 根据笔记id删除关联表
+    * @param noteid
+    * @return
+    */
+   public int deleteN_n_label(int noteid);
+   /**
+    * 插入标签
+    * @param lname
+    * @return
+    */
+   public int insertNoteTabel(String lname);
 	
 }

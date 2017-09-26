@@ -43,6 +43,18 @@
    #back:HOVER{
    transform: scale(1.1) rotate(360deg);
    }
+    #delete{
+      float:right;
+	 margin-right: 30px;
+	 padding-top:5px;
+	 text-align: center;
+	margin-top:5px;
+	background:#F8F8FF;
+    transform:all 0.5s ;
+   }
+   #delete:HOVER{
+   transform: scale(1.1) ;
+   }
    #update{
       float:right;
 	 margin-right: 30px;
@@ -93,13 +105,32 @@
     		$.ajax({
     			
     		})
-    	})
+    	});
+    	$("#delete").click(function(){
+    		var title =  $("h2").text();
+    		console.log(title);
+    		$.ajax({
+    			url:'${basePath}deletenote',
+    			data:'title='+title,
+    			type : 'post',
+    			dataType : 'json',
+    			success:function(data){
+    				if(data.msg==1&&data.msg1==1){
+    					location.href = "shownote.jsp";
+    				}else{
+    					location.href = "looknote.jsp";
+    				}
+    			}
+    			
+    		})
+    	});
     })
 </script>
 <body>
     <div class="container">
          <div id="head">
              <button class="btn btn-default " id="back">返回</button>
+               <button class="btn btn-default " id="delete">删除</button>
              <button class="btn btn-default " id="update">修改</button>
          </div>
          <div id="frame">

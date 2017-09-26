@@ -97,4 +97,22 @@ public class NoteServiceimpl implements NoteService {
 		return i;
 	}
 
+	@Override
+	public int deleteNoteBynoteid(int noteid) {
+	    int i = ndao.deleteNote(noteid);
+		return i;
+	}
+
+	@Override
+	public int delectN_n_label(int noteid) {
+		int i =ndao.deleteN_n_label(noteid);
+		return i;
+	}
+
+	@Override
+	public int insertNoteTabel(String lname) {
+		int i =ndao.insertNoteTabel(lname);
+		return i;
+	}
+
 }
