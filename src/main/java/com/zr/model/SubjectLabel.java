@@ -1,6 +1,7 @@
 package com.zr.model;
 
 public class SubjectLabel {
+
 	private int s_lid;
 	private String s_lname;
 
@@ -19,5 +20,4 @@ public class SubjectLabel {
 	public void setS_lname(String s_lanem) {
 		this.s_lname = s_lanem;
 	}
-
 }

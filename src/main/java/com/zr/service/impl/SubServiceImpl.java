@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import com.zr.dao.UserSubDao;
 import com.zr.dao.impl.UserSubDaoImpl;
+import com.zr.model.Subject;
+import com.zr.model.SubjectLabel;
 import com.zr.service.SubService;
 import com.zr.dao.SubDao;
 import com.zr.dao.impl.SubDaoImpl;
-import com.zr.model.Subject;
-import com.zr.model.SubjectLabel;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -119,8 +119,8 @@ public class SubServiceImpl implements SubService {
 		jo.put("total", subDao.getSubsCount());
 		jo.put("rows", subDao.getSubsBySublabel((page-1)*pageSize, pageSize, subLabel));
 		return jo;
-
 	}
+	
 	@Override
 	public JSONObject getSubsByPageAndPagesizeBySubType(int page, int pageSize, String subType) {
 		JSONObject  jo = new JSONObject();
@@ -221,6 +221,18 @@ public class SubServiceImpl implements SubService {
 
 	@Override
 	public List<Subject> selectSubsByMsg(String subType, int subCrateTime, String STcheck, String SCTcheck) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Subject> selectSubsByMsg(String sublabel, int subCrateTime) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<SubjectLabel> selectSubLabel() {
 		// TODO Auto-generated method stub
 		return null;
 	}

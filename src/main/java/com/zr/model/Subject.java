@@ -7,6 +7,7 @@ package com.zr.model;
  * @date 2017/9/21
  */
 public class Subject {
+
 	private String s_label;
 	private int subId;// 题目ID
 	private String subSummary;// 题目描述
