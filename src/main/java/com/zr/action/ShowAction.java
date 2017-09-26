@@ -23,10 +23,12 @@ public class ShowAction extends HttpServlet {
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String lid = request.getParameter("id");
-		int n_lid = Integer.parseInt("lid");
+		//System.out.println(lid);
+		int n_lid = Integer.parseInt(lid);
 		String lname = ns.getN_lname(n_lid);
 		HttpSession session = request.getSession();
 		session.setAttribute("n_lname", lname);
+		 response.sendRedirect("liujia/shownote.jsp");
 	}
 
 }

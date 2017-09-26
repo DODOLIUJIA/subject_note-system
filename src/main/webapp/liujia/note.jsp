@@ -18,18 +18,9 @@
 <script type="text/javascript" src="${basePath}statics/js/jquery-1.7.2.min.js"></script>
 <style type="text/css">
   #left{
-          	height:300px;
-	        border: 1px solid red;
+          
 	      
     }
-    .accordion-heading {
-	color: #0059b2;
-	font-size: 15px;
-	letter-spacing: 1px;
-	text-align: center;
-	margin: 45px 0 10px;
-  
-}
 .li {
 	display: flock;
 	background: blanchedalmond;
@@ -48,18 +39,16 @@
 	background: #F5F5DC;
 }
 
-#ul a {
-	
-	font: 30px;
+#ul a {	
 	font-family: "微软雅黑";
+	text-decoration : none;
 }
-
 #ul a:hover {
-	color: white;
+	color: black;
+	font-size: 15px;
+	
 }
-#center{
-    border:1px solid black;
-    height:300px;
+#center{   
 }
 </style>
 </head>
@@ -85,16 +74,18 @@
     
 	<div class="container-fluid">
 		<div class="row">
-			<div id="left" class="col-md-3">
-					<ul class="list-group">
+			<div id="left" class="col-md-2">
+					<ul  id="ul" class="list-group">
 						<c:forEach items="${sessionScope.labels}" var="label">
-							<li class="list-group-item"><a href="${basePath}show">${label.n_lname}</a></li>
+							<li class="list-group-item"><a class="type" href='${basePath}show?id=${label.n_lid}'>${label.n_lname}</a></li>
 						</c:forEach>
 						
 					</ul>
 				
 			</div>
-			<div id="center" class="col-md-9"></div>
+			<div id="center" class="col-md-10">
+			
+			</div>
 			
 		</div>
 	</div>
