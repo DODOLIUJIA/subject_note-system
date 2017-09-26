@@ -61,21 +61,5 @@
 						height : '300px',
 						filebrowserImageUploadUrl : '${basePath}uploadImg?fileType=image&workType=sub'
 					});
-	$('#summary').textbox({
-		width : 300,
-		height : 40
-	});
-	$('#answer').textbox({
-		width : 300,
-		height : 40
-	});
-	$('#type').textbox({
-		width : 300,
-		height : 40
-	});
-	$('#sid').textbox({
-		width : 300,
-		height : 40
-	});
 </script>
 </html>
