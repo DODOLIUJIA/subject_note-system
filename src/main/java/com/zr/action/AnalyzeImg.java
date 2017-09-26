@@ -9,7 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.zr.util.OCR;
+import com.zr.util.Ocr;
+
 
 /**
  * Servlet implementation class AnalyzeImg
@@ -24,20 +25,17 @@ public class AnalyzeImg extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 
 		String imgPath = (String) request.getParameter("imgPath");
-		StringBuilder valCode = null;
+		String result = "";
 		try {
-			OCR ocr = new OCR();
-			ocr.setBasePath("D:\\EclipseWS\\sub_note\\");
-			valCode = ocr.recognizeText(new File(imgPath), "jpg");
+			Ocr ocr = new Ocr(request.getServletContext().getRealPath(""));
+			result = ocr.getResult(imgPath);
 			
-			System.out.println(valCode);
-		} catch (IOException e) {
-			e.printStackTrace();
+			System.out.println(result);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		response.getWriter().write(valCode.toString());
+		response.getWriter().write(result);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

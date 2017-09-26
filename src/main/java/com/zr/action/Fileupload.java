@@ -19,10 +19,13 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 /**
- * Servlet implementation class fileupload
+ * 正常的文件上传（现只能处理图片上传） 
+ * 异步的方式，返回图片存储的路径
+ * @author Zxy
+ *
  */
 @WebServlet("/fileupload")
-public class fileupload extends HttpServlet {
+public class Fileupload extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -120,6 +123,7 @@ public class fileupload extends HttpServlet {
 		response.getWriter().write(okPath);
 	}
 
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		doGet(request, response);
