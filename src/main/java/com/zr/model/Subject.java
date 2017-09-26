@@ -1,6 +1,14 @@
 package com.zr.model;
 
+/**
+ * 题目类
+ * 
+ * @author 樊庆珂
+ * @date 2017/9/21
+ */
 public class Subject {
+
+	private String s_label;
 	private int subId;// 题目ID
 	private String subSummary;// 题目描述
 	private String subText;// 题目内容
@@ -9,6 +17,15 @@ public class Subject {
 	private String subAccuracy;// 题目准确率
 	private String subAnswer;// 题目答案
 	private int subTime;// 题目创建的年份
+
+	public String getS_label() {
+		return s_label;
+	}
+
+	public void setS_label(String s_label) {
+		this.s_label = s_label;
+	}
+
 	public int getSubId() {
 		return subId;
 	}
@@ -65,4 +82,32 @@ public class Subject {
 		this.subTime = subTime;
 	}
 
+	/**
+	 * 题目的无参构造方法
+	 */
+	public Subject() {
+		super();
+	}
+
+	/**
+	 * 题目的有参构造方法
+	 * 
+	 * @param subId
+	 * @param subSummary
+	 * @param subText
+	 * @param subType
+	 * @param subAccuracy
+	 * @param subAnswer
+	 * @param subTime
+	 */
+	public Subject(int subId, String subSummary, String subText, int subType, String subAccuracy, String subAnswer,
+			int subTime) {
+		this.subId = subId;
+		this.subSummary = subSummary;
+		this.subText = subText;
+		this.subType = subType;
+		this.subAccuracy = subAccuracy;
+		this.subAnswer = subAnswer;
+		this.subTime = subTime;
+	}
 }
