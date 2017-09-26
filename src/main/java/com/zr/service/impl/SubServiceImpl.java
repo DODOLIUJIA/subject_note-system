@@ -13,14 +13,11 @@ import com.zr.model.Subject;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
+public class SubServiceImpl implements SubService {
 
-/**
- * 
- * @author 吴尚鑫
- *
- */
-public class SubServiceImpl implements SubService{
-	SubDao subDao = new SubDaoImpl();
+	  SubDao sdao = new SubDaoImpl();
+
+	  SubDao subDao = new SubDaoImpl();
   
     UserSubDao usd = new UserSubDaoImpl();
     
@@ -81,7 +78,7 @@ public class SubServiceImpl implements SubService{
 		}
 		return subtypeS;
   }
-	
+
 	@Override
 	public boolean insertNewSub(String subSummary, String subText, int subType, String subAnswer, int subTime) {
 		return subDao.insertNewSubject(subSummary, subText, subType, subAnswer, subTime);
@@ -180,8 +177,9 @@ public class SubServiceImpl implements SubService{
 
 	@Override
 	public JSONObject getSubjectBySid(int sid) {
-		Subject s=subDao.getSubjectBySId(sid);
-		JSONObject json=new JSONObject();
+		Subject s = sdao.getSubjectBySId(sid);
+		JSONObject json = new JSONObject();
+
 		if(s!=null){
 			json.put("subid", s.getSubId());
 			json.put("subsummary", s.getSubSummary());
@@ -191,18 +189,20 @@ public class SubServiceImpl implements SubService{
 			json.put("subanswer", s.getSubAnswer());
 			json.put("subtime", s.getSubTime());
 			return json;
-		}else{
+		} else {
 			return null;
 		}
 	}
-	
+
 	public static void main(String[] args) {
-		SubServiceImpl s=new SubServiceImpl();
+		SubServiceImpl s = new SubServiceImpl();
 		System.out.println(s.getSubjectBySid(1));
 	}
 
 	@Override
-	public List<Subject> selectSubsByMsg(String subType, int subCrateTime, String STcheck, String SCTcheck) {
-		return null;
+	public boolean updateSubject(int sid, String subSummary, String subText, int subType, String subAnswer,
+			int subTime) {
+		return sdao.updateSubject(sid, subSummary, subText, subType, subAnswer, subTime);
+
 	}
 }

@@ -18,7 +18,6 @@
 
 </head>
 <body>
-	<!-- <input type="text" id="subsummary">  -->
 	<textarea id="editor"></textarea>
 	<h3>请在上面输入题目，若该题是选择题，请输入选项</h3>
 	<br>
