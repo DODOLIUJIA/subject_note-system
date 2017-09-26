@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
@@ -16,6 +17,9 @@
 	src="${basePath}statics/js/jquery-1.9.1.js"></script>
 <link rel="stylesheet"
 	href="${basePath}statics/bootstrap/css/bootstrap.min.css">
+	<script
+	src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js
+"></script>
 <style type="text/css">
 #pullUp {
 	background: #fff;
@@ -33,7 +37,6 @@ p{text-indent:2em}
 </head>
 <body>
 	<div class="container-fluid">
-	
 		<div class="row">
 			<div class="col-md-3"></div>
 			<div class="col-md-4">
@@ -44,22 +47,22 @@ p{text-indent:2em}
 			</div>
 			<div class="col-md-3"></div>
 		</div>
-		
-		<div class="row">
+		<c:forEach var="sub" items="${Subs}" >   
+				<div class="row" style="border-style: solid;">
 			<div class="col-md-1"></div>
 			<div class="col-md-10">
 				<div style="margin-top: 20px;">
-					<div name="subtime" style="float: right;"></div>
+					<div style="float: right;">${sub.subTime}</div>
 					<div style="height: 100px">
-						<a name="subtext" href="#"></a>
-						<p name="subsunmmary" class="navbar-text"></p>
+						<a name="subtext" href="#">${sub.subText}</a>
+						<p class="navbar-text">${sub.subSummary}</p>
 					</div>
 				</div>
 				</div>
 			</div>
 			<div class="col-md-1"></div>
 		</div>
-
+					</c:forEach> 
 	</div>
 </body>
 </html>

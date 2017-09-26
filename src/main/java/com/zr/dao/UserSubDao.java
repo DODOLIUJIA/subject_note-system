@@ -2,7 +2,8 @@ package com.zr.dao;
 
 import java.util.List;
 
-import com.zr.model.Sub;
+import com.zr.model.Subject;
+
 /**
  * 
  * @author 吴尚鑫
@@ -16,7 +17,7 @@ public interface UserSubDao {
 	 *            题目标签
 	 * @return
 	 */
-	public List<Sub> selectSubsBySubType(String sublabel);
+	public List<Subject> selectSubsBySubType(String sublabel);
 	
 	/**
 	 * 通过出题时间筛选题目
@@ -25,7 +26,7 @@ public interface UserSubDao {
 	 *            题目标签
 	 * @return
 	 */
-	public List<Sub> selectSubsBySubTime(int subtime);
+	public List<Subject> selectSubsBySubTime(int subtime);
 	
 	/**
 	 * 通过题目标签和出题时间筛选题目
@@ -36,5 +37,5 @@ public interface UserSubDao {
 	 *            出题时间
 	 * @return
 	 */
-	public List<Sub> selectSubsBySubTypeAndSubTime(String sublabel,int subtime);
+	public List<Subject> selectSubsBySubTypeAndSubTime(String sublabel,int subtime);
 }
