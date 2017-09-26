@@ -17,7 +17,7 @@
 	src="${basePath}statics/js/jquery-1.9.1.js"></script>
 <link rel="stylesheet"
 	href="${basePath}statics/bootstrap/css/bootstrap.min.css">
-	<script
+<script
 	src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js
 "></script>
 <style type="text/css">
@@ -29,10 +29,74 @@
 	color: #888;
 	margin-left: 45%;
 }
-p{text-indent:2em} 
+
+p {
+	text-indent: 2em
+}
 </style>
 <script type="text/javascript">
-	
+//题目显示栏高度
+var subHeight = 3000;
+//下拉次数
+var loadtimms = 1;
+window.onscroll = function() {
+	var a = document.documentElement.scrollTop == 0 ? document.body.clientHeight
+			: document.documentElement.clientHeight;
+	var b = document.documentElement.scrollTop == 0 ? document.body.scrollTop
+			: document.documentElement.scrollTop;
+	var c = document.documentElement.scrollTop == 0 ? document.body.scrollHeight
+			: document.documentElement.scrollHeight;
+
+	if (a + b + 5 >= c) {
+		$.ajax({
+			url : 'selectSub?loadtimms=' + loadtimms,
+			type : 'POST',
+			async : false,
+			dataType : 'json',
+			success : function(data) {
+				if (data.Subs.length > 0) {
+					for (var i = 0; i < data.Subs.length; i++) {
+						console.log(data);
+						$('#Subs').append("<li class='span4'><div class='thumbnail'><div class='caption'><div style='float: right;'>"
+					            +data.Subs[i].subTime+
+					            "</div><h4>"
+					            +data.Subs[i].subText+
+					            "</h4><p>"
+					            +data.Subs[i].subSummary+
+					            "</p><p><a class='btn btn-primary' href='SubDetail.jsp?sid="+data.Subs[i].subId+"'>浏览</a></p></div></div>");
+					}
+				} else {
+					$('#pullUp').text('已全部加载');
+				}
+			}
+		});
+		loadtimms = loadtimms + 1;
+	}
+};
+$(function() {
+	$.ajax({
+		url : 'selectSub?loadtimms=' + 0,
+		type : 'POST',
+		async : false,
+		dataType : 'json',
+		success : function(data) {
+        console.log(data);
+			if (data.Subs.length > 0) {
+				for (var i = 0; i < data.Subs.length; i++) {
+					$('#Subs').append("<li class='span4'><div class='thumbnail'><div class='caption'><div style='float: right;'>"
+					            +data.Subs[i].subTime+
+					            "</div><h4>"
+					            +data.Subs[i].subText+
+					            "</h4><p>"
+					            +data.Subs[i].subSummary+
+					            "</p><p><a class='btn btn-primary' href='SubDetail.jsp?sid="+data.Subs[i].subId+"'>浏览</a></p></div></div>");
+				}
+			} else if(data.data.length < 4){
+				$('#pullUp').text('已全部加载');
+			}
+		}
+	});
+});
 </script>
 </head>
 <body>
@@ -47,22 +111,9 @@ p{text-indent:2em}
 			</div>
 			<div class="col-md-3"></div>
 		</div>
-		<c:forEach var="sub" items="${Subs}" >   
-				<div class="row" style="border-style: solid;">
-			<div class="col-md-1"></div>
-			<div class="col-md-10">
-				<div style="margin-top: 20px;">
-					<div style="float: right;">${sub.subTime}</div>
-					<div style="height: 100px">
-						<a name="subtext" href="#">${sub.subText}</a>
-						<p class="navbar-text">${sub.subSummary}</p>
-					</div>
-				</div>
-				</div>
-			</div>
-			<div class="col-md-1"></div>
-		</div>
-					</c:forEach> 
 	</div>
+	<ul id="Subs" class="thumbnails">
+	</ul>
+	<div id="pullUp"><img src="statics/images/loading.gif" ></div>
 </body>
 </html>

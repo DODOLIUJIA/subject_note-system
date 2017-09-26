@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import com.zr.dao.UserSubDao;
 import com.zr.dao.impl.UserSubDaoImpl;
+import com.zr.model.Subject;
+import com.zr.model.SubjectLabel;
 import com.zr.service.SubService;
 import com.zr.dao.SubDao;
 import com.zr.dao.UserSubDao;
@@ -30,14 +32,14 @@ public class SubServiceImpl implements SubService {
 	 * @return
 	 */
 	@Override
-	public List<Subject> selectSubsByMsg(String sublabel, int subCrateTime) {
+	public List<Subject> selectSubsByMsg(String sublabel, int subCrateTime, int loadtimms) {
 		List<Subject> subs = new ArrayList<Subject>();
 		if("".equals(sublabel)&&subCrateTime != 0){
-			subs = usd.selectSubsBySubTime(subCrateTime);
+			subs = usd.selectSubsBySubTime(subCrateTime, loadtimms);
 		}else if(!("".equals(sublabel))&&subCrateTime == 0){
-			subs = usd.selectSubsBySubType(sublabel);
+			subs = usd.selectSubsBySubType(sublabel, loadtimms);
 		}else{
-			subs = usd.selectSubsBySubTypeAndSubTime(sublabel, subCrateTime);
+			subs = usd.selectSubsBySubTypeAndSubTime(sublabel, subCrateTime, loadtimms);
 		}
 		return subs;
 	}
@@ -120,8 +122,7 @@ public class SubServiceImpl implements SubService {
 		jo.put("total", subDao.getSubsCount());
 		jo.put("rows", subDao.getSubsBySublabel((page-1)*pageSize, pageSize, subLabel));
 		return jo;
-
-	}
+	
 	@Override
 	public JSONObject getSubsByPageAndPagesizeBySubType(int page, int pageSize, String subType) {
 		JSONObject  jo = new JSONObject();

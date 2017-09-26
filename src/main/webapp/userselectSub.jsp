@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
@@ -26,19 +27,9 @@
 	text-align: center;
 	margin: 45px 0 10px;
 }
-
 .nav-sidebar{
 cursor:pointer;
 }
-body{background-color: #eee;}
-       .font{position: absolute;z-index: 1;width: 100%;text-align: center;color: #fff;margin-top:2%;}
-        .trasation-font{width: 100%;text-align: center;margin-top: 4%;}
-        .card {border: 1px solid #aaa; width: 29%; height: 300px; padding: 0px; margin: 0px 23px;}
-        .card img {width: 100%;height: 200px;}
-        .card-block {margin: 0px 15px;}
-        .footer {height: 150px;background-color: #222;margin-top: 5%;color: #fff;padding: 3% 10%;}
-        .col-md-4 {text-align: center;}
-        .col-md-4 p a{color: #fff;}
 
 </style>
 
@@ -74,18 +65,19 @@ body{background-color: #eee;}
 		var sublabel ="";
 		//出题时间
 		var subCrateTime=0;
-		//设置题目标签点击事件
+		//设置题目标签点击事件		
 		$("[name='sublabel']").click(function(){
+			if(subCrateTime!=0){
+				subCrateTime=0;
+			}
 			    sublabel = $(this).html();
 				var link = $(this).attr('target');
 				$.ajax({
-					url:'selectsub',
+					url:'getSubMsg',
 					type:'post',
 					data:{'sublabel':sublabel,'subCrateTime':subCrateTime},
-					success:function(){
-						$("#center").load(link);
-
-						subCrateTime = 0;
+					success:function(data){
+							$("#center").load(link);
 					}
 				})
 			
@@ -95,12 +87,12 @@ body{background-color: #eee;}
 		        subCrateTime = $(this).html();
 			var link = $(this).attr('target');
 			$.ajax({
-				url:'selectsub',
+				url:'getSubMsg',
 				type:'post',
 				data:{'sublabel':sublabel,'subCrateTime':subCrateTime},
-				success:function(){
-					$("#center").load(link);
-					sublabel = "";
+				success:function(data){
+
+						$("#center").load(link);
 				}
 			})
 		})
@@ -109,14 +101,10 @@ body{background-color: #eee;}
 		$.ajax({
 			url:'showLabelAndTime',
 			type:'post',
-			success:function(data){
-				console.log(111);
+			success:function(){
 			}
 		})
-		/* var text = $("#subs");
-		text.hide();
-		$("#content").text(text); */
-	  });
+
 	});
 
 </script>
@@ -178,10 +166,9 @@ body{background-color: #eee;}
 						<div id="subTypeChoose" class="accordion-body collapse in">
 							<div class="accordion-inner">
 								<ul class="nav nav-sidebar">
-									<li><a name="sublabel" target="browseSub.jsp">Java</a></li>
-									<li><a name="sublabel" target="browseSub.jsp">c/c++</a></li>
-									<li><a name="sublabel" target="browseSub.jsp">c#</a></li>
-									<li><a name="sublabel" target="browseSub.jsp">python</a></li>
+								<c:forEach var="label" items="${labels}" >
+								<li><a name="sublabel" target="browseSub.jsp">${label.s_lname}</a></li>
+								</c:forEach>
 								</ul>
 							</div>
 						</div>
@@ -199,11 +186,9 @@ body{background-color: #eee;}
 						<div id="subCrateTime" class="accordion-body collapse in">
 							<div class="accordion-inner">
 								<ul class="nav nav-sidebar">
-									<li><a name="subCrateTime" target="browseSub.jsp">2010</a></li>
-									<li><a name="subCrateTime" target="browseSub.jsp">2011</a></li>
-									<li><a name="subCrateTime" target="browseSub.jsp">2012</a></li>
-									<li><a name="subCrateTime" target="browseSub.jsp">2013</a></li>
-									<li><a name="subCrateTime" target="browseSub.jsp">2017</a></li>
+								<c:forEach var="time" items="${times}" >
+								<li><a name="subCrateTime" target="browseSub.jsp">${time.subTime}</a></li>
+								</c:forEach>
 								</ul>
 							</div>
 						</div>
