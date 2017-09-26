@@ -38,7 +38,28 @@
 	       margin-right: 50px;
 	       margin-top: 10px;
 	    }
-	
+	    #insert2{
+	       float: right;
+	       margin-right: 50px;
+	       margin-top: 10px;
+	    }
+	      #insert3{
+	       float: right;
+	       margin-right: 50px;
+	       margin-top: 10px;
+	       display: none;
+	    }
+	      #tabel{
+	       float: right;
+	       margin-right: 20px;
+	       margin-top: 13px;
+	       display: none;
+	    }
+	 #back1{
+	       float: left;
+	       margin-left: 50px;
+	       margin-top: 10px;
+	    }
 	    #head{
          height:60px;
          border: 1px solid black;
@@ -121,7 +142,11 @@
 	<div class="container">
 		<!--  <table id ="note"></table> -->
 		<div id="note" class="col-md-12">
-			<button class="btn btn-default " id="insert">添加</button>
+		<button class="btn btn-default " id="back1">返回</button>
+			<button class="btn btn-default " id="insert">添加笔记</button>
+			<button class="btn btn-default " id="insert2">添加标签</button>
+			<button class="btn btn-default " id="insert3">添加</button>
+			<input   id = "tabel" type="text" placeholder="请输入标签名">
 			<form id="form"  >
 				<table class="table table-striped" id="table">
 				<thead>
@@ -199,7 +224,43 @@
 		    	  }
 		       });
 		};
-		
+		$("#insert2").click(function(){
+			var insert2 = $("#insert2");
+			var insert3 = $("#insert3");
+			var tabel = $("#tabel");
+			insert2.css("display","none");
+			insert3.css("display","block");
+			tabel.css("display","block");
+		});
+		$("#insert3").click(function(){
+			var type = $("#tabel").val();
+			$.ajax({
+				url:'${basePath}insertTabel',
+				data:'tabel='+type,
+				type : 'post',
+				dataType : 'json',
+				success:function(data){
+					if(data.msg==1){
+						var insert2 = $("#insert2");
+						var insert3 = $("#insert3");
+						var tabel = $("#tabel");
+						insert2.css("display","block");
+						insert3.css("display","none");
+						tabel.css("display","none");
+						
+					}else{
+						$.messager.alert('提示',"添加失败,标签名不能为空",'info',function(){
+			        	});
+						var insert2 = $("#insert2");
+						var insert3 = $("#insert3");
+						var tabel = $("#tabel");
+						insert2.css("display","block");
+						insert3.css("display","none");
+						tabel.css("display","none");
+					}
+				}
+			});
+		});
 		//初始化textarea标签为cheditor
 	       CKEDITOR.replace('editor',{
 	       	language:'zh-cn',
@@ -243,22 +304,24 @@
 	    	
 	      });
          function add(){
-        	 var title = $("#title").val();
+        	 var title = $("#title").val();    
         	 var keyword = $("#keyword").val();
+        	 console.log(keyword)
         	 var content = getContent() ;
-        	 console.log(title)
         	$.ajax({
         		url:'${basePath}insertnote',
         		data:"title="+title+"&notetext="+content+"&notesummary="+keyword,
         		type : 'post',
 				dataType : 'json',
 				success:function(data){
-					console.log(data)
-					if(data==1){
-						select();
-					}else{
-						location.href = "shownote.jsp";
-					}
+					//console.log(data)
+							if(data==1){
+								select();
+							}else{
+								$.messager.alert('提示',"添加失败",'info',function(){
+					        	});
+								
+							}								
 				}
         	});
          }
@@ -268,6 +331,10 @@
 			mu.css("display", "none");
 			form.css("display", "none");
 		});
+    	$("#back1").click(function() {
+    		location.href='note.jsp';
+    	});
+    	
 	});
 </script>
 </html>

@@ -97,5 +97,23 @@ public interface NoteService {
 	 * @return
 	 */
 	public String getN_lname(int n_lid);
+	/**
+	 * 根据笔记id删除笔记
+	 * @param noteid
+	 * @return
+	 */
+	public int deleteNoteBynoteid(int noteid);
+	/**
+	 * 根据笔记id删除关联表
+	 * @param noteid
+	 * @return
+	 */
+	public int delectN_n_label(int noteid);
+	/**
+	 * 插入标签名
+	 * @param lname
+	 * @return
+	 */
+	public int insertNoteTabel(String lname);
 	
 }
