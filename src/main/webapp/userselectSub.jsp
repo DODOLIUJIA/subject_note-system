@@ -23,9 +23,7 @@
 	src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js 
 
 "></script>
-<!-- 引入ck -->
-<script src="${basePath}statics/ckeditor/ckeditor.js">
-	
+
 </script>
 <!-- 字体设置 -->
 <style>
@@ -41,50 +39,39 @@
 </head>
 <script type="text/javascript">
 	$(function() {
-		//判断题目类型是否被点击 是为1 反之为0
-		var STcheck = 0;
-		//判断出题时间是否被点击 是为1 反之为0
-		var SCTcheck = 0;
-		$("li").click(function() {
-			var link = $(this).find('a').attr('target');
-			console.log(link);
-			if ($(this).find('a').attr('name') == 'sublabel') {
-				var subtype = $(this).find('a').html();
-				STcheck = 1;
-				console.log('STcheck=' + STcheck);
+		//题目标签
+		var sublabel ="";
+		//出题时间
+		var subCrateTime=0;
+		//设置题目标签点击事件
+		$("[name='sublabel']").click(function(){
+			    sublabel = $(this).html();
+				var link = $(this).attr('target');
 				$.ajax({
-					url : 'selectsub',
-					type : 'post',
-					data : {
-						'sublabel' : sublabel,
-						'STcheck' : STcheck,
-						'SCTcheck' : SCTcheck
-					},
-					dataType : 'json',
-					success : function() {
-
-						$('#center').load(link);
+					url:'selectsub',
+					type:'post',
+					data:{'sublabel':sublabel,'subCrateTime':subCrateTime},
+					success:function(){
+						$("#center").load(link);
+						
+						subCrateTime = 0;
 					}
 				})
-
-			} else if($(this).find('a').attr('name') == 'subCrateTime'){
-				var subCrateTimes = $(this).find('a').html();
-				SCTcheck = 1;
-				$.ajax({
-					url : 'selectsub',
-					type : 'post',
-					data : {
-						'subCrateTime' : subCrateTime,
-						'STcheck' : STcheck,
-						'SCTcheck' : SCTcheck
-					},
-					dataType : 'json',
-					success : function() {
-						$('#center').load(link);
-					}
-				})
-			}
-
+			
+		});
+		//设置出题时间点击事件
+		$("[name='subCrateTime']").click(function(){
+		        subCrateTime = $(this).html();
+			var link = $(this).attr('target');
+			$.ajax({
+				url:'selectsub',
+				type:'post',
+				data:{'sublabel':sublabel,'subCrateTime':subCrateTime},
+				success:function(){
+					$("#center").load(link);
+					sublabel = "";
+				}
+			})
 		})
 
 	});
@@ -149,7 +136,6 @@
 				<ul class="thumbnails">
 					<li class="span4">
 						<div class="thumbnail">
-							<img alt="300x200" src="img/people.jpg" />
 							<div class="caption">
 								<h3>冯诺尔曼结构</h3>
 								<p>
@@ -164,7 +150,6 @@
 					</li>
 					<li class="span4">
 						<div class="thumbnail">
-							<img alt="300x200" src="img/city.jpg" />
 							<div class="caption">
 								<h3>哈佛结构</h3>
 								<p>
@@ -178,7 +163,6 @@
 					</li>
 					<li class="span4">
 						<div class="thumbnail">
-							<img alt="300x200" src="img/sports.jpg" />
 							<div class="caption">
 								<h3>改进型哈佛结构</h3>
 								<p>

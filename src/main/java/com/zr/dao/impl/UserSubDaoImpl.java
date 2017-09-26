@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.zr.dao.UserSubDao;
-import com.zr.model.Sub;
+import com.zr.model.Subject;
 import com.zr.util.JDBCUtil;
 
 /**
@@ -24,8 +24,8 @@ public class UserSubDaoImpl implements UserSubDao {
 	 *            题目标签
 	 * @return
 	 */
-	public List<Sub> selectSubsBySubType(String sublabel) {
-		List<Sub> subs = new ArrayList<Sub>();
+	public List<Subject> selectSubsBySubType(String sublabel) {
+		List<Subject> subs = new ArrayList<Subject>();
 		StringBuffer sql = new StringBuffer("");
 		sql.append("SELECT `subject`.subaccuracy,`subject`.subanswer,`subject`.subid,`subject`.subsummary,`subject`.subtext,`subject`.subtime,`subject`.subtype ");
 		sql.append("FROM `subject` ");
@@ -34,20 +34,21 @@ public class UserSubDaoImpl implements UserSubDao {
 		sql.append("INNER JOIN s_label ");
 		sql.append("ON s_label.s_lid = subject_s_label.s_lid ");
 		sql.append("WHERE s_label.s_lname=? ");
+		sql.append("ORDER BY subtime");
 		Connection con = JDBCUtil.getConnection();
 		try {
 			PreparedStatement pst = con.prepareStatement(sql.toString());
 			pst.setString(1, sublabel);
 			ResultSet rs = pst.executeQuery();
 			while (rs.next()) {
-				Sub s = new Sub();
-				s.setSubaccuracy(rs.getString("subaccuracy"));
-				s.setSubanswer(rs.getString("subanswer"));
-				s.setSubid(rs.getInt("subid"));
-				s.setSubsummary(rs.getString("subsummary"));
-				s.setSubtext(rs.getString("subtext"));
-				s.setSubtime(rs.getInt("subtime"));
-				s.setSubtype(rs.getInt("subtype"));
+				Subject s = new Subject();
+				s.setSubAccuracy(rs.getString("subaccuracy"));
+				s.setSubAnswer(rs.getString("subanswer"));
+				s.setSubId(rs.getInt("subid"));
+				s.setSubSummary(rs.getString("subsummary"));
+				s.setSubText(rs.getString("subtext"));
+				s.setSubTime(rs.getInt("subtime"));
+				s.setSubType(rs.getInt("subtype"));
 				subs.add(s);
 			}
 		} catch (SQLException e) {
@@ -64,26 +65,27 @@ public class UserSubDaoImpl implements UserSubDao {
 	 *            题目标签
 	 * @return
 	 */
-	public List<Sub> selectSubsBySubTime(int subtime) {
-		List<Sub> subs = new ArrayList<Sub>();
+	public List<Subject> selectSubsBySubTime(int subtime) {
+		List<Subject> subs = new ArrayList<Subject>();
 		StringBuffer sql = new StringBuffer("");
 		sql.append("SELECT `subject`.subaccuracy,`subject`.subanswer,`subject`.subid,`subject`.subsummary,`subject`.subtext,`subject`.subtime,`subject`.subtype ");
 		sql.append("FROM `subject` ");
 		sql.append("WHERE `subject`.subtime=? ");
+		sql.append("ORDER BY subtime");
 		Connection con = JDBCUtil.getConnection();
 		try {
 			PreparedStatement pst = con.prepareStatement(sql.toString());
 			pst.setInt(1, subtime);
 			ResultSet rs = pst.executeQuery();
 			while (rs.next()) {
-				Sub s = new Sub();
-				s.setSubaccuracy(rs.getString("subaccuracy"));
-				s.setSubanswer(rs.getString("subanswer"));
-				s.setSubid(rs.getInt("subid"));
-				s.setSubsummary(rs.getString("subsummary"));
-				s.setSubtext(rs.getString("subtext"));
-				s.setSubtime(rs.getInt("subtime"));
-				s.setSubtype(rs.getInt("subtype"));
+				Subject s = new Subject();
+				s.setSubAccuracy(rs.getString("subaccuracy"));
+				s.setSubAnswer(rs.getString("subanswer"));
+				s.setSubId(rs.getInt("subid"));
+				s.setSubSummary(rs.getString("subsummary"));
+				s.setSubText(rs.getString("subtext"));
+				s.setSubTime(rs.getInt("subtime"));
+				s.setSubType(rs.getInt("subtype"));
 				subs.add(s);
 			}
 		} catch (SQLException e) {
@@ -102,8 +104,8 @@ public class UserSubDaoImpl implements UserSubDao {
 	 *            出题时间
 	 * @return
 	 */
-	public List<Sub> selectSubsBySubTypeAndSubTime(String sublabel,int subtime) {
-		List<Sub> subs = new ArrayList<Sub>();
+	public List<Subject> selectSubsBySubTypeAndSubTime(String sublabel,int subtime) {
+		List<Subject> subs = new ArrayList<Subject>();
 		StringBuffer sql = new StringBuffer("");
 		sql.append("SELECT `subject`.subaccuracy,`subject`.subanswer,`subject`.subid,`subject`.subsummary,`subject`.subtext,`subject`.subtime,`subject`.subtype ");
 		sql.append("FROM `subject` ");
@@ -111,22 +113,23 @@ public class UserSubDaoImpl implements UserSubDao {
 		sql.append("ON `subject`.subid = subject_s_label.subid ");
 		sql.append("INNER JOIN s_label ");
 		sql.append("ON s_label.s_lid = subject_s_label.s_lid ");
-		sql.append("WHERE `subject`.subtime=? AND s_label.s_lname=?");
+		sql.append("WHERE `subject`.subtime=? AND s_label.s_lname=? ");
+		sql.append("ORDER BY subtime");
 		Connection con = JDBCUtil.getConnection();
 		try {
 			PreparedStatement pst = con.prepareStatement(sql.toString());
-			pst.setString(1, sublabel);
-			pst.setInt(2, subtime);
+			pst.setInt(1, subtime);
+			pst.setString(2, sublabel);
 			ResultSet rs = pst.executeQuery();
 			while (rs.next()) {
-				Sub s = new Sub();
-				s.setSubaccuracy(rs.getString("subaccuracy"));
-				s.setSubanswer(rs.getString("subanswer"));
-				s.setSubid(rs.getInt("subid"));
-				s.setSubsummary(rs.getString("subsummary"));
-				s.setSubtext(rs.getString("subtext"));
-				s.setSubtime(rs.getInt("subtime"));
-				s.setSubtype(rs.getInt("subtype"));
+				Subject s = new Subject();
+				s.setSubAccuracy(rs.getString("subaccuracy"));
+				s.setSubAnswer(rs.getString("subanswer"));
+				s.setSubId(rs.getInt("subid"));
+				s.setSubSummary(rs.getString("subsummary"));
+				s.setSubText(rs.getString("subtext"));
+				s.setSubTime(rs.getInt("subtime"));
+				s.setSubType(rs.getInt("subtype"));
 				subs.add(s);
 			}
 		} catch (SQLException e) {
