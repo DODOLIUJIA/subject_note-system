@@ -34,6 +34,7 @@ public class UserSubDaoImpl implements UserSubDao {
 		sql.append("INNER JOIN s_label ");
 		sql.append("ON s_label.s_lid = subject_s_label.s_lid ");
 		sql.append("WHERE s_label.s_lname=? ");
+		sql.append("ORDER BY subtime");
 		Connection con = JDBCUtil.getConnection();
 		try {
 			PreparedStatement pst = con.prepareStatement(sql.toString());
@@ -70,6 +71,7 @@ public class UserSubDaoImpl implements UserSubDao {
 		sql.append("SELECT `subject`.subaccuracy,`subject`.subanswer,`subject`.subid,`subject`.subsummary,`subject`.subtext,`subject`.subtime,`subject`.subtype ");
 		sql.append("FROM `subject` ");
 		sql.append("WHERE `subject`.subtime=? ");
+		sql.append("ORDER BY subtime");
 		Connection con = JDBCUtil.getConnection();
 		try {
 			PreparedStatement pst = con.prepareStatement(sql.toString());
@@ -111,7 +113,8 @@ public class UserSubDaoImpl implements UserSubDao {
 		sql.append("ON `subject`.subid = subject_s_label.subid ");
 		sql.append("INNER JOIN s_label ");
 		sql.append("ON s_label.s_lid = subject_s_label.s_lid ");
-		sql.append("WHERE `subject`.subtime=? AND s_label.s_lname=?");
+		sql.append("WHERE `subject`.subtime=? AND s_label.s_lname=? ");
+		sql.append("ORDER BY subtime");
 		Connection con = JDBCUtil.getConnection();
 		try {
 			PreparedStatement pst = con.prepareStatement(sql.toString());

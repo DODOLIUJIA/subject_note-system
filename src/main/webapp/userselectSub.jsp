@@ -53,7 +53,8 @@
 					data:{'sublabel':sublabel,'subCrateTime':subCrateTime},
 					success:function(){
 						$("#center").load(link);
-						sublabel = "";
+						
+						subCrateTime = 0;
 					}
 				})
 			
@@ -68,7 +69,7 @@
 				data:{'sublabel':sublabel,'subCrateTime':subCrateTime},
 				success:function(){
 					$("#center").load(link);
-					subCrateTime = 0;
+					sublabel = "";
 				}
 			})
 		})
