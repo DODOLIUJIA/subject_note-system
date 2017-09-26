@@ -170,11 +170,9 @@ public class SubServiceImpl implements SubService {
 	}
 	@Override
 	public void deleteSubBySubId(int subId) {
-		
 		subDao.deleteSubBySubId(subId);
 	}
 	
-
 	@Override
 	public JSONObject getSubjectBySid(int sid) {
 		Subject s = sdao.getSubjectBySId(sid);
@@ -257,5 +255,5 @@ public class SubServiceImpl implements SubService {
 	@Override
 	public Subject getSubjectBySubid(int sid) {
 		return sdao.getSubjectBySId(sid);
-	}
+  }
 }
