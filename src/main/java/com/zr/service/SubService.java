@@ -1,6 +1,8 @@
 package com.zr.service;
 
-import net.sf.json.JSONArray;
+import java.util.List;
+
+import com.zr.model.Subject;
 import net.sf.json.JSONObject;
 
 public interface SubService {
@@ -24,6 +26,13 @@ public interface SubService {
 	public JSONObject getSubjectBySid(int sid);
 	
 	/**
+	 * 通过题目id得到一个题目
+	 * @param sid题目的id
+	 * @return返回一个存有Subject对象
+	 */
+	public Subject getSubjectBySubid(int sid);
+	
+	/**
 	 * 通过sid来更新题目
 	 * @param sid题目ID
 	 * @param subSummary题目描述
@@ -35,4 +44,33 @@ public interface SubService {
 	 */
 	public boolean updateSubject(int sid, String subSummary, String subText, int subType, String subAnswer,
 			int subTime);
+	
+	/**
+	 * 通过页面传来的信息选择题目
+	 * 
+	 * @param sublabel
+	 *            题目标签
+	 * @param subCrateTime
+	 *            出题时间
+	 * @param STcheck
+	 *            题目标签被点击次数
+	 * @param SCTcheck
+	 *            出题时间选项被点击次数
+	 * @return
+	 */
+	public List<Subject> selectSubsByMsg(String sublabel, int subCrateTime);
+
+	/**
+	 * 得到所有的题目标签
+	 * 
+	 * @return
+	 */
+	public List<Subject> selectSubLabel();
+
+	/**
+	 * 得到所有题目的不同的出题时间
+	 * 
+	 * @return
+	 */
+	public List<Subject> selectSubTime();
 }
