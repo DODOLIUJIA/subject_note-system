@@ -1,61 +1,82 @@
 package com.zr.model;
 
-/**
- * 题目类
- * @author 樊庆珂
- * @date 2017/9/21
- */
 public class Subject {
 
-	private int subId;//题目ID
-	private String subSummary;//题目描述
-	private String subText;//题目内容
-	private int subType;//题目类型
-	private String subAccuracy;//题目准确率
-	private String subAnswer;//题目答案
-	private int subTime;//题目创建的年份
+	private String s_label;
+	private int subId;// 题目ID
+	private String subSummary;// 题目描述
+	private String subText;// 题目内容
+	// 1.简答题，2.填空题，3.单选题，4.多选题
+	private int subType;// 题目类型
+	private String subAccuracy;// 题目准确率
+	private String subAnswer;// 题目答案
+	private int subTime;// 题目创建的年份
+
+	public String getS_label() {
+		return s_label;
+	}
+
+	public void setS_label(String s_label) {
+		this.s_label = s_label;
+	}
+
 	public int getSubId() {
 		return subId;
 	}
+
 	public void setSubId(int subId) {
 		this.subId = subId;
 	}
+
 	public String getSubSummary() {
 		return subSummary;
 	}
+
 	public void setSubSummary(String subSummary) {
 		this.subSummary = subSummary;
 	}
+
 	public String getSubText() {
 		return subText;
 	}
+
 	public void setSubText(String subText) {
 		this.subText = subText;
 	}
+
 	public int getSubType() {
 		return subType;
 	}
+
 	public void setSubType(int subType) {
 		this.subType = subType;
 	}
+
 	public String getSubAccuracy() {
 		return subAccuracy;
 	}
+
 	public void setSubAccuracy(String subAccuracy) {
 		this.subAccuracy = subAccuracy;
 	}
+
 	public String getSubAnswer() {
 		return subAnswer;
 	}
+
 	public void setSubAnswer(String subAnswer) {
 		this.subAnswer = subAnswer;
 	}
+
 	public int getSubTime() {
 		return subTime;
 	}
+
 	public void setSubTime(int subTime) {
 		this.subTime = subTime;
 	}
+
+  
 	/**
 	 * 题目的无参构造方法
 	 */
@@ -83,8 +104,4 @@ public class Subject {
 		this.subAnswer = subAnswer;
 		this.subTime = subTime;
 	}
-	
-	
-	
-	
 }

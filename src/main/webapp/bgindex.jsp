@@ -182,6 +182,7 @@
 	});
 </script>
 
+
 </head>
 <body class="easyui-layout" style="overflow-y: hidden" scroll="no">
 	<noscript>
@@ -199,14 +200,14 @@
 			${username} <a href="#" id="editpass">修改密码</a> <a href="#"
 			id="loginOut">安全退出</a>
 		</span> <span style="padding-left: 10px; font-size: 16px;"><img
-			src="<%=basePath%>/statics/zxlImgs/blocks.gif" width="20" height="20"
-			align="absmiddle" /> 千层在线学习后台</span>
+			src="<%=basePath%>/statics/zxlImgs/blocks.gif" width="20" height="20" align="absmiddle" />
+			千层在线学习后台</span>
+
 	</div>
 	<div region="south" split="true"
 		style="height: 30px; background: #D2E0F2;">
 		<div class="footer">
-			<span style="font-family: arial;">Copyright &copy;2017
-				www.qianceng.com</span>
+			<span style="font-family: arial;">Copyright &copy;2017 www.qianceng.com</span>
 		</div>
 	</div>
 	<div region="west" hide="true" split="true" title="导航菜单"
@@ -218,8 +219,7 @@
 	<div id="mainPanle" region="center"
 		style="background: #eee; overflow-y: hidden">
 		<div id="tabs" class="easyui-tabs" fit="true" border="false">
-			<div title="欢迎使用"
-				style="padding: 20px; overflow: hidden; color: red;">
+			<div title="欢迎使用" style="padding: 20px; overflow: hidden; color: red;">
 				<h1>欢迎使用千层在线学习后台管理系统！</h1>
 			</div>
 		</div>
@@ -245,8 +245,10 @@
 			<div region="south" border="false"
 				style="text-align: right; height: 30px; line-height: 30px;">
 				<a id="btnEp" class="easyui-linkbutton" icon="icon-ok"
-					href="javascript:void(0)">确定</a> <a id="btnCancel"
-					class="easyui-linkbutton" icon="icon-cancel"
+
+					href="javascript:void(0)">确定</a> 
+					<a id="btnCancel" class="easyui-linkbutton" icon="icon-cancel"
+
 					href="javascript:void(0)">取消</a>
 			</div>
 		</div>
