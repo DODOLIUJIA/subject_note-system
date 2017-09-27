@@ -44,6 +44,7 @@ public class FunctionDaoImpl implements FunctionDao{
 				func.setFuncname(rs.getString("funcname"));
 				func.setFuncpid(rs.getInt("funcpid"));
 				func.setFuncstate(rs.getString("funcstate"));
+				func.setFunccontnet(rs.getString("funccontent"));
 				funcs.add(func);
 			}
 		} catch (SQLException e) {

@@ -240,6 +240,7 @@ public class SubServiceImpl implements SubService {
 	public List<Subject> selectAllSub(int loadtimms) {
 		List<Subject> Subs = subDao.getSubs(loadtimms*4, 4);
 		return Subs;
+	}
 
 	public boolean updateSubject(int sid, String subSummary, String subText, int subType, String subAnswer,
 			int subTime) {

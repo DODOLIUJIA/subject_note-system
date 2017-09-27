@@ -46,7 +46,7 @@ public class GetManagerFuncsAvtion extends HttpServlet {
 		response.setCharacterEncoding("utf8");
 		HttpSession session = request.getSession();
 		String uname = (String)session.getAttribute("uname");
-		JSONArray funcs = mfs.selectFunctionsByUname("wsx", 0);
+		JSONArray funcs = mfs.selectFunctionsByUname("zzz", 0);
 		JSONObject Func = new JSONObject();
 		Func.put("menus", funcs);
 		System.out.println(Func.toString());

@@ -1,5 +1,6 @@
 package com.zr.service;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 public interface SubLabelService {
@@ -10,6 +11,8 @@ public interface SubLabelService {
 	 * @return 题目标签
 	 */
 	public JSONObject getSubLabelsByPageAndPagesize(int page, int pageSize);
+	
+	public JSONArray getSubLabelsCount();
 
 	/**
 	 * 添加新的标签并且判断是否已存在

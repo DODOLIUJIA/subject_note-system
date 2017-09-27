@@ -131,17 +131,6 @@ $(function() {
 </head>
 <body>
 	<div class="container-fluid">
-		<div class="row">
-			<div class="col-md-3"></div>
-			<div class="col-md-4">
-				<input type="text" class="form-control" placeholder="关键字">
-			</div>
-			<div class="col-md-2">
-				<a class="btn btn-default" href="#" role="button">搜索</a>
-			</div>
-			<div class="col-md-3"></div>
-		</div>
-	</div>
 	<div><ul id="Subs" class="thumbnails">
 	</ul></div>
 	<div id="pullUp"><img src="statics/images/loading.gif" ></div>

@@ -10,30 +10,39 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.annotation.WebFilter;
+import javax.servlet.annotation.WebInitParam;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+/**
+ * 
+ * @author zhang
+ *
+ */
+@WebFilter(value = "/node.jsp", initParams = {
+		@WebInitParam(name = "notCheckURLList", value = ""),
+		@WebInitParam(name = "redirectURL", value = "/login.jsp"), })
 public class LoginFilter implements Filter {  
   
 	protected FilterConfig filterConfig = null; 
 	 private String redirectURL = null; 
 	 private List notCheckURLList = new ArrayList();  
-	 private String sessionKey = null;
-
+	 
 	 public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException 
 	 { 
 	  HttpServletRequest request = (HttpServletRequest) servletRequest; 
 	  HttpServletResponse response = (HttpServletResponse) servletResponse;
 
 	  HttpSession session = request.getSession(); 
-	 
-	  if(sessionKey == null) 
+	  String sessionKey = (String)session.getAttribute("uname");
+	  if(sessionKey != null) 
 	  { 
 	   filterChain.doFilter(request, response); 
 	   return; 
 	  } 
-	  if((!checkRequestURIIntNotFilterList(request)) && session.getAttribute(sessionKey) == null) 
+	  if((!checkRequestURIIntNotFilterList(request)) && session.getAttribute("uname") == null) 
 	  { 
 	   response.sendRedirect(request.getContextPath() + redirectURL); 
 	   return; 
@@ -55,8 +64,7 @@ public class LoginFilter implements Filter {
 	 public void init(FilterConfig filterConfig) throws ServletException 
 	 { 
 	  this.filterConfig = filterConfig; 
-	  redirectURL = filterConfig.getInitParameter("redirectURL"); 
-	  sessionKey = filterConfig.getInitParameter("checkSessionKey");	 
+	  redirectURL = filterConfig.getInitParameter("redirectURL"); 	 
 	  String notCheckURLListStr = filterConfig.getInitParameter("notCheckURLList");
 	  if(notCheckURLListStr != null) 
 	  { 
