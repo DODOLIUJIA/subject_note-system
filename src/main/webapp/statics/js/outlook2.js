@@ -1,34 +1,42 @@
-﻿$(function(){
-	InitLeftMenu();
-	tabClose();
-	tabCloseEven();
+﻿
+$(function(){
+	$.ajax({
+		   url : 'getManagerFuncs',
+		   type : 'post',
+		   dataType : 'json',
+		   success : function(data){
+			  var _menus = data;	 
+			  InitLeftMenu(_menus);
+				tabClose();
+				tabCloseEven();
+		   }
+	   })
 })
 
 //初始化左侧
-function InitLeftMenu() {
+function InitLeftMenu(_menus) {
 	$("#nav").accordion({animate:false});
     $.each(_menus.menus, function(i, n) {
-		var menulist ='';
-		menulist +='<ul>';
-        $.each(n.menus, function(j, o) {
-			menulist += '<li><div><a ref="'+o.menuid+'" href="#" rel="' + o.url + '" ><span class="icon '+o.icon+'" >&nbsp;</span><span class="nav">' + o.menuname + '</span></a></div></li> ';
-        })
+    	var menulist ='';
+    	menulist +='<ul>';
+    	$.each(n.menus, function(j,o) {
+    		console.log(o.funcname);
+		menulist += '<li><div><a ref="'+o.funcid+'" href="#" rel="' + o.funccontnet + '" ><span class="icon '+o.icon+'" >&nbsp;</span><span class="nav">' + o.funcname + '</span></a></div></li> ';
+    	})
 		menulist += '</ul>';
-
 		$('#nav').accordion('add', {
-            title: n.menuname,
+            title: n.funcname,
             content: menulist,
             iconCls: 'icon ' + n.icon
         });
-
     });
-
+	
 	$('.easyui-accordion li a').click(function(){
 		var tabTitle = $(this).children('.nav').text();
 
 		var url = $(this).attr("rel");
 		var menuid = $(this).attr("ref");
-		var icon = getIcon(menuid,icon);
+		var icon = getIcon(funcid,icon);
 
 		addTab(tabTitle,url,icon);
 		$('.easyui-accordion li div').removeClass("selected");
