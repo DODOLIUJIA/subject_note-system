@@ -9,9 +9,11 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="${basePath}statics/bootstrap/css/bootstrap.min.css">
 <script type="text/javascript" src="${basePath}statics/js/jquery-1.9.1.js"></script>
 <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js "></script>
+<title>千层在线学习</title>
 <style>
 		body{background-color: #eee;}
        .font{position: absolute;z-index: 1;width: 100%;text-align: center;color: #fff;margin-top:2%;}
@@ -26,7 +28,6 @@
     <script>
         $(function(){
         	$("#content").load("index_content.jsp");
-        	 
             var timer;
             $(".userfun").mouseover(function () {
                 clearTimeout(timer);
@@ -50,7 +51,6 @@
             $(".dropdown-menu li a").mouseout(function(){
                 $(this).css("color","white");
             });
-          
         });
 
     </script>

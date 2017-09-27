@@ -15,47 +15,48 @@
 <link rel="stylesheet"
 	href=" ${basePath}statics/bootstrap/css/bootstrap.min.css">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 引入主题样式 -->
+<link href="${basePath}statics/themes/gray/easyui.css" rel="stylesheet">
+<!-- 引入图标的样式 -->
+<link href="${basePath}statics/themes/icon.css" rel="stylesheet">
+<!-- 先引入jquery -->
 <script type="text/javascript" src="${basePath}statics/js/jquery-1.7.2.min.js"></script>
-<style type="text/css">
-#head1{
-    margin-top:6%;
-}
-  #left{      
-    }
-.li {
-	display: flock;
-	background: blanchedalmond;
-	margin-right: 50px;
-	padding-top:10px;
-	margin-top:20px;
-	display: block;
-	width: 100%;
-	height: 40px;
-}
-.type{
-     cursor:pointer;
-}
-#ul li:hover {
-	background: #F5F5DC;
-}
+<!-- 引入easyui -->
+<script type="text/javascript" src="${basePath}statics/js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="${basePath}statics/js/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="${basePath}statics/js/easyui-lang-zh_CN.js"></script>
+<script type="text/javascript" src="${basePath}statics/ckeditor/ckeditor.js"></script>
 
-#ul a {	
-	font-family: "微软雅黑";
-	text-decoration : none;
-	text-align: center;
+<style type="text/css">
+ 
+#head{
+    height: 60px;
 }
-#ul a:hover {
-	color: black;
-	font-size: 15px;
-}
-#img{
-   width:1020px;
-   height:500px;
-}
-#center{  
-   
-}
-body{background-color: #eee;}
+     #back{
+        float: left;
+        margin-top:20px;
+        margin-left: 30px;
+      }
+      #save{
+         float: right;
+         margin-top:20px;
+         margin-right: 30px;
+      }
+      #tab{
+          margin-left: 30px;
+      }
+      #tit{
+         text-align: center;
+      }
+      #title{
+         width:250px;
+         text-align: center;
+         font-size: 25px;
+      }
+      #biao{
+         font-size: 25px;
+      }
+         body{background-color: #eee;}
        .font{position: absolute;z-index: 1;width: 100%;text-align: center;color: #fff;margin-top:2%;}
         .trasation-font{width: 100%;text-align: center;margin-top: 4%;}
         .card {border: 1px solid #aaa; width: 29%; height: 300px; padding: 0px; margin: 0px 23px;}
@@ -66,64 +67,8 @@ body{background-color: #eee;}
         .col-md-4 p a{color: #fff;}
 </style>
 </head>
-<script type="text/javascript">
-      $(function(){  
- 		  $.ajax({
- 	    		url:'${basePath}showtabel',
- 	    		data:'',
- 	    		  type:'post',
- 		    	  dataType:'json',
- 		    	  success:function(data){
- 		    		  
- 		    	  }
- 	    	 });
- 		 var timer;
-         $(".userfun").mouseover(function () {
-             clearTimeout(timer); 
-             $(".dropdown-menu").show();
-             $("#menu").hide();
-         });
-         $(".userfun").mouseout(function () {
-             timer = setTimeout(function () {
-                 $(".dropdown-menu").hide();
-             },500);
-         });
-         $(".dropdown-menu").mouseover(function () {
-             clearTimeout(timer);
-         });
-         $(".dropdown-menu").mouseout(function () {
-         	 timer = setTimeout(function () {
-         		 $(".dropdown-menu").hide();
-              },100);  
-         });
-         $(".dropdown-menu li a").mouseover(function(){
-             $(this).css("color","black");
-         });
-         $(".dropdown-menu li a").mouseout(function(){
-             $(this).css("color","white");
-         });
-	        $("#search").keydown(function(){
-	        	  
-	        });
-    	 $("#li a").click(function(){
-    		// console.log(1111);
-    		  var notetabel =$(this).html() ;
-    	 		  $.ajax({
-    	 	    		url:'${basePath}show',
-    	 	    		data:{'n_lname':notetabel},
-    	 	    		  type:'post',
-    	 		    	  dataType:'json',
-    	 		    	  success:function(data){     	 		    		  
-    	 		    		 $("#center").load('shownote.jsp');    	 		    		 
-    	 		    	  }
-    	 	    	 }); 
-    	 		 
-    	 }); 
-    	
-     })
-</script>
 <body>
-   <!-- 导航栏 -->
+<!-- 导航栏 -->
 <nav class="navbar navbar-inverse navbar-fixed-top" style="background-color: #222;font-size: 20px;height: 70px;padding-top: 10px;">
     <div class="container-fluid" style="margin-left: 10%;margin-right: 10%;">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -166,23 +111,23 @@ body{background-color: #eee;}
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
 </nav>
-
-     
-	<div id="head1"  class="container" style="height:500px;">
-		<div class="row">
-			<div id="left" class="col-md-2">
-					<ul  id="ul" class="list-group">
-						<c:forEach items="${sessionScope.notelabels}" var="notelabel">
-							<li  id="li" class="list-group-item"><a class="type" name="notelabel"  target="shownote.jsp " >${notelabel.n_lname}</a></li>
-						</c:forEach>						
-					</ul>	
-			</div>
-			<div id="center" class="col-md-10" >	
-			      	   <img id="img" alt="" src="${basePath}statics/zxlImgs/lj.jpg">
- 			</div>	
-		</div>
-	</div>
-	<!-- 尾部 -->
+<div class="container"style="height:600px ; margin-top: 6%;">
+     <div id="head">
+             <button class="btn btn-default " id="back">返回</button>
+             <button class="btn btn-default " id="save">保存</button>
+     </div>
+    <div id="frame">
+       <div id="tab">
+                      类型：<input name="tabel" id="tabel" value="${sessionScope.type}">
+                                                         
+        </div>
+         <div id="tit"><span id="biao">标题：</span> <input id="title" value="${sessionScope.title}">  </div>
+        <div>
+            <textarea id="editor">${sessionScope.text}</textarea>
+        </div>
+    </div>
+    </div>
+     <!-- 尾部 -->
 <footer class="footer row">
     <div class="col-md-4">
         <p>千层网，你的必备神器</p>
@@ -201,4 +146,87 @@ body{background-color: #eee;}
     </div>
 </footer>
 </body>
+<script type="text/javascript">
+ $(function(){
+	 var timer;
+     $(".userfun").mouseover(function () {
+         clearTimeout(timer); 
+         $(".dropdown-menu").show();
+         $("#menu").hide();
+     });
+     $(".userfun").mouseout(function () {
+         timer = setTimeout(function () {
+             $(".dropdown-menu").hide();
+         },500);
+     });
+     $(".dropdown-menu").mouseover(function () {
+         clearTimeout(timer);
+     });
+     $(".dropdown-menu").mouseout(function () {
+     	 timer = setTimeout(function () {
+     		 $(".dropdown-menu").hide();
+          },100);  
+     });
+     $(".dropdown-menu li a").mouseover(function(){
+         $(this).css("color","black");
+     });
+     $(".dropdown-menu li a").mouseout(function(){
+         $(this).css("color","white");
+     });
+        $("#search").keydown(function(){
+        	  
+        });
+	$("#back").click(function(){
+		location.href='looknote.jsp';
+	});
+	$("#save").click(function(){
+		var type = $("#tabel").combobox('getValue');
+		//console.log(type)
+		var title = $("#title").val();
+		var text = getContent();	
+		//console.log(title);
+		$.ajax({
+			url:'${basePath}updatenote',
+			data:{"type":type,"notetext":text,"title":title},
+    		type : 'post',
+			dataType : 'json',
+			success:function(data){
+				if(data.msg==1&&data.msg1==1){
+					location.href = "note.jsp";
+				}else{
+					location.href = "looknote.jsp";
+				}
+			}
+		});
+	});
+ })
+  CKEDITOR.replace('editor',{
+	       	language:'zh-cn',
+	       	allowedContent:true,
+	       	removePlugins:'elementspath',
+	       	resize_enabled:false,
+	       	height:'300px',
+	       	filebrowserImageUploadUrl:'${basePath}uploadImg?fileType=image&workType=node'
+	       });
+	       function setContent(){
+	       	CKEDITOR.instances.editor.setData('');
+	       	
+	       }
+	       function getContent(){
+	       	var content = CKEDITOR.instances.editor.getData();
+	     //  console.log(content);
+	       return content;
+	       }
+ $("#tabel").combobox({
+	  url:'${basePath}gettabel',
+       method : "post", 
+	    mode:'local',
+	    width:160,
+	    valueField: 'n_lid',  
+	    textField: 'n_lname', 
+	    editable:false,
+	    onSelect: function(rec){      
+	  },
+}); 
+</script>
 </html>

@@ -76,7 +76,7 @@ body{background-color: #eee;}
 			    sublabel = $(this).html();
 				var link = $(this).attr('target');
 				$.ajax({
-					url:'selectSub',
+					url:'getSubMsg',
 					type:'post',
 					data:{'sublabel':sublabel,'subCrateTime':subCrateTime},
 					success:function(){
@@ -90,7 +90,7 @@ body{background-color: #eee;}
 		        subCrateTime = $(this).html();
 			var link = $(this).attr('target');
 			$.ajax({
-				url:'selectSub',
+				url:'getSubMsg',
 				type:'post',
 				data:{'sublabel':sublabel,'subCrateTime':subCrateTime},
 				success:function(){

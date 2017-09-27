@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.zr.service.NoteService;
 import com.zr.service.impl.NoteServiceimpl;
@@ -26,13 +27,17 @@ public class UpdateNoteAction extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf8");
 		response.setCharacterEncoding("utf8");
-		String lid = request.getParameter("type");
+		HttpSession session = request.getSession();
+		int noteid = (int) session.getAttribute("noteid");
+		String lname = request.getParameter("type");
+		System.out.println(lname);
 		String title = request.getParameter("title");
 		String notetext = request.getParameter("notetext");
-		int n_lid = Integer.parseInt(lid);
-		int noteid = ns.getnoteid(title);
+		//int n_lid = Integer.parseInt(lid);
+		//int noteid = ns.getnoteid(title);
+		int n_lid = ns.getlid(lname);
 		int i = ns.updatelid(n_lid, noteid);
-		int j = ns.updatetext(notetext, noteid);
+		int j = ns.updatetext(notetext,title, noteid);
 		  JSONObject json = new JSONObject();
 	      PrintWriter pw = response.getWriter();
 	      json.put("msg", i);
