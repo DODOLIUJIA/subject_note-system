@@ -7,7 +7,6 @@ package com.zr.model;
  * @date 2017/9/21
  */
 public class Subject {
-
 	private String s_label;
 	private int subId;// 题目ID
 	private String subSummary;// 题目描述
@@ -17,14 +16,6 @@ public class Subject {
 	private String subAccuracy;// 题目准确率
 	private String subAnswer;// 题目答案
 	private int subTime;// 题目创建的年份
-
-	public String getS_label() {
-		return s_label;
-	}
-
-	public void setS_label(String s_label) {
-		this.s_label = s_label;
-	}
 
 	public int getSubId() {
 		return subId;
@@ -109,5 +100,13 @@ public class Subject {
 		this.subAccuracy = subAccuracy;
 		this.subAnswer = subAnswer;
 		this.subTime = subTime;
+	}
+
+	public String getS_label() {
+		return s_label;
+	}
+
+	public void setS_label(String s_label) {
+		this.s_label = s_label;
 	}
 }
