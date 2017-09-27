@@ -91,7 +91,7 @@ $(function() {
 					            +data.Subs[i].subSummary+
 					            "</p><p><a class='btn btn-primary' href='SubDetail.jsp?sid="+data.Subs[i].subId+"'>浏览</a></p></div></div>");
 				}
-			} else if(data.data.length < 4){
+			} else if(data.data.length < 5){
 				$('#pullUp').text('已全部加载');
 			}
 		}
