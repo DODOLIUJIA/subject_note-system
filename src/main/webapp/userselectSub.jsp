@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
@@ -34,6 +35,10 @@
 	text-align: center;
 	margin: 45px 0 10px;
 }
+.nav-sidebar{
+cursor:pointer;
+}
+
 </style>
 
 </head>
@@ -43,18 +48,19 @@
 		var sublabel ="";
 		//出题时间
 		var subCrateTime=0;
-		//设置题目标签点击事件
+		//设置题目标签点击事件		
 		$("[name='sublabel']").click(function(){
+			if(subCrateTime!=0){
+				subCrateTime=0;
+			}
 			    sublabel = $(this).html();
 				var link = $(this).attr('target');
 				$.ajax({
-					url:'selectsub',
+					url:'getSubMsg',
 					type:'post',
 					data:{'sublabel':sublabel,'subCrateTime':subCrateTime},
-					success:function(){
-						$("#center").load(link);
-						
-						subCrateTime = 0;
+					success:function(data){
+							$("#center").load(link);
 					}
 				})
 			
@@ -64,16 +70,23 @@
 		        subCrateTime = $(this).html();
 			var link = $(this).attr('target');
 			$.ajax({
-				url:'selectsub',
+				url:'getSubMsg',
 				type:'post',
 				data:{'sublabel':sublabel,'subCrateTime':subCrateTime},
-				success:function(){
-					$("#center").load(link);
-					sublabel = "";
+				success:function(data){
+
+						$("#center").load(link);
 				}
 			})
 		})
 
+		//展示题目标签和出题时间
+		$.ajax({
+			url:'showLabelAndTime',
+			type:'post',
+			success:function(){
+			}
+		})
 	});
 </script>
 
@@ -96,10 +109,9 @@
 						<div id="subTypeChoose" class="accordion-body collapse in">
 							<div class="accordion-inner">
 								<ul class="nav nav-sidebar">
-									<li><a name="sublabel" target="browseSub.jsp">Java</a></li>
-									<li><a name="sublabel" target="browseSub.jsp">c/c++</a></li>
-									<li><a name="sublabel" target="browseSub.jsp">c#</a></li>
-									<li><a name="sublabel" target="browseSub.jsp">python</a></li>
+								<c:forEach var="label" items="${labels}" >
+								<li><a name="sublabel" target="browseSub.jsp">${label.s_lname}</a></li>
+								</c:forEach>
 								</ul>
 							</div>
 						</div>
@@ -117,11 +129,9 @@
 						<div id="subCrateTime" class="accordion-body collapse in">
 							<div class="accordion-inner">
 								<ul class="nav nav-sidebar">
-									<li><a name="subCrateTime" target="browseSub.jsp">2010</a></li>
-									<li><a name="subCrateTime" target="browseSub.jsp">2011</a></li>
-									<li><a name="subCrateTime" target="browseSub.jsp">2012</a></li>
-									<li><a name="subCrateTime" target="browseSub.jsp">2013</a></li>
-									<li><a name="subCrateTime" target="browseSub.jsp">2017</a></li>
+								<c:forEach var="time" items="${times}" >
+								<li><a name="subCrateTime" target="browseSub.jsp">${time.subTime}</a></li>
+								</c:forEach>
 								</ul>
 							</div>
 						</div>

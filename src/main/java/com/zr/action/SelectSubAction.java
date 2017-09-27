@@ -2,6 +2,7 @@ package com.zr.action;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -21,7 +22,7 @@ import net.sf.json.JSONObject;
  * 吴尚鑫
  * Servlet implementation class SelectSubAction
  */
-@WebServlet("/selectsub")
+@WebServlet("/selectSub")
 public class SelectSubAction extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	 SubService sbs = new SubServiceImpl();
@@ -48,15 +49,19 @@ public class SelectSubAction extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		request.setCharacterEncoding("utf8");
+		response.setCharacterEncoding("utf8");
 		HttpSession session = request.getSession();
-		String sublabel = request.getParameter("sublabel");
-		int subCrateTime= Integer.parseInt(request.getParameter("subCrateTime"));
-		List<Subject> subs = sbs.selectSubsByMsg(sublabel, subCrateTime);
+		String sublabel = (String) session.getAttribute("sublabel");
+		int subCrateTime = (int) session.getAttribute("subCrateTime");
+		int loadtimms = Integer.parseInt(request.getParameter("loadtimms"));
 		System.out.println("sublabel = "+sublabel);
 		System.out.println("subCrateTime = "+subCrateTime);
-		session.setAttribute("Subs", subs);
-		JSONObject j = new JSONObject();
+		List<Subject> subs = new ArrayList<Subject>();
+		subs = sbs.selectSubsByMsg(sublabel, subCrateTime, loadtimms);
 		PrintWriter pw = response.getWriter();
+		JSONObject j = new JSONObject();
+		j.put("Subs", subs);
 		pw.write(j.toString());
 	}
 
