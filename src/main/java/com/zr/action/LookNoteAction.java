@@ -32,7 +32,7 @@ public class LookNoteAction extends HttpServlet {
 	   HttpSession session = request.getSession();
 	   session.setAttribute("title", title);
 	   session.setAttribute("text", text);
-	   response.sendRedirect("liujia/looknote.jsp");
+	   response.sendRedirect("looknote.jsp");
 	   //request.getRequestDispatcher("looknote.jsp").forward(request, response);
 	}
 

@@ -17,6 +17,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script type="text/javascript" src="${basePath}statics/js/jquery-1.7.2.min.js"></script>
 <style type="text/css">
+#head{
+    height:160px;
+    border:1px solid black;
+}
   #left{
           
 	      
@@ -71,7 +75,7 @@
      })
 </script>
 <body>
-    
+    <div id="head"></div>
 	<div class="container-fluid">
 		<div class="row">
 			<div id="left" class="col-md-2">

@@ -17,9 +17,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script type="text/javascript" src="${basePath}statics/js/jquery-1.7.2.min.js"></script>
 <style type="text/css">
-  #left{
-          
-	      
+#head1{
+    margin-top:6%;
+}
+  #left{      
     }
 .li {
 	display: flock;
@@ -91,6 +92,7 @@ body{background-color: #eee;}
     		// console.log(1111);
     		 var link = $(this).find('a').attr("target");
     		 $("#center").load(link);
+    		 
     	 });
     	 $.ajax({
     		url:'${basePath}showtabel',
@@ -143,21 +145,21 @@ body{background-color: #eee;}
     </div><!-- /.container-fluid -->
 </nav>
 
-
-	<div class="container-fluid" style="height:500px;">
+     
+	<div id="head1"  class="container-fluid" style="height:500px;">
 		<div class="row">
 			<div id="left" class="col-md-2">
 					<ul  id="ul" class="list-group">
 						<c:forEach items="${sessionScope.labels}" var="label">
-							<li class="list-group-item"><a class="type" href='${basePath}show?id=${label.n_lid}'>${label.n_lname}</a></li>
+							<li  class="list-group-item"><a class="type" target="shownote.jsp" href='${basePath}show?id=${label.n_lid}'>${label.n_lname}</a></li>
 						</c:forEach>
 						
 					</ul>
 				
 			</div>
 			<div id="center" class="col-md-10">
-			
-			</div>
+			  <%--  <jsp:include   page="shownote.jsp" flush="true"/>  --%>
+ 			</div>
 			
 		</div>
 	</div>

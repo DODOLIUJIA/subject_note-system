@@ -28,7 +28,7 @@ public class ShowAction extends HttpServlet {
 		String lname = ns.getN_lname(n_lid);
 		HttpSession session = request.getSession();
 		session.setAttribute("n_lname", lname);
-		 response.sendRedirect("liujia/shownote.jsp");
+		 response.sendRedirect("shownote.jsp");
 	}
 
 }

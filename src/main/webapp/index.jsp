@@ -66,7 +66,7 @@
             <ul class="nav navbar-nav">
                 <li class="active"><a href="#">首页<span class="sr-only">(current)</span></a></li>
                 <li><a href="#">题库</a></li>
-                <li><a href="#">我的笔记</a></li>
+                <li><a href="note.jsp">我的笔记</a></li>
             </ul>
             <form class="navbar-form navbar-left">
                 <div class="form-group">
