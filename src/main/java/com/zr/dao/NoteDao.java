@@ -81,7 +81,7 @@ public interface NoteDao {
 	 * @param noteid
 	 * @return
 	 */
-	public int updatetext(String notetext,int noteid);
+	public int updatetext(String notetext,String notetitle,int noteid);
 	/**
 	 * 获取标签名
 	 * @param n_lid

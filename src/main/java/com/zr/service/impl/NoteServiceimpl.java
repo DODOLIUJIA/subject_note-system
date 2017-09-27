@@ -80,8 +80,8 @@ public class NoteServiceimpl implements NoteService {
 	}
 
 	@Override
-	public int updatetext(String notetext,int noteid) {
-		int i = ndao.updatetext(notetext, noteid);
+	public int updatetext(String notetext,String notetitle,int noteid) {
+		int i = ndao.updatetext(notetext, notetitle,noteid);
 		return i;
 	}
 

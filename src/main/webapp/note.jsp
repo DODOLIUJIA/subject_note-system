@@ -27,7 +27,6 @@
 	background: blanchedalmond;
 	margin-right: 50px;
 	padding-top:10px;
-	text-align: center;
 	margin-top:20px;
 	display: block;
 	width: 100%;
@@ -43,13 +42,18 @@
 #ul a {	
 	font-family: "微软雅黑";
 	text-decoration : none;
+	text-align: center;
 }
 #ul a:hover {
 	color: black;
 	font-size: 15px;
-	
 }
-#center{   
+#img{
+   width:1020px;
+   height:500px;
+}
+#center{  
+   
 }
 body{background-color: #eee;}
        .font{position: absolute;z-index: 1;width: 100%;text-align: center;color: #fff;margin-top:2%;}
@@ -63,82 +67,100 @@ body{background-color: #eee;}
 </style>
 </head>
 <script type="text/javascript">
-      $(function(){
-    	  var timer;
-          $(".userfun").mouseover(function () {
-              clearTimeout(timer);
-              
-              $(".dropdown-menu").show();
-              $(".menu").hide();
-          });
-          $(".userfun").mouseout(function () {
-              timer = setTimeout(function () {
-                  $(".dropdown-menu").hide();
-              },100);
-          });
-          $(".dropdown-menu").mouseover(function () {
-              clearTimeout(timer);
-          });
-          $(".dropdown-menu").click(function () {
-              $(".dropdown-menu").hide();
-          });
-          $(".dropdown-menu li a").mouseover(function(){
-              $(this).css("color","black");
-          });
-          $(".dropdown-menu li a").mouseout(function(){
-              $(this).css("color","white");
-          });
-    	 $("li").click(function(){
+      $(function(){  
+ 		  $.ajax({
+ 	    		url:'${basePath}showtabel',
+ 	    		data:'',
+ 	    		  type:'post',
+ 		    	  dataType:'json',
+ 		    	  success:function(data){
+ 		    		  
+ 		    	  }
+ 	    	 });
+ 		 var timer;
+         $(".userfun").mouseover(function () {
+             clearTimeout(timer); 
+             $(".dropdown-menu").show();
+             $("#menu").hide();
+         });
+         $(".userfun").mouseout(function () {
+             timer = setTimeout(function () {
+                 $(".dropdown-menu").hide();
+             },500);
+         });
+         $(".dropdown-menu").mouseover(function () {
+             clearTimeout(timer);
+         });
+         $(".dropdown-menu").mouseout(function () {
+         	 timer = setTimeout(function () {
+         		 $(".dropdown-menu").hide();
+              },100);  
+         });
+         $(".dropdown-menu li a").mouseover(function(){
+             $(this).css("color","black");
+         });
+         $(".dropdown-menu li a").mouseout(function(){
+             $(this).css("color","white");
+         });
+	        $("#search").keydown(function(){
+	        	  
+	        });
+    	 $("#li a").click(function(){
     		// console.log(1111);
-    		 var link = $(this).find('a').attr("target");
-    		 $("#center").load(link);
-    		 
-    	 });
-    	 $.ajax({
-    		url:'${basePath}showtabel',
-    		data:'',
-    		  type:'post',
-	    	  dataType:'json',
-	    	  success:function(data){
-	    		  
-	    	  }
-    	 });
+    		  var notetabel =$(this).html() ;
+    	 		  $.ajax({
+    	 	    		url:'${basePath}show',
+    	 	    		data:{'n_lname':notetabel},
+    	 	    		  type:'post',
+    	 		    	  dataType:'json',
+    	 		    	  success:function(data){     	 		    		  
+    	 		    		 $("#center").load('shownote.jsp');    	 		    		 
+    	 		    	  }
+    	 	    	 }); 
+    	 		 
+    	 }); 
+    	
      })
 </script>
 <body>
-    <!-- 导航栏 -->
+   <!-- 导航栏 -->
 <nav class="navbar navbar-inverse navbar-fixed-top" style="background-color: #222;font-size: 20px;height: 70px;padding-top: 10px;">
     <div class="container-fluid" style="margin-left: 10%;margin-right: 10%;">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header" >
-        <img class="navbar-brand" src="<%=basePath%>/statics/zxlImgs/logo.jpg" style="padding: 0px;"/>
+        	<img class="navbar-brand" src="<%=basePath%>statics/zxlImgs/logo.jpg" style="padding: 0px;"/>
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li id="index"><a href="index.jsp">首页</a></li>
-                <li id="sub" ><a href="userselectSub.jsp">题库</a></li>
-                <li id="note" class="active"><a href="note.jsp">我的笔记</a></li>
+                <li id="index" class="active"><a href="index.jsp">首页</a></li>
+                <li id="sub"><a href="userselectSub.jsp">题库</a></li>
+                <li id="note" ><a href="note.jsp">我的笔记</a></li>
             </ul>
-            <form class="navbar-form navbar-left">
+            <form id="form" class="navbar-form navbar-left">
                 <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Search...">
+                    <input id="search" type="text" class="form-control" placeholder="Search...">
                 </div>
                 <span class="glyphicon glyphicon-search" style="margin-left: -15%;"></span>
             </form>
             <ul class="nav navbar-nav navbar-right">
-                <a  href="javascript:void(0)" class="userfun"
-                    style="padding: 0px;"aria-expanded="false" >
-                  <%--  <c:if test="${uname} == null"> --%>
-                   		<img src="<%=basePath%>/statics/zxlImgs/image.jpg" alt="..." class="img-circle" style="width:50px;">
-                 	
-                </a>
+	            <c:choose>
+					<c:when test="${sessionScope.uname == null}">
+	                      <li><a href="login.jsp" style="color: blue;font-size: 15px;">登录</a></li>         
+	                </c:when>
+					<c:otherwise>
+	                      <a  href="javascript:void(0)" class="userfun"
+		                    style="padding: 0px;"aria-expanded="false" >                                 
+		                   	<img src="<%=basePath%>statics/zxlImgs/image.jpg" alt="..." class="img-circle" style="width:50px;"> 	
+		              	</a>                    
+		         	</c:otherwise>
+				</c:choose>
                 <ul class="dropdown-menu" style="text-align:center;padding:0px;background-color: #222;">
                     <li><a href="userPage.jsp" style="color:#fff;height:35px;line-height:33px">个人中心</a></li>
                     <li role="separator" class="divider" style="margin:0px;"></li>
                     <li><a href="#" style="color:#fff;height:35px;line-height:33px">账号设置</a></li>
                     <li role="separator" class="divider" style="margin:0px;"></li>
-                    <li><a href="login.jsp" style="color:#fff;height:35px;line-height:33px">退出账号</a></li>
+                    <li><a href="loginout" style="color:#fff;height:35px;line-height:33px">退出账号</a></li>
                 </ul>
             </ul>
         </div><!-- /.navbar-collapse -->
@@ -146,21 +168,18 @@ body{background-color: #eee;}
 </nav>
 
      
-	<div id="head1"  class="container-fluid" style="height:500px;">
+	<div id="head1"  class="container" style="height:500px;">
 		<div class="row">
 			<div id="left" class="col-md-2">
 					<ul  id="ul" class="list-group">
-						<c:forEach items="${sessionScope.labels}" var="label">
-							<li  class="list-group-item"><a class="type" target="shownote.jsp" href='${basePath}show?id=${label.n_lid}'>${label.n_lname}</a></li>
-						</c:forEach>
-						
-					</ul>
-				
+						<c:forEach items="${sessionScope.notelabels}" var="notelabel">
+							<li  id="li" class="list-group-item"><a class="type" name="notelabel"  target="shownote.jsp " >${notelabel.n_lname}</a></li>
+						</c:forEach>						
+					</ul>	
 			</div>
-			<div id="center" class="col-md-10">
-			  <%--  <jsp:include   page="shownote.jsp" flush="true"/>  --%>
- 			</div>
-			
+			<div id="center" class="col-md-10" >	
+			      	   <img id="img" alt="" src="${basePath}statics/zxlImgs/lj.jpg">
+ 			</div>	
 		</div>
 	</div>
 	<!-- 尾部 -->

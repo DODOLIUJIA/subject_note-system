@@ -11,28 +11,12 @@ import net.sf.json.JSONObject;
 public interface SubService {
 	/**
 	 * 通过页面传来的信息选择题目
-	 * 
-	 * @param sublabel
-	 *            题目标签
-	 * @param subCrateTime
-	 *            出题时间
-	 * @param STcheck
-	 *            题目标签被点击次数
-	 * @param SCTcheck
-	 *            出题时间选项被点击次数
+	 * @param sublabel 题目标签	
+	 * @param subCrateTime 出题时间
+	 * @param loadtimms 下拉刷新次数
 	 * @return
 	 */
 	public List<Subject> selectSubsByMsg(String sublabel, int subCrateTime,int loadtimms);
-
-	 /* 
-	 * @param subType
-	 * @param subCrateTime
-	 * @param STcheck
-	 * @param SCTcheck
-	 * @return
-	 */
-	public List<Subject> selectSubsByMsg(String subType, int subCrateTime, String STcheck, String SCTcheck);
-
 
 	/**
 	 * 获取所有年份
@@ -175,7 +159,7 @@ public interface SubService {
 	 * @return返回一个存有题目信息的JSONObject对象
 	 */
 	public JSONObject getSubjectBySid(int sid);
-	
+  
 	/**
 	 * 通过题目id得到一个题目
 	 * @param sid题目的id
@@ -196,20 +180,6 @@ public interface SubService {
 	public boolean updateSubject(int sid, String subSummary, String subText, int subType, String subAnswer,
 			int subTime);
 	
-	/**
-	 * 通过页面传来的信息选择题目
-	 * 
-	 * @param sublabel
-	 *            题目标签
-	 * @param subCrateTime
-	 *            出题时间
-	 * @param STcheck
-	 *            题目标签被点击次数
-	 * @param SCTcheck
-	 *            出题时间选项被点击次数
-	 * @return
-	 */
-	public List<Subject> selectSubsByMsg(String sublabel, int subCrateTime);
 
 	/**
 	 * 得到所有的题目标签

@@ -30,6 +30,7 @@ public class LookNoteAction extends HttpServlet {
 	  // System.out.println(text);
 	   String title = ns.getNotetitle(noteid);
 	   HttpSession session = request.getSession();
+	   session.setAttribute("noteid", noteid);
 	   session.setAttribute("title", title);
 	   session.setAttribute("text", text);
 	   response.sendRedirect("looknote.jsp");

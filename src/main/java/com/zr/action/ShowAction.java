@@ -1,6 +1,8 @@
 package com.zr.action;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,13 +24,12 @@ public class ShowAction extends HttpServlet {
 	   doPost(request, response);
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String lid = request.getParameter("id");
-		//System.out.println(lid);
-		int n_lid = Integer.parseInt(lid);
-		String lname = ns.getN_lname(n_lid);
+		String lname = request.getParameter("n_lname");
+		//System.out.println(lname);
 		HttpSession session = request.getSession();
 		session.setAttribute("n_lname", lname);
-		 response.sendRedirect("shownote.jsp");
+		//request.getRequestDispatcher("shownote.jsp");
+		// response.sendRedirect("shownote.jsp");
 	}
 
 }

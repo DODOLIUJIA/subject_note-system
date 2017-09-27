@@ -29,7 +29,7 @@ public class UserSubDaoImpl implements UserSubDao {
 		List<Subject> subs = new ArrayList<Subject>();
 		StringBuffer sql = new StringBuffer("");
 		int begin = loadtimms*4;
-		int end = loadtimms*4 + 3;
+		int end = 3;
 		sql.append("SELECT `subject`.subaccuracy,`subject`.subanswer,`subject`.subid,`subject`.subsummary,`subject`.subtext,`subject`.subtime,`subject`.subtype ");
 		sql.append("FROM `subject` ");
 		sql.append("INNER JOIN subject_s_label ");
@@ -75,7 +75,7 @@ public class UserSubDaoImpl implements UserSubDao {
 		List<Subject> subs = new ArrayList<Subject>();
 		StringBuffer sql = new StringBuffer("");
 		int begin = loadtimms*4;
-		int end = loadtimms*4 + 3;
+		int end = 3;
 		sql.append("SELECT `subject`.subaccuracy,`subject`.subanswer,`subject`.subid,`subject`.subsummary,`subject`.subtext,`subject`.subtime,`subject`.subtype ");
 		sql.append("FROM `subject` ");
 		sql.append("WHERE `subject`.subtime=? ");
@@ -118,7 +118,7 @@ public class UserSubDaoImpl implements UserSubDao {
 	public List<Subject> selectSubsBySubTypeAndSubTime(String sublabel,int subtime,int loadtimms) {
 		List<Subject> subs = new ArrayList<Subject>();
 		int begin = loadtimms*4;
-		int end = loadtimms*4 + 3;
+		int end = 3;
 		StringBuffer sql = new StringBuffer("");
 		sql.append("SELECT `subject`.subaccuracy,`subject`.subanswer,`subject`.subid,`subject`.subsummary,`subject`.subtext,`subject`.subtime,`subject`.subtype ");
 		sql.append("FROM `subject` ");
