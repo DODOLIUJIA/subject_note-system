@@ -17,7 +17,9 @@ public class SubLabelServiceImpl implements SubLabelService {
 	public JSONObject getSubLabelsByPageAndPagesize(int page, int pageSize) {
 		JSONObject jo = new JSONObject();
 		jo.put("total", sldao.getSubLabelsCount());
-		// jo.put("rows", sldao.getSubLabels((page-1)*pageSize, pageSize));
+
+		jo.put("rows", sldao.getSubLabels((page-1)*pageSize, pageSize));
+
 		return jo;
 	}
 
@@ -45,4 +47,22 @@ public class SubLabelServiceImpl implements SubLabelService {
 		return result;
 	}
 
+	@Override
+	public JSONObject insertNewLabAndeExist(String newLabName) {
+		JSONObject jo = new JSONObject();
+		jo = sldao.insertNewLabAndeExist(newLabName);
+		return jo;
+	}
+	@Override
+	public JSONObject deleteSubLabelByS_lid(int s_lid) {
+		JSONObject jo = new JSONObject();
+		jo = sldao.deleteSubLabelByS_lid(s_lid);
+		return jo;
+	}
+	@Override
+	public JSONObject updataS_LabAndeExist(String updataS_LabName, int s_lid) {
+		JSONObject jo = new JSONObject();
+		jo = sldao.updataS_LabAndeExist( updataS_LabName, s_lid);
+		return jo;
+	}
 }

@@ -27,89 +27,222 @@
 </style>
 </head>
 <script type="text/javascript">
+	function deleteSubLab(index) {
+		$('#selectSubLabel').datagrid('selectRow', index);// 关键在这里  
+		var row = $('#selectSubLabel').datagrid('getSelected');
+		$.messager.confirm('确认', '确认删除', function(r) {
+			if (r) {
+				$.ajax({
+					url : 'SelectSubLabel?flag=2' + '&' + 's_lid=' + row.s_lid,
+					type : 'post',
+					/* async : false, */
+					dataType : 'json',
+					success : function(data) {
+						console.log(data.success);
+						if (data.success) {
+							$.messager.alert('提示', '删除成功');
+							$('#selectSubLabel').datagrid('reload');
 
-function deleteSub(index){  
-    $('#selectSubLabel').datagrid('selectRow',index);// 关键在这里  
-    var row = $('#selectSubLabel').datagrid('getSelected');  
-    $.messager.confirm('确认', '确认删除', function(r) {
-		/* if(r){
-	    	$.ajax({
-				url:'DeleteSub?subId='+row.subId,
-				type : 'post',
-				
-			});
-			$('#selectSubLabel').datagrid('reload');
-		} */
-	}); 
-   
-};
-
-	$(function(){
-		$('#selectSubLabel').datagrid({
-			url : 'SelectSubLabel',
-			pagination : true,
-			pageSize : 10,
-			pageList : [ 10, 15, 20 ],
-			rownumbers : true,
-			title : '用户信息列表',
-			singleSelect: true,
-		/* 	queryParams: {
-				'year': $('#Year').textbox('getText'),
-				'subType': $('#SubType').textbox('getText'),
-				'subLabel': $('#SubLabel').textbox('getText'),
-			}, */
-			columns : [ [
-			{field : 'subLabelId',title : '标签号',align:'center',	width:$(this).width()*0.1},
-			{field : 'subLabelName',title : '标签名',align:'center',width : $(this).width()*0.1}, 
-			{field : 'subCount',title : '库存量',align:'center',width:$(this).width()*0.1}, 
-			{field:'operate',title:'操作',align:'center',width:$(this).width()*0.2,
-				formatter:function(value, row, index){
-					var del = '<a name="delete" class="easyui-linkbutton" onclick="deleteSub('+index+')" ></a>';
-					var alt = '<a href="#" name="updata" href="'+row.subId+'" class="easyui-linkbutton" ></a>';
-					return del+' '+alt;
-			}},
-			
-			]],
-			toolbar : [{
-				iconCls: 'icon-add',
-				text:'增加',
-				handler: function(){
-					$("#dd").window('open');
+						}else{
+							$.messager.alert('提示', '删除失败');
+						}
 					}
-			}],
-			onLoadSuccess:function(data){  
-	       		$("a[name='delete']").linkbutton({text:'删除',iconCls:'icon-remove'});  
-	       		$("a[name='updata']").linkbutton({text:'修改',iconCls:'icon-edit'});
-	       		$('#selectSubLabel').datagrid('fixRowHeight');
-			},
+				});
+			}
+		});
+	};
+	
+	var s_lid = null;
+	function updataSubLab(index) {
+		$('#selectSubLabel').datagrid('selectRow', index);// 关键在这里  
+		var row = $('#selectSubLabel').datagrid('getSelected');
+		var olds_lname = row.s_lname;
+		s_lid = row.s_lid;
+		console.log(olds_lname);
+		/* $("#uln").attr("value", row.s_lname); */
+		//$("#uln")[0].value = "new value";
+		//document.getElementById("uln").setAttribute("value", row.s_lname);
+		//<input id="uln" name="urname" type="text" value="" /> 
+		$("uln").val(olds_lname);
+		$("#uu").window('open');
+		
+	};
 
-		}); 
+	$(function() {
+		$('#selectSubLabel')
+				.datagrid(
+						{
+							url : 'SelectSubLabel?flag=' + 0,
+							pagination : true,
+							pageSize : 10,
+							pageList : [ 10, 15, 20 ],
+							rownumbers : true,
+							title : '用户信息列表',
+							singleSelect : true,
+							columns : [ [
+									{
+										field : 's_lid',
+										title : '标签号',
+										align : 'center',
+										width : $(this).width() * 0.1
+									},
+									{
+										field : 's_lname',
+										title : '标签名',
+										align : 'center',
+										width : $(this).width() * 0.1
+									},
+									{
+										field : 'subCount',
+										title : '库存量',
+										align : 'center',
+										width : $(this).width() * 0.1
+									},
+									{
+										field : 'operate',
+										title : '操作',
+										align : 'center',
+										width : $(this).width() * 0.2,
+										formatter : function(value, row, index) {
+											var del = '<a name="delete" class="easyui-linkbutton" onclick="deleteSubLab('+ index +')" ></a>';
+											var alt = '<a name="updata" class="easyui-linkbutton" onclick="updataSubLab('+ index +')"></a>';
+											return del + ' ' + alt;
+										}
+									},
+
+							] ],
+							toolbar : [ {
+								iconCls : 'icon-add',
+								text : '增加',
+								handler : function() {
+									$("#dd").window('open');
+								}
+							} ],
+							onLoadSuccess : function(data) {
+								$("a[name='delete']").linkbutton({
+									text : '删除',
+									iconCls : 'icon-remove'
+								});
+								$("a[name='updata']").linkbutton({
+									text : '修改',
+									iconCls : 'icon-edit'
+								});
+								$('#selectSubLabel').datagrid('fixRowHeight');
+							},
+
+						});
 
 		//配置添加窗口
 		$("#dd").window({
-			width:300,
-			height:300,
-			title:'添加新用户',
-			shadow:true,
-			modal:true,
-			closed:true,
-			minimizable:false,
-			maximizable:false,
-			draggable:false,
-			resizable:false,
+			width : 300,
+			height : 200,
+			title : '新标签名',
+			shadow : true,
+			modal : true,
+			closed : true,
+			minimizable : false,
+			maximizable : false,
+			draggable : false,
+			resizable : false,
 		});
+		//配置更新的窗口
+		$("#uu").window({
+			width : 300,
+			height : 200,
+			title : '更新标签名',
+			shadow : true,
+			modal : true,
+			closed : true,
+			minimizable : false,
+			maximizable : false,
+			draggable : false,
+			resizable : false,
+		});
+
+		//配置添加的提交按钮
+		$("#sub").linkbutton({
+			iconCls : 'icon-save',
+			onClick : function() {
+			if ($('#newln').val() != '') {
+				$.ajax({
+					url : 'SelectSubLabel?flag=1'+ '&' + 'newln='+ $('#newln').val(),
+					type : 'POST',
+					dataType : 'json',
+					success : function(data) {
+						if (data.success) {
+								$.messager.confirm('提示','添加成功',function(r) {
+									if (r) {
+											$("#dd").window('close');
+									}
+							});
+							$('#selectSubLabel').datagrid('reload');
+						} else {
+							$.messager.alert('提示',	'已存在此标签');
+						}
+					}
+				});
+			} else {
+				$.messager.alert('提示', '不能提交空值');
+			}
+		}
+	});
 		
-		//配置表单
-		$('#ff').form({    
-		    url:'#',    
+		//配置更新的提交按钮
+		$("#usub").linkbutton({
+			iconCls : 'icon-save',
+			onClick : function() {
+			if ($('#uln').val() != '') {
+				$.ajax({
+					url : 'SelectSubLabel?flag=3'+ '&' + 'uln='+ $('#uln').val()+ '&' +'s_lid='+s_lid,
+					type : 'POST',
+					dataType : 'json',
+					success : function(data) {
+						if (data.success) {
+								$.messager.confirm('提示','更新成功',function(r) {
+									if (r) {
+											$("#uu").window('close');
+									}
+							});
+							$('#selectSubLabel').datagrid('reload');
+						} else {
+							$.messager.alert('提示',	'已存在此标签');
+						}
+					}
+				});
+			} else {
+				$.messager.alert('提示', '不能提交空值');
+			}
+		}
+	});
+		
+		//配置取消按钮
+		$("#not").linkbutton({
+			iconCls : 'icon-cancel',
 
-		}); 
+			onClick : function() {
+				$("#dd").window('close');
+			}
+		});
+		$("#unot").linkbutton({
+			iconCls : 'icon-cancel',
 
-		$('#newSubLabelName').textbox({    
-		    iconCls:'icon-man', 
-		    iconAlign:'left',
-		    prompt:'新标签名',
-			width:200,
+			onClick : function() {
+				$("#uu").window('close');
+			}
+		});
+
+
+		$('#newln').textbox({
+			iconCls : 'icon-man',
+			iconAlign : 'left',
+			prompt : '新标签名',
+			width : 250,
+		});
+		$('#uln').textbox({
+			iconCls : 'icon-man',
+			iconAlign : 'left',
+			prompt : '更改标签名', 
+			width : 250,
 		});
 	});
 </script>
@@ -118,21 +251,15 @@ function deleteSub(index){
 		<table id="selectSubLabel"></table>
 	</div>
 	<div id="dd">
-		<form id="ff" method="post">
-			<div style="margin:20px 48px;">
-				<br>
-				<br>
-				<br>
-				<br>
- 				<input id="newSubLabelName" name="rname" type="text">
-				<br>
-				<br>
-				<br>
-				<br>
-				<button id="sub" >提交</button>
-				<button id="not">取消</button>
-			</div>
-		</form>
+		<br> <br> <br> <br> <input id="newln" name="rname"type="text" value="" /> 
+		<br> <br> <br> <br> 
+		<a href="#" id="sub">提交</a> <a href="#" id="not">取消</a>
+	</div>
+	<div id="uu">
+		<br> <br> <br> <br> 
+			<input id="uln" name="urname" type="text" value="" /> 
+		<br> <br> <br> <br> 
+		<a href="#" id="usub">提交</a> <a href="#" id="unot">取消</a>
 	</div>
 </body>
 </html>
