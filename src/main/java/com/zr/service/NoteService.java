@@ -90,7 +90,7 @@ public interface NoteService {
 	 * @param notetitle
 	 * @return
 	 */
-	public int updatetext(String notetext, int noteid);
+	public int updatetext(String notetext,String notetitle, int noteid);
 	/**
 	 * 根据标签id得到标签名
 	 * @param n_lid

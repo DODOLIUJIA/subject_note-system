@@ -29,13 +29,12 @@ public class ShowTabel extends HttpServlet {
 	   doPost(request, response);
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//System.out.println(11111);
 		request.setCharacterEncoding("utf8");
 		response.setCharacterEncoding("utf8");
-		List<N_label> labels = ns.getNotetabel();
+		List<N_label> notelabels = ns.getNotetabel();
 		HttpSession session = request.getSession();
-		session.setAttribute("labels", labels);
-		//request.getRequestDispatcher("note.jsp").forward(request, response);
+		session.setAttribute("notelabels", notelabels);
+	
 	}
 
 }
