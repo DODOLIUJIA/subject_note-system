@@ -104,7 +104,6 @@ cursor:pointer;
 			success:function(){
 			}
 		})
-
 	});
 
 </script>
