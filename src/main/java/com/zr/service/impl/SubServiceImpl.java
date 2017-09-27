@@ -8,12 +8,7 @@ import com.zr.model.Subject;
 import com.zr.model.SubjectLabel;
 import com.zr.service.SubService;
 import com.zr.dao.SubDao;
-import com.zr.dao.UserSubDao;
 import com.zr.dao.impl.SubDaoImpl;
-import com.zr.dao.impl.UserSubDaoImpl;
-import com.zr.model.Subject;
-import com.zr.model.SubjectLabel;
-
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
@@ -22,10 +17,9 @@ public class SubServiceImpl implements SubService {
 
 	  SubDao subDao = new SubDaoImpl();
   
-    UserSubDao usd = new UserSubDaoImpl();
-    
+    UserSubDao usd = new UserSubDaoImpl(); 
 
-    /**
+   /**
 	 * 通过页面传来的信息选择题目
 	 * @param sublabel 题目标签	
 	 * @param subCrateTime 出题时间
@@ -125,6 +119,7 @@ public class SubServiceImpl implements SubService {
 		jo.put("total", subDao.getSubsCount());
 		jo.put("rows", subDao.getSubsBySublabel((page-1)*pageSize, pageSize, subLabel));
 		return jo;
+	}
 	
 	@Override
 	public JSONObject getSubsByPageAndPagesizeBySubType(int page, int pageSize, String subType) {
@@ -249,43 +244,6 @@ public class SubServiceImpl implements SubService {
 	}
 
 	/**
-	 * 通过页面传来的信息选择题目
-	 * 
-	 * @param sublabel
-	 *            题目标签
-	 * @param subCrateTime
-	 *            出题时间
-	 * @param STcheck
-	 *            题目标签是否被点击
-	 * @param SCTcheck
-	 *            出题时间选项是否被点击
-	 * @return
-	 */
-	@Override
-	public List<Subject> selectSubsByMsg(String sublabel, int subCrateTime) {
-		List<Subject> subs = new ArrayList<Subject>();
-		if ("".equals(sublabel) && subCrateTime != 0) {
-			subs = usd.selectSubsBySubTime(subCrateTime);
-		} else if (!("".equals(sublabel)) && subCrateTime == 0) {
-			subs = usd.selectSubsBySubType(sublabel);
-		} else {
-			subs = usd.selectSubsBySubTypeAndSubTime(sublabel, subCrateTime);
-		}
-		return subs;
-	}
-
-	/**
-	 * 得到所有的题目标签
-	 * 
-	 * @return
-	 */
-	public List<Subject> selectSubLabel() {
-		List<Subject> labels = new ArrayList<Subject>();
-		labels = usd.selectSubLabel();
-		return labels;
-	}
-
-	/**
 	 * 得到所有题目的不同的出题时间
 	 * 
 	 * @return
@@ -300,4 +258,22 @@ public class SubServiceImpl implements SubService {
 	public Subject getSubjectBySubid(int sid) {
 		return sdao.getSubjectBySId(sid);
   }
+
+	@Override
+	public List<Subject> selectSubsByMsg(String subType, int subCrateTime, String STcheck, String SCTcheck) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Subject> selectSubsByMsg(String sublabel, int subCrateTime) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<SubjectLabel> selectSubLabel() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

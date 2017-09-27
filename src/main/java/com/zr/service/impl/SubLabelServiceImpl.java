@@ -12,7 +12,7 @@ public class SubLabelServiceImpl implements SubLabelService{
 	public JSONObject getSubLabelsByPageAndPagesize(int page, int pageSize) {
 		JSONObject  jo = new JSONObject();
 		jo.put("total", sldao.getSubLabelsCount());
-		jo.put("rows", sldao.getSubLabels((page-1)*pageSize, pageSize));
+		//jo.put("rows", sldao.getSubLabels((page-1)*pageSize, pageSize));
 		return jo;
 	}
 	

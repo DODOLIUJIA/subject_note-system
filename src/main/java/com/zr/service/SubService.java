@@ -9,7 +9,6 @@ import net.sf.json.JSONObject;
 
 
 public interface SubService {
-
 	/**
 	 * 通过页面传来的信息选择题目
 	 * @param sublabel 题目标签	
@@ -18,7 +17,6 @@ public interface SubService {
 	 * @return
 	 */
 	public List<Subject> selectSubsByMsg(String sublabel, int subCrateTime,int loadtimms);
-
 
 	/**
 	 * 获取所有年份

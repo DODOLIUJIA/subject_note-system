@@ -1,24 +1,43 @@
 package com.zr.dao;
 
+import net.sf.json.JSONArray;
+
 public interface UserDao {
+
 	/**
-	 * ¼ì²éÊı¾İ¿âÖĞÊÇ·ñÓĞ¸ÃÓÃ»§Ãû
+	 * è®¡ç®—ç”¨æˆ·æ•°é‡
+	 * @return ç”¨æˆ·æ•°é‡
+	 */
+	public int getUsersCount();
+
+	/**
+	 * è·å–ç”¨æˆ· é€šè¿‡åˆ†é¡µ
+	 * @param start
+	 * @param pageSize
+	 * @return ç”¨æˆ·
+	 */
+	public JSONArray getUsers(int start, int pageSize);
+	
+	/**
+	 * author:zxl
+	 * æ£€æŸ¥æ•°æ®åº“ä¸­æ˜¯å¦æœ‰è¯¥ç”¨æˆ·å
 	 * @param uname
-	 * @return Èô´æÔÚ¸ÃÓÃ»§Ãû Ôò·µ»Ø1 ·ñÔò·µ»Ø-1
+	 * @return è‹¥å­˜åœ¨è¯¥ç”¨æˆ·å åˆ™è¿”å›1 å¦åˆ™è¿”å›-1
 	 */
 	public int selectUnameByUName(String uname);
 	
 	/**
-	 * µÇÂ½Ê±¼ì²é¸ÃÓÃ»§ÊÇ·ñ´æÔÚ
+	 * ç™»é™†æ—¶æ£€æŸ¥è¯¥ç”¨æˆ·æ˜¯å¦å­˜åœ¨
 	 * @param uname password
-	 * @return Èô´æÔÚ¸ÃÓÃ»§ Ôò·µ»Ø1 ·ñÔò·µ»Ø-1
+	 * @return è‹¥å­˜åœ¨è¯¥ç”¨æˆ· åˆ™è¿”å›1 å¦åˆ™è¿”å›-1
 	 */
 	public int selectUser(String uname,String password);
 	
 	/**
-	 * ×¢²áÓÃ»§
+	 * æ³¨å†Œç”¨æˆ·
 	 * @param uname password
-	 * @return Èô×¢²á³É¹¦ Ôò·µ»Ø1 ·ñÔò·µ»Ø-1
+	 * @return è‹¥æ³¨å†ŒæˆåŠŸ åˆ™è¿”å›1 å¦åˆ™è¿”å›-1
 	 */
 	public int insertUser(String uname, String password);
+
 }
