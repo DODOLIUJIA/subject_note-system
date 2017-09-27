@@ -113,7 +113,7 @@ $(function() {
 				  //请求方式
 				  type:'post',
 				  //请求所带的数据 
-				  data:{'uname':uname},
+				  data:{'uname':uname,'password':password},
 				  //请求过后返回的类型
 				  dataType:'json',
 				  //成功请求之后回调的函数
