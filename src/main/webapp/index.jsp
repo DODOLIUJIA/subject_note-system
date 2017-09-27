@@ -49,6 +49,11 @@
             $(".dropdown-menu li a").mouseout(function(){
                 $(this).css("color","white");
             })
+          $("#Subject").click(function(){
+        	  var link = $(this).attr('target');
+        	  $("#in_center").load(link);
+          })  
+            
         });
 
     </script>
@@ -65,7 +70,7 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li class="active"><a href="#">首页<span class="sr-only">(current)</span></a></li>
-                <li><a href="#">题库</a></li>
+                <li><a id="Subject" target="userselectSub.jsp">题库</a></li>
                 <li><a href="#">我的笔记</a></li>
             </ul>
             <form class="navbar-form navbar-left">
@@ -91,7 +96,7 @@
     </div><!-- /.container-fluid -->
 </nav>
 <!-- 内容 -->
-<div class="content" style="margin-top:5.2%;">
+<div id="in_center" class="content" style="margin-top:5.2%;">
     <!-- carousel -->
     <div id="myCarousel" class="carousel slide" >
         <!-- 轮播（Carousel）指标 -->

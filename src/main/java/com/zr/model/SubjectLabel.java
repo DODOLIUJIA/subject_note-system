@@ -1,6 +1,7 @@
 package com.zr.model;
 
-public class SubjectLabel {
+
+public class SubjectLabel{
 private int s_lid;
 private String s_lname;
 public int getS_lid() {

@@ -1,6 +1,7 @@
 package com.zr.model;
 
-public class Subject {
+
+public class Subject{
 	private String s_label;
 	private int subId;// 题目ID
 	private String subSummary;// 题目描述

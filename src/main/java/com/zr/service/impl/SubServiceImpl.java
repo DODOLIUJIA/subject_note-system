@@ -223,4 +223,14 @@ public class SubServiceImpl implements SubService{
 		times = usd.selectSubTime();
 		return times;
 	}
+	/**
+	 * 得到所有题目
+	 * @param loadtimms 下拉次数
+	 * @return
+	 */
+	@Override
+	public List<Subject> selectAllSub(int loadtimms) {
+		List<Subject> Subs = subDao.getSubs(loadtimms*4, 4);
+		return Subs;
+	}
 }

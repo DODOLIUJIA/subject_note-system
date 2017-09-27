@@ -43,12 +43,64 @@ cursor:pointer;
 
 </head>
 <script type="text/javascript">
+//题目显示栏高度
+var subHeight = 3000;
+//下拉次数
+var loadtimms = 1;
+//是否还有题目的标志
+var flage = true;
+//设置题目标签点击事件		
+window.onscroll = function() {
+	var a = document.documentElement.scrollTop == 0 ? document.body.clientHeight
+			: document.documentElement.clientHeight;
+	var b = document.documentElement.scrollTop == 0 ? document.body.scrollTop
+			: document.documentElement.scrollTop;
+	var c = document.documentElement.scrollTop == 0 ? document.body.scrollHeight
+			: document.documentElement.scrollHeight; 
+	if (a + b + 1 >= c&&flage==true) {
+		$.ajax({
+			url : 'selectAllSubject?loadtimms=' + loadtimms,
+			type : 'POST',
+			async : false,
+			dataType : 'json',
+			success : function(data) {
+				console.log(data.Subs.length);
+				if (data.Subs.length==4){
+					for (var i = 0; i < data.Subs.length; i++) {
+						$('#AllSubs').append("<li class='span4'><div class='thumbnail'><div class='caption'><div style='float: right;'>"
+					            +data.Subs[i].subTime+
+					            "</div><h4>"
+					            +data.Subs[i].subText+
+					            "</h4><p>"
+					            +data.Subs[i].subSummary+
+					            "</p><p><a class='btn btn-primary' href='SubDetail.jsp?sid="+data.Subs[i].subId+"'>浏览</a></p></div></div>");
+					}
+				} else if(data.Subs.length > 0){
+					for (var i = 0; i < data.Subs.length; i++) {
+						$('#AllSubs').append("<li class='span4'><div class='thumbnail'><div class='caption'><div style='float: right;'>"
+					            +data.Subs[i].subTime+
+					            "</div><h4>"
+					            +data.Subs[i].subText+
+					            "</h4><p>"
+					            +data.Subs[i].subSummary+
+					            "</p><p><a class='btn btn-primary' href='SubDetail.jsp?sid="+data.Subs[i].subId+"'>浏览</a></p></div></div>");
+						}
+					$('#MainPullUp').text('已全部加载');
+					flage = false;
+				}else{
+					$('#MainPullUp').text('已全部加载');
+					flage = false;
+				}
+			}
+		});
+		loadtimms = loadtimms + 1;
+	}
+};
 	$(function() {
 		//题目标签
 		var sublabel ="";
 		//出题时间
 		var subCrateTime=0;
-		//设置题目标签点击事件		
 		$("[name='sublabel']").click(function(){
 			if(subCrateTime!=0){
 				subCrateTime=0;
@@ -61,6 +113,7 @@ cursor:pointer;
 					data:{'sublabel':sublabel,'subCrateTime':subCrateTime},
 					success:function(data){
 							$("#center").load(link);
+							subCrateTime=0;
 					}
 				})
 			
@@ -74,7 +127,6 @@ cursor:pointer;
 				type:'post',
 				data:{'sublabel':sublabel,'subCrateTime':subCrateTime},
 				success:function(data){
-
 						$("#center").load(link);
 				}
 			})
@@ -87,7 +139,46 @@ cursor:pointer;
 			success:function(){
 			}
 		})
-	});
+		//展示所有题目
+	$.ajax({
+		url : 'selectAllSubject?loadtimms=' + 0,
+		type : 'POST',
+		async : false,
+		dataType : 'json',
+		success : function(data) {
+			$("#MainPullUp").hide();
+			if (data.Subs.length ==4) {
+				$("#MainPullUp").show();
+				for (var i = 0; i < data.Subs.length; i++) {
+					$('#AllSubs').append("<li class='span4'><div class='thumbnail'><div class='caption'><div style='float: right;'>"
+					            +data.Subs[i].subTime+
+					            "</div><h4>"
+					            +data.Subs[i].subText+
+					            "</h4><p>"
+					            +data.Subs[i].subSummary+
+					            "</p><p><a class='btn btn-primary' href='SubDetail.jsp?sid="+data.Subs[i].subId+"'>浏览</a></p></div></div>");
+				}
+			}else if(data.Subs.length >0){
+				$("#MainPullUp").show();
+				for (var i = 0; i < data.Subs.length; i++) {
+					$('#AllSubs').append("<li class='span4'><div class='thumbnail'><div class='caption'><div style='float: right;'>"
+					            +data.Subs[i].subTime+
+					            "</div><h4>"
+					            +data.Subs[i].subText+
+					            "</h4><p>"
+					            +data.Subs[i].subSummary+
+					            "</p><p><a class='btn btn-primary' href='SubDetail.jsp?sid="+data.Subs[i].subId+"'>浏览</a></p></div></div>");
+				}
+				flage = false;
+				$('#MainPullUp').text('已全部加载');
+			}else{
+				flage = false;
+				$("#MainPullUp").show();
+				$('#MainPullUp').text('已全部加载');
+			}
+		}
+	});	
+});
 </script>
 
 
@@ -142,54 +233,12 @@ cursor:pointer;
 			</div>
 
 			<div id="center" class="col-sm-9 col-md-10 sidebar">
-				<!-- 测试 -->
-				<ul class="thumbnails">
-					<li class="span4">
-						<div class="thumbnail">
-							<div class="caption">
-								<h3>冯诺尔曼结构</h3>
-								<p>
-									也称普林斯顿结构，是一种将程序指令存储器和数据存储器合并在一起的存储器结构。程序指令存储地址和数据存储地址指向同一个存储器的不同物理位置。
-								</p>
-								<p>
-									<a class="btn btn-primary" href="#">浏览</a> <a class="btn"
-										href="#">分享</a>
-								</p>
-							</div>
-						</div>
-					</li>
-					<li class="span4">
-						<div class="thumbnail">
-							<div class="caption">
-								<h3>哈佛结构</h3>
-								<p>
-									哈佛结构是一种将程序指令存储和数据存储分开的存储器结构，它的主要特点是将程序和数据存储在不同的存储空间中，进行独立编址。</p>
-								<p>
-									<a class="btn btn-primary" href="#">浏览</a> <a class="btn"
-										href="#">分享</a>
-								</p>
-							</div>
-						</div>
-					</li>
-					<li class="span4">
-						<div class="thumbnail">
-							<div class="caption">
-								<h3>改进型哈佛结构</h3>
-								<p>
-									改进型的哈佛结构具有一条独立的地址总线和一条独立的数据总线，两条总线由程序存储器和数据存储器分时复用，使结构更紧凑。</p>
-								<p>
-									<a class="btn btn-primary" href="#">浏览</a> <a class="btn"
-										href="#">分享</a>
-								</p>
-							</div>
-						</div>
-					</li>
-				</ul>
+				<ul id="AllSubs" class="thumbnails"></ul>
+				 <div id="MainPullUp" style="position: absolute;left: 50%"><img src="statics/images/loading.gif" ></div>
 			</div>
-
-
+  
 		</div>
 	</div>
-	</div>
+   
 </body>
 </html>
