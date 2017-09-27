@@ -5,7 +5,8 @@ $(function(){
 		   type : 'post',
 		   dataType : 'json',
 		   success : function(data){
-			  var _menus = data;	 
+			  var _menus = data;
+			  console.log("menus: "+_menus);
 			  InitLeftMenu(_menus);
 				tabClose();
 				tabCloseEven();

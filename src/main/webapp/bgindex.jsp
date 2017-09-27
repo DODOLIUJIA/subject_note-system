@@ -23,7 +23,7 @@
 	src="${pageContext.request.contextPath}/statics/js/jquery.easyui.min.js"></script>
 <script type="text/javascript" src='${pageContext.request.contextPath}/statics/js/outlook2.js'>
 	
-</script>nav
+</script>
 <script type="text/javascript">
 	//设置登录窗口
 	function openPwd() {

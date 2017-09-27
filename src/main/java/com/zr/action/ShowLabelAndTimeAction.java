@@ -2,7 +2,6 @@ package com.zr.action;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -17,7 +16,6 @@ import com.zr.model.SubjectLabel;
 import com.zr.service.SubService;
 import com.zr.service.impl.SubServiceImpl;
 
-import net.sf.json.JSONObject;
 
 /**
  * Servlet implementation class ShowLabelAndTimeAction
@@ -50,9 +48,7 @@ public class ShowLabelAndTimeAction extends HttpServlet {
 		HttpSession session = request.getSession();
 		session.setAttribute("labels", labels);
 		session.setAttribute("times", times);
-		PrintWriter pw = response.getWriter();
-		JSONObject j = new JSONObject();
-		pw.write(j.toString());
+		request.getRequestDispatcher("userselectSub.jsp").forward(request, response);
 	}
 
 }

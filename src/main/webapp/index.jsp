@@ -72,19 +72,10 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-<<<<<<< HEAD
                 <li id="index" class="active"><a href="index.jsp">首页</a></li>
-=======
-
-               <li id="index" class="active"><a href="index.jsp">首页</a></li>
->>>>>>> refs/remotes/sub_note/master
-                <li id="sub"><a href="userselectSub.jsp">题库</a></li>
-<<<<<<< HEAD
+                <li id="sub"><a href="${basePath}showLabelAndTime">题库</a></li>
                 <li id="note"><a href="${basePath}showtabel">我的笔记</a></li>
-=======
-                <li id="note" ><a href="note.jsp">我的笔记</a></li>
 
->>>>>>> refs/remotes/sub_note/master
             </ul>
             <form class="navbar-form navbar-left">
                 <div class="form-group">
