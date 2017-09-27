@@ -262,15 +262,16 @@ public class NoteDaoimpl implements NoteDao {
 	}
 
 	@Override
-	public int updatetext(String notetext,int noteid) {
+	public int updatetext(String notetext,String notetitle,int noteid) {
 		int i = 0;
 		StringBuffer sql = new StringBuffer();
 		Connection con = JDBCUtil.getConnection();
-		sql.append("update note set notetext = ? where noteid = ? ");
+		sql.append("update note set notetext = ?,notetitle=?  where noteid = ? ");
 		try {
 			PreparedStatement pst = con.prepareStatement(sql.toString());
 			pst.setString(1, notetext);
-			pst.setInt(2, noteid);
+			pst.setString(2, notetitle);
+			pst.setInt(3, noteid);
 			i=pst.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -300,6 +301,59 @@ public class NoteDaoimpl implements NoteDao {
 			e.printStackTrace();
 		}
 		return lname;
+	}
+
+	@Override
+	public int deleteNote(int noteid) {
+		int i = 0;
+		StringBuffer sql = new StringBuffer ();
+		Connection con = JDBCUtil.getConnection();
+		sql.append("delete from note where note.noteid=?");
+		try {
+			PreparedStatement pst = con.prepareStatement(sql.toString());
+			pst.setInt(1, noteid);
+			i = pst.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return i;
+	}
+
+	@Override
+	public int deleteN_n_label(int noteid) {
+		int i = 0;
+		StringBuffer sql = new StringBuffer ();
+		Connection con = JDBCUtil.getConnection();
+		sql.append("delete from note_n_label where noteid=?");
+		try {
+			PreparedStatement pst = con.prepareStatement(sql.toString());
+			pst.setInt(1, noteid);
+			i = pst.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return i;
+		}
+
+	@Override
+	public int insertNoteTabel(String lname) {
+		int i =0;
+		StringBuffer sql = new  StringBuffer();
+		Connection con = JDBCUtil.getConnection();
+		sql.append("insert into n_label(n_lname) ");
+		sql.append("value (?)");	
+		try {
+			PreparedStatement pst = con.prepareStatement(sql.toString());
+		   pst.setString(1,lname);
+			i=pst.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return i;
 	}
 
 }

@@ -80,8 +80,8 @@ public class NoteServiceimpl implements NoteService {
 	}
 
 	@Override
-	public int updatetext(String notetext,int noteid) {
-		int i = ndao.updatetext(notetext, noteid);
+	public int updatetext(String notetext,String notetitle,int noteid) {
+		int i = ndao.updatetext(notetext, notetitle,noteid);
 		return i;
 	}
 
@@ -94,6 +94,24 @@ public class NoteServiceimpl implements NoteService {
 	@Override
 	public String getN_lname(int n_lid) {
 		String i= ndao.selectN_lname(n_lid);
+		return i;
+	}
+
+	@Override
+	public int deleteNoteBynoteid(int noteid) {
+	    int i = ndao.deleteNote(noteid);
+		return i;
+	}
+
+	@Override
+	public int delectN_n_label(int noteid) {
+		int i =ndao.deleteN_n_label(noteid);
+		return i;
+	}
+
+	@Override
+	public int insertNoteTabel(String lname) {
+		int i =ndao.insertNoteTabel(lname);
 		return i;
 	}
 

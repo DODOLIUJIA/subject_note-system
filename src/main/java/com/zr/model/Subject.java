@@ -1,7 +1,7 @@
 package com.zr.model;
 
 
-public class Subject{
+public class Subject {
 	private String s_label;
 	private int subId;// 题目ID
 	private String subSummary;// 题目描述
@@ -68,16 +68,16 @@ public class Subject{
 		this.subTime = subTime;
 	}
 
-  
 	/**
 	 * 题目的无参构造方法
 	 */
 	public Subject() {
 		super();
 	}
-	
+
 	/**
 	 * 题目的有参构造方法
+	 * 
 	 * @param subId
 	 * @param subSummary
 	 * @param subText

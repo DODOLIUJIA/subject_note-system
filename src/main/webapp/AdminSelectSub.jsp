@@ -42,6 +42,21 @@ function deleteSub(index){
 	}); 
    
 };
+function deleteSub(index){  
+    $('#selectsub').datagrid('selectRow',index);// 关键在这里  
+    var row = $('#selectsub').datagrid('getSelected');  
+    $.messager.confirm('确认', '确认删除', function(r) {
+		if(r){
+	    	$.ajax({
+				url:'DeleteSub?subId='+row.subId,
+				type : 'post',
+				
+			});
+			$('#selectsub').datagrid('reload');
+		}
+	}); 
+};
+
 	$(function() {
 		/* 年份下拉框 */
 		$('#Year').combobox({    
@@ -82,7 +97,7 @@ function deleteSub(index){
 			rownumbers : true,
 		/* 	sortName : 'subid', 
 			sortOrder : 'acs',  */
-			title : '用户信息列表',
+			title : '题目信息列表',
 			singleSelect: true,
 			queryParams: {
 				'year': $('#Year').textbox('getText'),
@@ -128,7 +143,6 @@ function deleteSub(index){
 			},
 
 		}); 
-		
 	});
 </script>
 <body>
