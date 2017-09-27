@@ -65,8 +65,8 @@ function deleteSub(index){
 			{field : 'roleId',title : '角色id',align:'center',width : $(this).width()*0.05}, 
 			{field : 'userName',title : '用户名',align:'center',width:$(this).width()*0.15}, 
 			{field : 'uPassword',title : '密码',align:'center',width:$(this).width()*0.15}, 
-			{field : 'userSecurity',title : '密保',align:'center',width : $(this).width()*0.1},
-			{field : 'avator',title : '头像的url',	align:'center',width : $(this).width()*0.05},
+			{field : 'userSecurity',title : '密保',align:'center',width : $(this).width()*0.15},
+			{field : 'avator',title : '头像的url',	align:'center',width : $(this).width()*0.15},
 			{field:'operate',title:'操作',align:'center',width:$(this).width()*0.1,
 				formatter:function(value, row, index){
 					var del = '<a name="delete" class="easyui-linkbutton" onclick="deleteSub('+index+')" ></a>';
