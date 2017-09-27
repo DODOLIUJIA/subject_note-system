@@ -21,7 +21,7 @@
 	src="${pageContext.request.contextPath}/statics/js/jquery-1.7.2.min.js"></script>
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/statics/js/jquery.easyui.min.js"></script>
-<script type="text/javascript" src='${pageContext.request.contextPath}/statics/js/outlook2.js'>
+<script type="text/javascript" src='${basePath}statics/js/outlook2.js'>
 	
 </script>
 <script type="text/javascript">
