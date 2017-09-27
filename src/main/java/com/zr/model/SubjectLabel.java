@@ -4,6 +4,15 @@ public class SubjectLabel {
 
 	private int s_lid;
 	private String s_lname;
+	private int subcount;
+
+	public int getSubcount() {
+		return subcount;
+	}
+
+	public void setSubcount(int subcount) {
+		this.subcount = subcount;
+	}
 
 	public int getS_lid() {
 		return s_lid;

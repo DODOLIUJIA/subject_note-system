@@ -84,7 +84,6 @@ body{background-color: #eee;}
 						subCrateTime = 0;
 					}
 				})
-			
 		});
 		//设置出题时间点击事件
 		$("[name='subCrateTime']").click(function(){

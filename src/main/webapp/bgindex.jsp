@@ -99,7 +99,7 @@
 				"menuid" : "56",
 				"menuname" : "报表统计",
 				"icon" : "icon-add",
-				"url" : "#"
+				"url" : "subLabelChart.jsp"
 			}, ]
 		}, {
 			"menuid" : "39",

@@ -57,18 +57,18 @@
 </head>
 <body>
 <!-- 导航栏 -->
-<nav class="navbar navbar-inverse navbar-fixed-top" style="background-color: #222;font-size: 20px;height: 70px;padding-top: 10px;">
+<nav class="navbar navbar-inverse navbar-fixed-top" style="background-color: #222;font-size: 20px;height: 65px;padding-top: 10px;">
     <div class="container-fluid" style="margin-left: 10%;margin-right: 10%;">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header" >
-        	<img class="navbar-brand" src="<%=basePath%>statics/zxlImgs/logo.jpg" style="padding: 0px;"/>
+        	<img class="navbar-brand" src="<%=basePath%>statics/zxlImgs/logo2.jpg" style="padding: 0px;"/>
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li id="index" class="active"><a href="index.jsp">首页</a></li>
                 <li id="sub"><a href="userselectSub.jsp">题库</a></li>
-                <li id="note" ><a href="note.jsp">我的笔记</a></li>
+                <li id="note"><a href="note.jsp">我的笔记</a></li>
             </ul>
             <form class="navbar-form navbar-left">
                 <div class="form-group">
