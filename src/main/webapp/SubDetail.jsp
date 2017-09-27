@@ -36,9 +36,9 @@
 			<div class="col-md-3 col-sm-3 col-xs-3"></div>
 			<div class="col-md-4 col-sm-4 col-xs-4">
 				<div>
-					<h2>选择题</h2>
+					<h2 id="subtype">选择题</h2>
 					<br>
-					<h4>PPP协议是 （） 的协议。</h4>
+					<h4 id="subcontent">PPP协议是 （） 的协议。</h4>
 					<br>
 				</div>
 			</div>
@@ -48,13 +48,6 @@
 		<div class="row">
 			<div class="col-md-3 col-sm-3 col-xs-3"></div>
 			<div class="col-md-6 col-sm-6 col-xs-6">
-				<div>
-					<h4 id="ansA">A.物理层</h4>
-					<h4 id="ansB">B.数据链路层</h4>
-					<h4 id="ansC">C.网络层</h4>
-					<h4 id="ansD">D.应用层</h4>
-				</div>
-				<br>
 				<botton id="showAnswer" type="button" class="btn btn-default"
 					style="margin-left: 40%" onclick="show()">显示答案以及评论</botton>
 			</div>
@@ -129,7 +122,6 @@
 						<a href="">踩(1)</a>
 					</div>
 				</div>
-
 			</div>
 			<div class="col-md-3 col-sm-3 col-xs-3"></div>
 		</div>

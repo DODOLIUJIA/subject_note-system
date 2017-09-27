@@ -38,7 +38,7 @@
 				"menuid" : "13",
 				"menuname" : "用户管理",
 				"icon" : "icon-add",
-				"url" : "#"
+				"url" : "AdminUserMessage.jsp"
 			}, ]
 		}, {
 			"menuid" : "8",
@@ -75,7 +75,7 @@
 				"menuid" : "41",
 				"menuname" : "查询题目",
 				"icon" : "icon-add",
-				"url" : "#"
+				"url" : "AdminSelectSub.jsp"
 			}, {
 				"menuid" : "42",
 				"menuname" : "新增题目",
@@ -92,9 +92,9 @@
 			"menuname" : "题目标签管理",
 			"menus" : [ {
 				"menuid" : "55",
-				"menuname" : "收支分类",
+				"menuname" : "查看标签",
 				"icon" : "icon-add",
-				"url" : "#"
+				"url" : "AdminSelectSubLabel.jsp"
 			}, {
 				"menuid" : "56",
 				"menuname" : "报表统计",

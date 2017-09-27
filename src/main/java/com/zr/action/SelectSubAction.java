@@ -19,33 +19,29 @@ import com.zr.service.impl.SubServiceImpl;
 import net.sf.json.JSONObject;
 
 /**
- * 吴尚鑫
  * Servlet implementation class SelectSubAction
  */
 @WebServlet("/selectSub")
 public class SelectSubAction extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	 SubService sbs = new SubServiceImpl();
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public SelectSubAction() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+	SubService sbs = new SubServiceImpl();
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public SelectSubAction() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request, response);
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {

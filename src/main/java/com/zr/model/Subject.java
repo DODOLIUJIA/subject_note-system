@@ -1,5 +1,11 @@
 package com.zr.model;
 
+/**
+ * 题目类
+ * 
+ * @author 樊庆珂
+ * @date 2017/9/21
+ */
 public class Subject {
 	private String s_label;
 	private int subId;// 题目ID
@@ -67,16 +73,16 @@ public class Subject {
 		this.subTime = subTime;
 	}
 
-  
 	/**
 	 * 题目的无参构造方法
 	 */
 	public Subject() {
 		super();
 	}
-	
+
 	/**
 	 * 题目的有参构造方法
+	 * 
 	 * @param subId
 	 * @param subSummary
 	 * @param subText

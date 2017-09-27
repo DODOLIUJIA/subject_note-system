@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.zr.dao.SubDao;
+import com.zr.model.SubLabel;
 import com.zr.model.Subject;
 import com.zr.util.JDBCUtil;
 
@@ -16,7 +17,6 @@ import net.sf.json.JSONObject;
 import com.zr.util.DBConnection;
 
 public class SubDaoImpl implements SubDao {
-
 	@Override
 	public int getSubsCount() {
 		int subCount = 0;
@@ -90,7 +90,6 @@ public class SubDaoImpl implements SubDao {
 		return subjects;
 	}
 	
-	//通过题目id查找标签，如有多个进行拼接
 	public String getSublabelBySubid(int subid) {
 		StringBuffer label = new StringBuffer("");
 		Connection con = null;
@@ -122,7 +121,6 @@ public class SubDaoImpl implements SubDao {
 		}
 		return label.toString();
 	}
-	
 	
 	@Override
 	public JSONArray getAllYears() {
@@ -190,25 +188,25 @@ public class SubDaoImpl implements SubDao {
 
 	@Override
 	public boolean insertNewSubject(String subSummary, String subText, int subType, String subAnswer, int subTime) {
-		StringBuffer sql=new StringBuffer("");
+		StringBuffer sql = new StringBuffer("");
 		sql.append("insert into `subject`(`subject`.subsummary,`subject`.subtext,");
 		sql.append("`subject`.subtype,`subject`.subaccuracy,`subject`.subanswer,`subject`.subtime) ");
 		sql.append("VALUES(?,?,?,?,?,?) ");
-		Connection conn=DBConnection.getConnection();
+		Connection conn = DBConnection.getConnection();
 		try {
-			PreparedStatement pre=conn.prepareStatement(sql.toString());
+			PreparedStatement pre = conn.prepareStatement(sql.toString());
 			pre.setString(1, subSummary);
 			pre.setString(2, subText);
 			pre.setInt(3, subType);
 			pre.setString(4, "0%");
 			pre.setString(5, subAnswer);
 			pre.setInt(6, subTime);
-			int i=pre.executeUpdate();
-			if(i==1){
-				DBConnection.CloseConnection(conn, pre );
+			int i = pre.executeUpdate();
+			if (i == 1) {
+				DBConnection.CloseConnection(conn, pre);
 				return true;
-			}else{
-				DBConnection.CloseConnection(conn, pre );
+			} else {
+				DBConnection.CloseConnection(conn, pre);
 				return false;
 			}
 		} catch (SQLException e) {
@@ -219,20 +217,21 @@ public class SubDaoImpl implements SubDao {
 
 	@Override
 	public Subject getSubjectBySId(int sid) {
-		StringBuffer sql=new StringBuffer("");
+		StringBuffer sql = new StringBuffer("");
 		sql.append("SELECT * from `subject` ");
 		sql.append("where `subject`.subid=?");
-		Connection conn=DBConnection.getConnection();
+		Connection conn = DBConnection.getConnection();
 		try {
-			PreparedStatement pre=conn.prepareStatement(sql.toString());
+			PreparedStatement pre = conn.prepareStatement(sql.toString());
 			pre.setInt(1, sid);
-			ResultSet res=pre.executeQuery();
-			if(res.next()){
-				Subject s=new Subject(res.getInt("subid"), res.getString("subsummary"), res.getString("subtext"), 
-						res.getInt("subtype"), res.getString("subaccuracy"), res.getString("subanswer"), res.getInt("subtime"));
+			ResultSet res = pre.executeQuery();
+			if (res.next()) {
+				Subject s = new Subject(res.getInt("subid"), res.getString("subsummary"), res.getString("subtext"),
+						res.getInt("subtype"), res.getString("subaccuracy"), res.getString("subanswer"),
+						res.getInt("subtime"));
 				DBConnection.CloseConnection(conn, pre, res);
 				return s;
-			}else{
+			} else {
 				DBConnection.CloseConnection(conn, pre, res);
 				return null;
 			}
@@ -243,6 +242,36 @@ public class SubDaoImpl implements SubDao {
 	}
 
 	@Override
+	public boolean updateSubject(int sid, String subSummary, String subText, int subType, String subAnswer,
+			int subTime) {
+		StringBuffer sql = new StringBuffer("");
+		sql.append("UPDATE `subject` ");
+		sql.append("SET `subject`.subsummary=?,`subject`.subtext=?, ");
+		sql.append("`subject`.subtype=?,`subject`.subanswer=?,`subject`.subtime=? ");
+		sql.append("where `subject`.subid=? ");
+		Connection conn = DBConnection.getConnection();
+		try {
+			PreparedStatement pre = conn.prepareStatement(sql.toString());
+			pre.setString(1, subSummary);
+			pre.setString(2, subText);
+			pre.setInt(3, subType);
+			pre.setString(4, subAnswer);
+			pre.setInt(5, subTime);
+			pre.setInt(6, sid);
+			int i = pre.executeUpdate();
+			if (i == 1) {
+				DBConnection.CloseConnection(conn, pre);
+				return true;
+			} else {
+				DBConnection.CloseConnection(conn, pre);
+				return false;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
 	public JSONArray getAllSubLabel() {
 		JSONArray ja = new JSONArray();
 		Connection con = null;
@@ -278,7 +307,6 @@ public class SubDaoImpl implements SubDao {
 
 	}
 
-	//通过页码和显示数量和题目标签
 	@Override
 	public List<Subject> getSubsBySublabel(int start, int pageSize, String subLabel) {
 		List<Subject> subjects = new ArrayList<Subject>();
@@ -327,7 +355,6 @@ public class SubDaoImpl implements SubDao {
 
 	}
 	
-	//通过页码和显示数量和题目类型
 	@Override
 	public List<Subject> getSubsBySubType(int start, int pageSize, int subTypeI) {
 		List<Subject> subjects = new ArrayList<Subject>();
@@ -375,9 +402,7 @@ public class SubDaoImpl implements SubDao {
 		return subjects;
 
 	}
-
 	
-	//通过页码和显示数量和年份
 	@Override
 	public List<Subject> getSubsBySubYear(int start, int pageSize, int yearInt) {
 		List<Subject> subjects = new ArrayList<Subject>();
@@ -424,9 +449,7 @@ public class SubDaoImpl implements SubDao {
 
 		return subjects;
 	}
-
 	
-	//通过页码和显示数量和题型、题标签
 	@Override
 	public List<Subject> getSubsBySubTypeAndSubLabel(int start, int pageSize, int subTypeI, String subLabel) {
 		List<Subject> subjects = new ArrayList<Subject>();
@@ -475,7 +498,6 @@ public class SubDaoImpl implements SubDao {
 		return subjects;
 
 	}
-
 
 	@Override
 	public List<Subject> getSubsBySubYearAndSubLabel(int start, int pageSize, int yearInt, String subLabel) {
@@ -670,5 +692,4 @@ public class SubDaoImpl implements SubDao {
 		}
 
 	}
-
 }

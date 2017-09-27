@@ -24,9 +24,6 @@ import org.apache.commons.fileupload.FileItemFactory;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
-/**
- * Servlet implementation class uploadImg
- */
 @WebServlet(value = "/uploadImg", initParams = { @WebInitParam(name = "baseDir", value = "/statics/"),
 		@WebInitParam(name = "enabled", value = "true"), @WebInitParam(name = "debug", value = "true"),
 		@WebInitParam(name = "AllowedExtensionsFile", value = ""),
@@ -35,8 +32,12 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 		@WebInitParam(name = "DeniedExtensionsImage", value = ""),
 		@WebInitParam(name = "AllowedExtensionsFlash", value = "swf|fla"),
 		@WebInitParam(name = "DeniedExtensionsFlash", value = ""), })
-
-public class uploadImg extends HttpServlet {
+/**
+ * 处理ckeitor上传的图片
+ * @author Zxy
+ *
+ */
+public class UploadImg4Ckeditor extends HttpServlet {
 	private static String baseDir;// CKEditor的根目录
 	private static boolean debug = false;// 是否debug模式
 	private static boolean enabled = false;// 是否开启CKEditor上传

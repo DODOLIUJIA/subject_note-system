@@ -82,7 +82,7 @@ function deleteSub(index){
 			rownumbers : true,
 		/* 	sortName : 'subid', 
 			sortOrder : 'acs',  */
-			title : '用户信息列表',
+			title : '题目信息列表',
 			singleSelect: true,
 			queryParams: {
 				'year': $('#Year').textbox('getText'),
@@ -128,7 +128,6 @@ function deleteSub(index){
 			},
 
 		}); 
-		
 	});
 </script>
 <body>

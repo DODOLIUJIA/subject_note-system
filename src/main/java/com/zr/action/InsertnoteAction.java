@@ -29,19 +29,22 @@ public class InsertnoteAction extends HttpServlet {
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	      String notetitle = request.getParameter("title");
+	     int i = 0;
+		
+		String notetitle = request.getParameter("title");
 	     // System.out.println(notetitle);
 	      String notetext = request.getParameter("notetext");
-	      //System.out.println(notetext);
+	     // System.out.println(notetext);
 	      String notesummary =request.getParameter("notesummary");
 	       //System.out.println(notesummary);
 	      HttpSession session = request.getSession();
-			String lname = (String)session.getAttribute("n_lname");
-	      int i = ns.insertnote(2, notetitle, notetext, notesummary);
-	      int m = ns.getnoteid(notetitle);
-	      int q = ns.getN_lid(lname);
-	      int n = ns.insertNote_lable(m, q);
-	     
+		  String lname = (String)session.getAttribute("n_lname");
+	      if(""!=notetitle&&""!=notetext&&""!=notesummary){
+	    	  i = ns.insertnote(2, notetitle, notetext, notesummary);
+		      int m = ns.getnoteid(notetitle);
+		      int q = ns.getN_lid(lname);
+		      int n = ns.insertNote_lable(m, q);
+	      }     
 	      JSONObject json = new JSONObject();
 	      PrintWriter pw = response.getWriter();
 	      json.put("msg", i);

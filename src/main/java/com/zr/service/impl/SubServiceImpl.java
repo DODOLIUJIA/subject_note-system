@@ -4,28 +4,48 @@ import java.util.ArrayList;
 import java.util.List;
 import com.zr.dao.UserSubDao;
 import com.zr.dao.impl.UserSubDaoImpl;
+import com.zr.model.Subject;
+import com.zr.model.SubjectLabel;
 import com.zr.service.SubService;
-
 import com.zr.dao.SubDao;
+import com.zr.dao.UserSubDao;
 import com.zr.dao.impl.SubDaoImpl;
+import com.zr.dao.impl.UserSubDaoImpl;
 import com.zr.model.Subject;
 import com.zr.model.SubjectLabel;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
+public class SubServiceImpl implements SubService {
+	  SubDao sdao = new SubDaoImpl();
 
-/**
- * 
- * @author 吴尚鑫
- *
- */
-public class SubServiceImpl implements SubService{
-	SubDao subDao = new SubDaoImpl();
+	  SubDao subDao = new SubDaoImpl();
   
     UserSubDao usd = new UserSubDaoImpl();
     
-   
+
+    /**
+	 * 通过页面传来的信息选择题目
+	 * @param sublabel 题目标签	
+	 * @param subCrateTime 出题时间
+	 * @param STcheck 题目标签是否被点击	
+	 * @param SCTcheck 出题时间选项是否被点击
+	 * @return
+	 */
+	@Override
+	public List<Subject> selectSubsByMsg(String sublabel, int subCrateTime, int loadtimms) {
+		List<Subject> subs = new ArrayList<Subject>();
+		if("".equals(sublabel)&&subCrateTime != 0){
+			subs = usd.selectSubsBySubTime(subCrateTime, loadtimms);
+		}else if(!("".equals(sublabel))&&subCrateTime == 0){
+			subs = usd.selectSubsBySubType(sublabel, loadtimms);
+		}else{
+			subs = usd.selectSubsBySubTypeAndSubTime(sublabel, subCrateTime, loadtimms);
+		}
+		return subs;
+	}
+
   
 	@Override
 	public JSONArray getAllYears() {
@@ -63,7 +83,7 @@ public class SubServiceImpl implements SubService{
 		}
 		return subtypeS;
   }
-	
+
 	@Override
 	public boolean insertNewSub(String subSummary, String subText, int subType, String subAnswer, int subTime) {
 		return subDao.insertNewSubject(subSummary, subText, subType, subAnswer, subTime);
@@ -105,8 +125,7 @@ public class SubServiceImpl implements SubService{
 		jo.put("total", subDao.getSubsCount());
 		jo.put("rows", subDao.getSubsBySublabel((page-1)*pageSize, pageSize, subLabel));
 		return jo;
-
-	}
+	
 	@Override
 	public JSONObject getSubsByPageAndPagesizeBySubType(int page, int pageSize, String subType) {
 		JSONObject  jo = new JSONObject();
@@ -155,15 +174,14 @@ public class SubServiceImpl implements SubService{
 	}
 	@Override
 	public void deleteSubBySubId(int subId) {
-		
 		subDao.deleteSubBySubId(subId);
 	}
 	
-
 	@Override
 	public JSONObject getSubjectBySid(int sid) {
-		Subject s=subDao.getSubjectBySId(sid);
-		JSONObject json=new JSONObject();
+		Subject s = sdao.getSubjectBySId(sid);
+		JSONObject json = new JSONObject();
+
 		if(s!=null){
 			json.put("subid", s.getSubId());
 			json.put("subsummary", s.getSubSummary());
@@ -173,13 +191,13 @@ public class SubServiceImpl implements SubService{
 			json.put("subanswer", s.getSubAnswer());
 			json.put("subtime", s.getSubTime());
 			return json;
-		}else{
+		} else {
 			return null;
 		}
 	}
-	
+
 	public static void main(String[] args) {
-		SubServiceImpl s=new SubServiceImpl();
+		SubServiceImpl s = new SubServiceImpl();
 		System.out.println(s.getSubjectBySid(1));
 	}
 
@@ -222,5 +240,64 @@ public class SubServiceImpl implements SubService{
 		List<Subject> times = new ArrayList<Subject>();
 		times = usd.selectSubTime();
 		return times;
+  }
+    
+	public boolean updateSubject(int sid, String subSummary, String subText, int subType, String subAnswer,
+			int subTime) {
+		return sdao.updateSubject(sid, subSummary, subText, subType, subAnswer, subTime);
+
 	}
+
+	/**
+	 * 通过页面传来的信息选择题目
+	 * 
+	 * @param sublabel
+	 *            题目标签
+	 * @param subCrateTime
+	 *            出题时间
+	 * @param STcheck
+	 *            题目标签是否被点击
+	 * @param SCTcheck
+	 *            出题时间选项是否被点击
+	 * @return
+	 */
+	@Override
+	public List<Subject> selectSubsByMsg(String sublabel, int subCrateTime) {
+		List<Subject> subs = new ArrayList<Subject>();
+		if ("".equals(sublabel) && subCrateTime != 0) {
+			subs = usd.selectSubsBySubTime(subCrateTime);
+		} else if (!("".equals(sublabel)) && subCrateTime == 0) {
+			subs = usd.selectSubsBySubType(sublabel);
+		} else {
+			subs = usd.selectSubsBySubTypeAndSubTime(sublabel, subCrateTime);
+		}
+		return subs;
+	}
+
+	/**
+	 * 得到所有的题目标签
+	 * 
+	 * @return
+	 */
+	public List<Subject> selectSubLabel() {
+		List<Subject> labels = new ArrayList<Subject>();
+		labels = usd.selectSubLabel();
+		return labels;
+	}
+
+	/**
+	 * 得到所有题目的不同的出题时间
+	 * 
+	 * @return
+	 */
+	public List<Subject> selectSubTime() {
+		List<Subject> times = new ArrayList<Subject>();
+		times = usd.selectSubTime();
+		return times;
+	}
+
+	@Override
+	public Subject getSubjectBySubid(int sid) {
+		return sdao.getSubjectBySId(sid);
+  }
 }
