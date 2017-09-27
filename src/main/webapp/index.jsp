@@ -52,6 +52,11 @@
             $(".dropdown-menu li a").mouseout(function(){
                 $(this).css("color","white");
             })
+          $("#Subject").click(function(){
+        	  var link = $(this).attr('target');
+        	  $("#in_center").load(link);
+          })  
+            
         });
 
     </script>
@@ -67,9 +72,11 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
+
                <li id="index" class="active"><a href="index.jsp">首页</a></li>
                 <li id="sub"><a href="userselectSub.jsp">题库</a></li>
                 <li id="note" ><a href="note.jsp">我的笔记</a></li>
+
             </ul>
             <form class="navbar-form navbar-left">
                 <div class="form-group">
@@ -93,7 +100,9 @@
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
 </nav>
+
 <div id="content"></div>
+
 <!-- 尾部 -->
 <footer class="footer row">
     <div class="col-md-4">

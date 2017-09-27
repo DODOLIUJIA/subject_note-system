@@ -9,6 +9,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.zr.service.LoginService;
 import com.zr.service.impl.LoginServiceImpl;
@@ -34,7 +35,8 @@ public class LoginAction extends HttpServlet{
 		int result = loginService.selectUser(uname, password);
 		Cookie user= new Cookie("uname", uname);
 		resp.addCookie(user);
-		
+		HttpSession session = req.getSession();
+		session.setAttribute("uname", uname);
 		resp.setCharacterEncoding("utf-8");
 		JSONObject json = new JSONObject();
 		json.put("result",result);
