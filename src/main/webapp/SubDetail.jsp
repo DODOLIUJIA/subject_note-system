@@ -5,8 +5,15 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>详细题目</title>
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/statics/bootstrap/css/bootstrap.min.css" />
+<link href="${basePath}statics/themes/bootstrap/easyui.css"
+	rel="stylesheet">
+<link href="${basePath}statics/themes/icon.css" rel="stylesheet">
+<link href="${basePath}statics/bootstrap/css/bootstrap.min.css"
+	rel="stylesheet">
+<script src="${basePath}statics/js/jquery-1.9.1.js"></script>
+<script src="${basePath}statics/js/jquery.easyui.min.js"></script>
+<script src="${basePath}statics/js/easyui-lang-zh_CN.js"></script>
+<script src="${basePath}statics/ckeditor/ckeditor.js"></script>
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/statics/js/SubDetail.js"></script>
 </head>
@@ -36,9 +43,11 @@
 			<div class="col-md-3 col-sm-3 col-xs-3"></div>
 			<div class="col-md-4 col-sm-4 col-xs-4">
 				<div>
-					<h2 id="subtype">选择题</h2>
+					<input type="text" id="id" style="display: none"
+						value="${param.sid}">
+					<h2 id="subtype"></h2>
 					<br>
-					<h4 id="subcontent">PPP协议是 （） 的协议。</h4>
+					<h4 id="subcontent"></h4>
 					<br>
 				</div>
 			</div>
@@ -58,73 +67,24 @@
 		<div class="row">
 			<div class="col-md-3 col-sm-3 col-xs-3"></div>
 			<div class="col-md-6 col-sm-6 col-xs-6">
-				<h4>答案是B</h4>
+				<h4 id="answer">答案是B</h4>
 			</div>
 			<div class="col-md-3 col-sm-3 col-xs-3"></div>
 		</div>
 		<div class="row">
-			<div class="col-md-7 col-sm-7 col-xs-7"></div>
-			<div class="col-md-2 col-sm-2 col-xs-2">
-				<a class="btn btn-default" href="#" role="button">添加笔记</a>
-			</div>
-			<div class="col-md-3 col-sm-3 col-xs-3"></div>
-		</div>
-
-		<div class="row">
 			<div class="col-md-3 col-sm-3 col-xs-3"></div>
 			<div class="col-md-6 col-sm-6 col-xs-6">
-				<div>
-					<div id="username">用户名：鹳狸猿</div>
-					<div class="talk">
-						点对点协议（PPP）为在点对点连接上传输多协议数据包提供了一个标准方法。PPP 最初设计是为两个对等节点之间的 IP
-						流量传输提供一种封装协议。在 TCP-IP 协议集中它是一种用来同步调制连接的数据链路层协议（OSI
-						模式中的第二层），替代了原来非标准的第二层协议，即 SLIP。除了 IP 以外 PPP 还可以携带其它协议，包括 DECnet 和
-						Novell 的 Internet 网包交换（IPX）。<br>
-					</div>
-					<div class="down">
-						<a href="">赞(20)</a>
-						<a href="">踩(0)</a>
-					</div>
-				</div>
-
-			</div>
-			<div class="col-md-3 col-sm-3 col-xs-3"></div>
-		</div><br>
-		
-		<div class="row">
-			<div class="col-md-3 col-sm-3 col-xs-3"></div>
-			<div class="col-md-6 col-sm-6 col-xs-6">
-				<div>
-					<div id="username">用户名：学渣</div>
-					<div class="talk">
-						这题真鸡脖难<br>
-					</div>
-					<div class="down">
-						<a href="">赞(0)</a>
-						<a href="">踩(3)</a>
-					</div>
-				</div>
-
-			</div>
-			<div class="col-md-3 col-sm-3 col-xs-3"></div>
-		</div><br>
-		
-		<div class="row">
-			<div class="col-md-3 col-sm-3 col-xs-3"></div>
-			<div class="col-md-6 col-sm-6 col-xs-6">
-				<div>
-					<div id="username">用户名：学霸</div>
-					<div class="talk">
-						基础题，难度还行。<br>
-					</div>
-					<div class="down">
-						<a href="">赞(4)</a>
-						<a href="">踩(1)</a>
-					</div>
+				<textarea cols="60" id="msg" name="msg" rows="4" placeholder="请自觉遵守互联网相关的政策法规，严禁发布色情、暴力、反动的言论。" style="display: inline"></textarea>
+				<div style="display: inline">
+					<a class="btn btn-default" id="addComment" role="button" onclick="addNewComment()">发表评论</a>
+					<a class="btn btn-default" role="button">添加笔记</a>
 				</div>
 			</div>
 			<div class="col-md-3 col-sm-3 col-xs-3"></div>
 		</div>
-	</div><br>
+			
+		<div id="comment"></div>
+	</div>
+	<br>
 </body>
 </html>
