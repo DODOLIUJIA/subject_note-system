@@ -58,20 +58,22 @@
 </head>
 
 <body>
-  <form id="" method="post">
-     <div class="container">
+  <form id="add"  >
+			<div id="scan">  
+			</div>
              <div id="head">                    
-                     <a id ="cancel" href="#">取消</a>
-                     <a id ="insert" href="#">添加</a>
-                 <input id="title" type="text" placeholder="请输入笔记标题">
-                 <span id="biao">标题：  </span>            
+                     <span id="biao">标题：  </span>     
+                    <input id="title" name="title" type="text" placeholder="请输入笔记标题">
+                    <span id="key">关键字：  </span>
+                    <input id="keyword" name="keyword" type="text" placeholder="请输入关键字">
+                    <a id ="cancel" href="#">取消</a>
+                     <a id ="insert1" href="#">添加</a>        
              </div>
-             <div >
-                       <textarea id="editor"></textarea>
-             </div>
+              <div  >
+                       <textarea name="desc" id="editor"></textarea>
+             </div> 
              
-     </div>
-     </form>
+     </form> 
 </body>
 <script type="text/javascript">
 //初始化textarea标签为cheditor
@@ -89,6 +91,7 @@ function setContent(){
 }
 function getContent(){
 	var content = CKEDITOR.instance.editor.getData();
+	return content;
 }
 $(function(){
 	$("#insert").linkbutton({

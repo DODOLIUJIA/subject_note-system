@@ -15,7 +15,7 @@
 <title>千层在线学习</title>
 
 <style>
-	    body{background-color: #eee;}
+		body{background-color: #eee;}
        .font{position: absolute;z-index: 1;width: 100%;text-align: center;color: #fff;margin-top:2%;}
         .trasation-font{width: 100%;text-align: center;margin-top: 4%;}
         .card {border: 1px solid #aaa; width: 29%; height: 300px; padding: 0px; margin: 0px 23px;}
@@ -24,24 +24,26 @@
         .footer {height: 150px;background-color: #222;margin-top: 5%;color: #fff;padding: 3% 10%;}
         .col-md-4 {text-align: center;}
         .col-md-4 p a{color: #fff;}
-        .left-bar {background-color: #222;padding: 5% 8%;margin-bottom: 10%;}
-        .user-info{background-color: #222;padding: 5% 8%;text-align: center;}
-        .content{height: 100%;padding: 8% 10%;color: #fff;}
+    .left-bar {background-color: #222;padding: 5% 8%;margin-bottom: 10%;}
+    .user-info{background-color: #222;padding: 5% 8%;text-align: center;}
+    .content{height: 100%;padding: 8% 10%;color: #fff;}
     </style>
     <script>
         $(function(){
-            var timer;
+        	var timer0;
             $(".userfun").mouseover(function () {
-                clearTimeout(timer);
+                clearTimeout(timer0);
+                
                 $(".dropdown-menu").show();
+                $(".menu").hide();
             });
             $(".userfun").mouseout(function () {
-                timer = setTimeout(function () {
+                timer0 = setTimeout(function () {
                     $(".dropdown-menu").hide();
                 },100);
             });
             $(".dropdown-menu").mouseover(function () {
-                clearTimeout(timer);
+                clearTimeout(timer0);
             });
             $(".dropdown-menu").click(function () {
                 $(".dropdown-menu").hide();
@@ -50,6 +52,28 @@
                 $(this).css("color","black");
             });
             $(".dropdown-menu li a").mouseout(function(){
+                $(this).css("color","white");
+            });
+            var timer;
+            $(".dropdown").mouseover(function () {
+                clearTimeout(timer);
+                $(".menu").show();
+            });
+            $(".dropdown").mouseout(function () {
+                timer = setTimeout(function () {
+                    $(".menu").hide();
+                },100);
+            });
+            $(".menu").mouseover(function () {
+                clearTimeout(timer);
+            });
+            $(".menu").click(function () {
+                $(".menu").hide();
+            });
+            $(".menu li a").mouseover(function(){
+                $(this).css("color","black");
+            });
+            $(".menu li a").mouseout(function(){
                 $(this).css("color","white");
             })
         });
@@ -67,9 +91,9 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li><a href="#">首页<span class="sr-only">(current)</span></a></li>
-                <li><a href="#">题库</a></li>
-                <li><a href="#">我的笔记</a></li>
+                <li id="index"><a href="index.jsp">首页</a></li>
+                <li id="sub" ><a href="userselectSub.jsp">题库</a></li>
+                <li id="note" ><a href="note.jsp">我的笔记</a></li>
             </ul>
             <form class="navbar-form navbar-left">
                 <div class="form-group">
@@ -77,13 +101,14 @@
                 </div>
                 <span class="glyphicon glyphicon-search" style="margin-left: -15%;"></span>
             </form>
-            <ul class="nav navbar-nav navbar-right active">
-                <a  href="javascript:void(0)" class="userfun active"
-                    style="padding: 0px;"aria-expanded="false" >
-                    <img src="<%=basePath%>/statics/zxlImgs/image.jpg" alt="..." class="img-circle" style="width:50px;">
+            <ul class="nav navbar-nav navbar-right">
+                <a  href="javascript:void(0)" class=" active userfun"
+                    style="padding: 0px;"aria-expanded="false">
+                  
+                   <img src="<%=basePath%>statics/zxlImgs/image.jpg" alt="..." class="img-circle" style="width:50px;">
                 </a>
                 <ul class="dropdown-menu" style="text-align:center;padding:0px;background-color: #222;">
-                    <li><a href="#" style="color:#fff;height:35px;line-height:33px">个人中心</a></li>
+                    <li><a href="userPage.jsp" style="color:#fff;height:35px;line-height:33px">个人中心</a></li>
                     <li role="separator" class="divider" style="margin:0px;"></li>
                     <li><a href="#" style="color:#fff;height:35px;line-height:33px">账号设置</a></li>
                     <li role="separator" class="divider" style="margin:0px;"></li>
@@ -93,7 +118,6 @@
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
 </nav>
-
 <!-- 内容 -->
 <div class="content">
 	<!-- 左侧用户基本信息 -->
@@ -106,13 +130,13 @@
 		</div>
 		<div class="user-info">
 			<div class="side-profile-pic" href="javascript:void(0);">
-			<img src="<%=basePath%>/statics/zxlImgs/image.jpg" alt="..." class="img-circle" style="width:100px;" id="avatarImage">
+			<img src="<%=basePath%>statics/zxlImgs/image.jpg" alt="..." class="img-circle" style="width:100px;" id="avatarImage">
 			<div class="change-photo"></div>
-			<h3 class="side-profile-name level-color-5">${account.uname}</h3>
+			<h3 class="side-profile-name level-color-5">${uname}</h3>
 		</div>
 		<div class="profile-count-box">
 			<a class="btn btn-primary" href="/">返回首页</a> 
-			<a class="btn btn-primary" href="/profile/1160835/basicinfo#menubox">编辑资料</a>
+			<a class="btn btn-primary" href="/">编辑资料</a>
 		</div>					
 	</div>	
 	</div>
@@ -122,9 +146,9 @@
         <div class="container-fluid">
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-left">
-	         	<a  href="javascript:void(0)" class="userfun"
+	         	<a  href="javascript:void(0)" class="dropdown"
 	            aria-expanded="false" >刷题</a>
-	            <ul class="dropdown-menu" style="text-align:center;padding:0px;background-color: #222;">
+	            <ul class="dropdown-menu menu" style="text-align:center;padding:0px;background-color: #222;">
 	            	<li><a href="userPage.jsp" style="color:#fff;height:35px;line-height:33px">Java基础</a></li>
 	                <li role="separator" class="divider" style="margin:0px;"></li>
 	                <li><a href="#" style="color:#fff;height:35px;line-height:33px">nodeJs练习</a></li>
@@ -154,9 +178,9 @@
 							<li><i class="finish-time"></i>完成时间： 2017-09-18</li>
 						</a>
 						<li>
-							<a href="/profile/1160835/test/11189603/108203">
+							<a href="">
 							<i class="finish-score"></i>得分：50 </a>
-							<a href="/test/7135437/summary" class="link-green link-again">再做一次</a>
+							<a href=" class="link-green link-again">再做一次</a>
 						</li>
 						<li style="visibility: hidden">
 							<i class="finish-rank"></i>排名：1
@@ -170,16 +194,16 @@
 		</div>					
 	</div>
 </div>
-	
+
 <!-- 尾部 -->
-<footer class="footer row" style="clear:both;">
+<footer class="footer row">
     <div class="col-md-4">
         <p>千层网，你的必备神器</p>
         <p>欢迎加入我们</p>
         <span style="font-family:arial;">Copyright &copy;2017 www.qianceng.com</span>
     </div>
     <div class="col-md-4">
-        <img src="<%=basePath%>/statics/zxlImgs/erweima.png"/>
+        <img src="<%=basePath%>statics/zxlImgs/erweima.png"/>
         <br>
         <p>扫一扫</p>
     </div>

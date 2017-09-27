@@ -42,6 +42,7 @@ public class ShownoteAction extends HttpServlet {
 		HttpSession session = request.getSession();
 		String lname = (String)session.getAttribute("n_lname");
 		List<Note> notes = ns.getallnotesByn_lname(lname);
+		//System.out.println(notes.size());
 		session.setAttribute("type", lname);
 		JSONArray json = new JSONArray();
 		 json = JSONArray.fromObject(notes);

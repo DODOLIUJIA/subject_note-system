@@ -76,8 +76,8 @@ function deleteSub(index){
 			$('#selectsub').datagrid('reload');
 		}
 	}); 
-   
 };
+
 //更新
 function updataSub(index){
 	
@@ -103,14 +103,9 @@ function updataSub(index){
 			$("#Time").val(sub.subtime);
 		}
 	})
-	
-	
 }
 
 	$(function() {
-		
-	
-		
 		$('#updataWin').window({    
 		    width:1100,    
 		    height:700,    

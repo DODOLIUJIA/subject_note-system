@@ -6,6 +6,7 @@
 	session.setAttribute("basePath",basePath);%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <title>千层在线学习系统</title>
+
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -13,6 +14,7 @@
 <link rel="stylesheet" href="${basePath}statics/bootstrap/css/bootstrap.min.css">
 <script type="text/javascript" src="${basePath}statics/js/jquery-1.9.1.js"></script>
 <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js "></script>
+
 <style>
 		body{background-color: #eee;}
        .font{position: absolute;z-index: 1;width: 100%;text-align: center;color: #fff;margin-top:2%;}
@@ -26,8 +28,7 @@
     </style>
     <script>
         $(function(){
-        	$("#content").load("index_content.jsp");
-        	 
+        	  $("#content").load("index_content.jsp");
             var timer;
             $(".userfun").mouseover(function () {
                 clearTimeout(timer);
@@ -50,8 +51,8 @@
             });
             $(".dropdown-menu li a").mouseout(function(){
                 $(this).css("color","white");
+
             });
-          
         });
 
     </script>
@@ -62,7 +63,8 @@
     <div class="container-fluid" style="margin-left: 10%;margin-right: 10%;">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header" >
-        	<img class="navbar-brand" src="<%=basePath%>statics/zxlImgs/logo.jpg" style="padding: 0px;"/>
+        <img class="navbar-brand" src="<%=basePath%>statics/zxlImgs/logo.jpg" style="padding: 0px;"/>
+
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -78,6 +80,7 @@
                 <span class="glyphicon glyphicon-search" style="margin-left: -15%;"></span>
             </form>
             <ul class="nav navbar-nav navbar-right">
+              
             	<c:choose>
 					<c:when test="${sessionScope.uname == null }">
 	                    <li><a href="login.jsp">登录</a></li>

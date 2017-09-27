@@ -18,6 +18,7 @@ import net.sf.json.JSONObject;
  * 通过题目的id来获取题目的所有信息
  * @author JACK
  *
+ * Servlet implementation class GetSubjectBySId
  */
 @WebServlet("/GetSubjectBySId")
 public class GetSubjectBySId extends HttpServlet {
