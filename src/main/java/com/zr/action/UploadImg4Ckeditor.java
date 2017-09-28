@@ -11,7 +11,6 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebInitParam;
 import javax.servlet.annotation.WebServlet;
@@ -33,35 +32,34 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 		@WebInitParam(name = "AllowedExtensionsFlash", value = "swf|fla"),
 		@WebInitParam(name = "DeniedExtensionsFlash", value = ""), })
 /**
- * 处理ckeitor上传的图片
  * @author Zxy
  *
  */
 public class UploadImg4Ckeditor extends HttpServlet {
-	private static String baseDir;// CKEditor的根目录
-	private static boolean debug = false;// 是否debug模式
-	private static boolean enabled = false;// 是否开启CKEditor上传
-	private static Hashtable allowedExtensions;// 允许的上传文件扩展名
-	private static Hashtable deniedExtensions;// 阻止的上传文件扩展名
-	private static SimpleDateFormat dirFormatter;// 目录命名格式:yyyyMM
-	private static SimpleDateFormat fileFormatter;// 文件命名格式:yyyyMMddHHmmssSSS
+	private static String baseDir;// CKEditor鐨勬牴鐩綍
+	private static boolean debug = false;// 鏄惁debug妯″紡
+	private static boolean enabled = false;// 鏄惁寮�惎CKEditor涓婁紶
+	private static Hashtable allowedExtensions;// 鍏佽鐨勪笂浼犳枃浠舵墿灞曞悕
+	private static Hashtable deniedExtensions;// 闃绘鐨勪笂浼犳枃浠舵墿灞曞悕
+	private static SimpleDateFormat dirFormatter;// 鐩綍鍛藉悕鏍煎紡:yyyyMM
+	private static SimpleDateFormat fileFormatter;// 鏂囦欢鍛藉悕鏍煎紡:yyyyMMddHHmmssSSS
 
 	/**
-	 * Servlet初始化方法
+	 * Servlet鍒濆鍖栨柟娉�
 	 */
 	public void init() throws ServletException {
-		// 从web.xml中读取debug模式
+		// 浠巜eb.xml涓鍙杁ebug妯″紡
 		debug = (new Boolean(getInitParameter("debug"))).booleanValue();
 		if (debug)
 			System.out.println("\r\n---- SimpleUploaderServlet initialization started ----");
-		// 格式化目录和文件命名方式
+		// 鏍煎紡鍖栫洰褰曞拰鏂囦欢鍛藉悕鏂瑰紡
 		dirFormatter = new SimpleDateFormat("yyyyMM");
 		fileFormatter = new SimpleDateFormat("yyyyMMddHHmmssSSS");
 
-		// 从web.xml中获取根目录名称
+		// 浠巜eb.xml涓幏鍙栨牴鐩綍鍚嶇О
 		baseDir = getInitParameter("baseDir");
 
-		// 从web.xml中获取是否可以进行文件上传
+		// 浠巜eb.xml涓幏鍙栨槸鍚﹀彲浠ヨ繘琛屾枃浠朵笂浼�
 		enabled = (new Boolean(getInitParameter("enabled"))).booleanValue();
 
 		if (baseDir == null)
@@ -73,11 +71,11 @@ public class UploadImg4Ckeditor extends HttpServlet {
 		if (!baseFile.exists()) {
 			baseFile.mkdirs();
 		}
-		// 实例化允许的扩展名和阻止的扩展名
+		// 瀹炰緥鍖栧厑璁哥殑鎵╁睍鍚嶅拰闃绘鐨勬墿灞曞悕
 		allowedExtensions = new Hashtable(3);
 		deniedExtensions = new Hashtable(3);
 
-		// 从web.xml中读取配置信息
+		// 浠巜eb.xml涓鍙栭厤缃俊鎭�
 		allowedExtensions.put("file", stringToArrayList(getInitParameter("AllowedExtensionsFile")));
 		deniedExtensions.put("file", stringToArrayList(getInitParameter("DeniedExtensionsFile")));
 
@@ -102,7 +100,7 @@ public class UploadImg4Ckeditor extends HttpServlet {
 		response.setContentType("text/html; charset=UTF-8");
 		response.setHeader("Cache-Control", "no-cache");
 		PrintWriter out = response.getWriter();
-		// 从请求参数中获取上传文件的类型：File/Image/Flash
+		// 浠庤姹傚弬鏁颁腑鑾峰彇涓婁紶鏂囦欢鐨勭被鍨嬶細File/Image/Flash
 		String fileType = request.getParameter("fileType");
 		String workType = request.getParameter("workType");
 
@@ -115,19 +113,18 @@ public class UploadImg4Ckeditor extends HttpServlet {
 		}
 
 		if (debug)
-			System.out.println("typeStr:　" + fileType);
+			System.out.println("typeStr: " + fileType);
 
-		// 实例化dNow对象，获取当前时间
 		Date dNow = new Date();
 
-		// 设定上传文件路径 EX：statics/images/201709
+		// 璁惧畾涓婁紶鏂囦欢璺緞 EX锛歴tatics/images/201709
 		// String currentPath = baseDir + typeStr + "/" +
 		// dirFormatter.format(dNow);
 
-		// 设定上传文件路径 EX：statics/images/note/201709
-		String currentPath = baseDir + fileType + "/" + workType + "/" + dirFormatter.format(dNow);
+		// 璁惧畾涓婁紶鏂囦欢璺緞 EX锛歴tatics/images/note/201709
+		String currentPath = baseDir + fileType + "/" + workType + "/" + dirFormatter.format(11);
 
-		// 获得web应用的上传路径
+		// 鑾峰緱web搴旂敤鐨勪笂浼犺矾寰�
 		String currentDirPath = getServletContext().getRealPath(currentPath);
 		// String currentDirPath =
 		// request.getSession().getServletContext().getContextPath() +
@@ -136,22 +133,22 @@ public class UploadImg4Ckeditor extends HttpServlet {
 		if (debug)
 			System.out.println("currentDirPath: " + currentDirPath);
 
-		// 判断文件夹是否存在，不存在则创建
+		// 鍒ゆ柇鏂囦欢澶规槸鍚﹀瓨鍦紝涓嶅瓨鍦ㄥ垯鍒涘缓
 		File dirTest = new File(currentDirPath);
 
 		if (!dirTest.exists()) {
 			dirTest.mkdirs();
 		}
 
-		// 将路径前加上web应用名
+		// 灏嗚矾寰勫墠鍔犱笂web搴旂敤鍚�
 		currentPath = request.getContextPath() + currentPath;
 
-		// 文件名和文件真实路径
+		// 鏂囦欢鍚嶅拰鏂囦欢鐪熷疄璺緞
 		String newName = "";
 		String fileUrl = "";
 
 		if (enabled) {
-			// 使用Apache Common组件中的fileupload进行文件上传
+			// 浣跨敤Apache Common缁勪欢涓殑fileupload杩涜鏂囦欢涓婁紶
 			FileItemFactory factory = new DiskFileItemFactory();
 			ServletFileUpload upload = new ServletFileUpload(factory);
 
@@ -168,19 +165,19 @@ public class UploadImg4Ckeditor extends HttpServlet {
 					else
 						fields.put(item.getFieldName(), item);
 				}
-				// CEKditor中file域的name值是upload
+				// CEKditor涓璮ile鍩熺殑name鍊兼槸upload
 				FileItem uplFile = (FileItem) fields.get("upload");
 
-				// 获取文件名并做处理
+				// 鑾峰彇鏂囦欢鍚嶅苟鍋氬鐞�
 				String fileNameLong = uplFile.getName();
 				fileNameLong = fileNameLong.replace('\\', '/');
 				String[] pathParts = fileNameLong.split("/");
 				String fileName = pathParts[pathParts.length - 1];
-				// 获取文件扩展名
+				// 鑾峰彇鏂囦欢鎵╁睍鍚�
 				String ext = getExtension(fileName);
-				// 设置上传文件名
+				// 璁剧疆涓婁紶鏂囦欢鍚�
 				fileName = fileFormatter.format(dNow) + "." + ext;
-				// 获取文件名(无扩展名)
+				// 鑾峰彇鏂囦欢鍚�鏃犳墿灞曞悕)
 				String nameWithoutExt = getNameWithoutExtension(fileName);
 
 				File pathToSave = new File(currentDirPath, fileName);
@@ -199,7 +196,7 @@ public class UploadImg4Ckeditor extends HttpServlet {
 					uplFile.write(pathToSave);
 				} else {
 					if (debug)
-						System.out.println("无效的文件类型： " + ext);
+						System.out.println("鏃犳晥鐨勬枃浠剁被鍨嬶細 " + ext);
 				}
 			} catch (Exception ex) {
 				if (debug)
@@ -207,10 +204,10 @@ public class UploadImg4Ckeditor extends HttpServlet {
 			}
 		} else {
 			if (debug)
-				System.out.println("未开启CKEditor上传功能");
+				System.out.println("鏈紑鍚疌KEditor涓婁紶鍔熻兘");
 		}
 
-		// CKEditorFuncNum是回调时显示的位置，这个参数必须有
+		// CKEditorFuncNum鏄洖璋冩椂鏄剧ず鐨勪綅缃紝杩欎釜鍙傛暟蹇呴』鏈�
 		String callback = request.getParameter("CKEditorFuncNum");
 		out.println("<script type=\"text/javascript\">");
 		out.println("window.parent.CKEDITOR.tools.callFunction(" + callback + ",'" + fileUrl + "',''" + ")");
@@ -222,21 +219,21 @@ public class UploadImg4Ckeditor extends HttpServlet {
 	}
 
 	/**
-	 * 获取文件名的方法
+	 * 鑾峰彇鏂囦欢鍚嶇殑鏂规硶
 	 */
 	private static String getNameWithoutExtension(String fileName) {
 		return fileName.substring(0, fileName.lastIndexOf("."));
 	}
 
 	/**
-	 * 获取扩展名的方法
+	 * 鑾峰彇鎵╁睍鍚嶇殑鏂规硶
 	 */
 	private String getExtension(String fileName) {
 		return fileName.substring(fileName.lastIndexOf(".") + 1);
 	}
 
 	/**
-	 * 字符串像ArrayList转化的方法
+	 * 瀛楃涓插儚ArrayList杞寲鐨勬柟娉�
 	 */
 
 	private ArrayList stringToArrayList(String str) {
@@ -255,7 +252,7 @@ public class UploadImg4Ckeditor extends HttpServlet {
 	}
 
 	/**
-	 * 判断扩展名是否允许的方法
+	 * 鍒ゆ柇鎵╁睍鍚嶆槸鍚﹀厑璁哥殑鏂规硶
 	 */
 	private boolean extIsAllowed(String fileType, String ext) {
 		ext = ext.toLowerCase();

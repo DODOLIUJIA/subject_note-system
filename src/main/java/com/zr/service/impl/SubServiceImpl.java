@@ -42,17 +42,17 @@ public class SubServiceImpl implements SubService {
 	@Override
 	public String changeSubtypeIntToString(int subType) {
 		String subtypeS = "";
-		if (subType == 1) {
-			subtypeS = "简答题";
+		/*if (subType == 1) {
+			subtypeS = "绠�瓟棰�;
 		} else if (subType == 2) {
-			subtypeS = "填空题";
+			subtypeS = "濉┖棰�;
 		} else if (subType == 3) {
-			subtypeS = "单选题";
+			subtypeS = "鍗曢�棰�;
 		} else if (subType == 4) {
-			subtypeS = "多选题";
+			subtypeS = "澶氶�棰�;
 		} else {
-			subtypeS = "所有";
-		}
+			subtypeS = "鎵�湁";
+		}*/
 		return subtypeS;
 	}
 
@@ -64,15 +64,15 @@ public class SubServiceImpl implements SubService {
 	@Override
 	public int changeSubtypeStringToInt(String subType) {
 		int subtypeI = 0;
-		if (subType.equals("简答题")) {
+		/*if (subType.equals("绠�瓟棰�)) {
 			subtypeI = 1;
-		} else if (subType.equals("填空题")) {
+		} else if (subType.equals("濉┖棰�)) {
 			subtypeI = 2;
-		} else if (subType.equals("单选题")) {
+		} else if (subType.equals("鍗曢�棰�)) {
 			subtypeI = 3;
-		} else if (subType.equals("多选题")) {
+		} else if (subType.equals("澶氶�棰�)) {
 			subtypeI = 4;
-		}
+		}*/
 		return subtypeI;
 	}
 
@@ -185,14 +185,14 @@ public class SubServiceImpl implements SubService {
 	}
 
 	/**
-	 * 通过页面传来的信息选择题目
+	 * 閫氳繃椤甸潰浼犳潵鐨勪俊鎭�鎷╅鐩�
 	 * 
 	 * @param sublabel
-	 *            题目标签
+	 *            棰樼洰鏍囩
 	 * @param subCrateTime
-	 *            出题时间
+	 *            鍑洪鏃堕棿
 	 * @param loadtimms
-	 *            下拉刷新次数
+	 *            涓嬫媺鍒锋柊娆℃暟
 	 * @return
 	 */
 	@Override
@@ -209,7 +209,7 @@ public class SubServiceImpl implements SubService {
 	}
 
 	/**
-	 * 得到所有的题目标签
+	 * 寰楀埌鎵�湁鐨勯鐩爣绛�
 	 * 
 	 * @return
 	 */
@@ -221,7 +221,7 @@ public class SubServiceImpl implements SubService {
 	}
 
 	/**
-	 * 得到所有题目的不同的出题时间
+	 * 寰楀埌鎵�湁棰樼洰鐨勪笉鍚岀殑鍑洪鏃堕棿
 	 * 
 	 * @return
 	 */
@@ -232,8 +232,8 @@ public class SubServiceImpl implements SubService {
 	}
 
 	/**
-	 * 得到所有题目
-	 * @param loadtimms 下拉次数
+	 * 寰楀埌鎵�湁棰樼洰
+	 * @param loadtimms 涓嬫媺娆℃暟
 	 * @return
 	 */
 	@Override

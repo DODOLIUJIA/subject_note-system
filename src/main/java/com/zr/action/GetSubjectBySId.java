@@ -15,7 +15,7 @@ import com.zr.service.impl.SubServiceImpl;
 import net.sf.json.JSONObject;
 
 /**
- * 通过题目的id来获取题目的所有信息
+ * 閫氳繃棰樼洰鐨刬d鏉ヨ幏鍙栭鐩殑鎵�湁淇℃伅
  * @author JACK
  *
  * Servlet implementation class GetSubjectBySId
@@ -37,7 +37,7 @@ public class GetSubjectBySId extends HttpServlet {
 		int sid=Integer.parseInt(request.getParameter("sid"));
 		PrintWriter out=response.getWriter();
 		JSONObject json = sService.getSubjectBySid(sid);
-		System.out.println("getSubjectBySId中的输出："+json.toString());
+		//System.out.println("getSubjectBySId涓殑杈撳嚭锛�+json.toString());
 		out.write(json.toString());
 	}
 

@@ -48,7 +48,7 @@ public class ShowLabelAndTimeAction extends HttpServlet {
 		HttpSession session = request.getSession();
 		session.setAttribute("labels", labels);
 		session.setAttribute("times", times);
-		request.getRequestDispatcher("userselectSub.jsp").forward(request, response);
+		response.sendRedirect("userselectSub.jsp");
 	}
 
 }

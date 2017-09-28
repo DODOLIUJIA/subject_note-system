@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-		<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
@@ -22,10 +22,7 @@
 <link href="${basePath}statics/themes/icon.css" rel="stylesheet">
 <!-- 先引入jquery -->
 <script type="text/javascript"
-	src="${basePath}statics/js/jquery-1.7.2.min.js"></script>
-<!-- 引入easyui -->
-<script type="text/javascript"
-	src="${basePath}statics/js/jquery-1.7.2.min.js"></script>
+	src="${basePath}statics/js/jquery-1.9.1.js"></script>
 <script type="text/javascript"
 	src="${basePath}statics/js/jquery.easyui.min.js"></script>
 <script type="text/javascript"
@@ -94,7 +91,7 @@
 }
 
 #scan {
-	height: 170px;
+	height: 250px;
 	border: 1px solid red;
 }
 
@@ -154,7 +151,7 @@ body {
 <body>
 	<!-- 导航栏 -->
 	<nav class="navbar navbar-inverse navbar-fixed-top"
-		style="background-color: #222;font-size: 20px;height: 70px;padding-top: 10px;">
+		style="background-color: #222;font-size: 20px;height: 65px;padding-top: 10px;">
 	<div class="container-fluid"
 		style="margin-left: 10%; margin-right: 10%;">
 		<!-- Brand and toggle get grouped for better mobile display -->
@@ -205,15 +202,29 @@ body {
 		</div>
 		<!-- /.navbar-collapse -->
 	</div>
-	<!-- /.container-fluid --> 
-	</nav>
-	<div style="height: 600px">
+	<!-- /.container-fluid --> </nav>
+	<div style="height: 800px; margin-top: 6%">
 		<div class="container-fluid">
+			
+			<div id="scan" class="row">
+				<div class="col-md-2"></div>
+				<div class="col-md-10">
+					
+					<form id="scanForm" action="${basePath}fileupload" enctype="multipart/form-data"
+						method="post">
+						上传文件1：<input type="file" name="image"><br/>
+						<textarea id="ocrResult" style="width: 1100px; height: 170px;"></textarea>
+
+						<button type="button" onclick="upload()">扫描</button>
+					</form>
+				
+				</div>
+			</div>
+			
 			<div class="row">
 				<div class="col-md-1"></div>
 				<div class="col-md-10">
 					<form id="add">
-						<div id="scan"></div>
 						<div id="head">
 							<span id="biao">标题： </span> <input id="title" name="title"
 								type="text" placeholder="请输入笔记标题"> <span id="key">关键字：
@@ -227,8 +238,10 @@ body {
 					</form>
 				</div>
 				<div class="col-md-1"></div>
-
 			</div>
+			
+			
+			
 		</div>
 	</div>
 	<!-- 尾部 -->
@@ -257,7 +270,56 @@ body {
 	</footer>
 </body>
 <script type="text/javascript">
+	$(':file').change(
+			function() {
+				//var file = $(":file").files[0]; //假设file标签没打开multiple属性，那么只取第一个文件就行了
+				var file = this.files[0];
+				console.log("file:　" + file);
+				name = file.name;
+				size = file.size;
+				type = file.type;
+				url = window.URL.createObjectURL(file); //获取本地文件的url，如果是图片文件，可用于预览图片
+				$(this).next().html(
+						"文件名：" + name + " 文件类型：" + type + " 文件大小：" + size
+								+ " url: " + url);
+			});
+	function upload() {
+		//创建FormData对象，初始化为form表单中的数据。需要添加其他数据可使用formData.append("property", "value");
+		var formData = new FormData($('#scanForm')[0]);
+		//ajax异步上传
+		$.ajax({
+			url : "${basePath}fileupload",
+			type : "POST",
+			data : formData,
+			success : function(result) {
+				$("#result").html(result.data);
+				$("#ocrResult").val("解析中请稍后");
+				$("#ocrResult").attr({
+					readonly : 'true'
+				});
+				$.ajax({
+					url : "${basePath}AnalyzeImg",
+					type : "POST",
+					data : {
+						"imgPath" : result
+					},
+					success : function(res) {
+						$("#ocrResult").attr({
+							readonly : 'false'
+						});
+						$("#ocrResult").val("");
+						$("#ocrResult").val(res);
+					}
+				});
+				console.log(result);
+			},
+			contentType : false, //必须false才会自动加上正确的Content-Type
+			processData : false
+		//必须false才会避开jQuery对 formdata 的默认处理
+		});
+	}
 	$(function() {
+		var isCommitted = false;//按钮是否已经提交标识，默认为false
 		var timer;
 		$(".userfun").mouseover(function() {
 			clearTimeout(timer);
@@ -305,35 +367,58 @@ body {
 			var content = CKEDITOR.instances.editor.getData();
 			return content;
 		}
-		$("#insert1").click(
-				function() {
-					var title = $("#title").val();
-					var keyword = $("#keyword").val();
-					console.log(keyword)
-					var content = getContent();
-					$.ajax({
-						url : '${basePath}insertnote',
-						data : "title=" + title + "&notetext=" + content
-								+ "&notesummary=" + keyword,
-						type : 'post',
-						dataType : 'json',
-						success : function(data) {
-							console.log(data.msg)
-							if (data.msg == 1) {
-								location.href = 'note.jsp';
-							} else {
-								$.messager.alert('提示', "添加失败", 'info',
-										function() {
-										});
-
-							}
+		$("#insert1").click(function() {
+			   var title = $("#title").val();
+				var keyword = $("#keyword").val();
+				//console.log(keyword)
+				var content = getContent();
+		/* 		$.ajax({
+					url : '${basePath}insertnote',
+					data : "title=" + title + "&notetext=" + content
+							+ "&notesummary=" + keyword,
+					type : 'post',
+					dataType : 'json',
+					success : function(data) {
+						console.log(data.msg)
+						if (data.msg == 1) {
+							location.href = 'note.jsp';
+						} else {
+							$.messager.alert('提示', "添加失败", 'info',
+									function() {
+									});
 						}
-					});
-				});
-		$("#cancel").click(function() {
-			location.href = 'note.jsp';
-		});
+					}
+				}); */
+	 	if(isCommitted==false){
+                isCommitted = true;//提交表单后，将表单是否已经提交标识设置为true
+                var title = $("#title").val();
+				var keyword = $("#keyword").val();
+				//console.log(keyword)
+				var content = getContent();
+				$.ajax({
+					url : '${basePath}insertnote',
+					data : "title=" + title + "&notetext=" + content
+							+ "&notesummary=" + keyword,
+					type : 'post',
+					dataType : 'json',
+					success : function(data) {
+						//console.log(data.msg)
+						if (data.msg!=0) {
+							location.href = '${basePath}showtabel';
+						} else {
+							$.messager.alert('提示', "添加失败", 'info',
+									function() {
+									});
 
+						}
+					}
+				});
+				   return true;//返回true让表单正常提交
+				  }else{
+				           return false;//返回false那么表单将不提交
+				          } 
+			
+				});
 		$("#insert1").linkbutton({
 			iconCls : 'icon-ok',
 			onClick : function() {
@@ -343,7 +428,8 @@ body {
 		$("#cancel").linkbutton({
 			iconCls : 'icon-cancel',
 			onClick : function() {
-				$("#").form('submit');
+				location.href='note.jsp';
+				//window.history.back(-1);
 			}
 		});
 	});

@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.mysql.jdbc.Statement;
 import com.zr.dao.NoteDao;
 import com.zr.model.N_label;
 import com.zr.model.Note;
@@ -15,11 +16,11 @@ import com.zr.util.JDBCUtil;
 public class NoteDaoimpl implements NoteDao {
 
 	@Override
-	public List<Note> getAllnotes(String n_lname) {
+	public List<Note> getAllnotes(int userid, String n_lname) {
 		List<Note> notes = new ArrayList<Note>();
 		StringBuffer sql = new StringBuffer();
 		Connection con = JDBCUtil.getConnection();
-		sql.append("select noteid,notetitle,notesummary from note  where note.noteid   ");
+		sql.append("select noteid,notetitle,notesummary from note  where userid =? and  note.noteid   ");
 		sql.append("in (select note_n_label.noteid from note_n_label  ");
 		sql.append("where note_n_label.n_lid in  ");
 		sql.append("(select n_label.n_lid from n_label ");
@@ -27,7 +28,8 @@ public class NoteDaoimpl implements NoteDao {
 		
 		try {
 			PreparedStatement pst = con.prepareStatement(sql.toString());
-			pst.setString(1, n_lname);
+			pst.setInt(1, userid);
+			pst.setString(2, n_lname);
 			ResultSet rs = pst.executeQuery();
 			while(rs.next()){
 				Note note = new Note();
@@ -43,7 +45,28 @@ public class NoteDaoimpl implements NoteDao {
 		}
 		return notes;
 	}
-
+	@Override
+	public List<Note> getAllnoteid(String notetitle) {
+		List<Note> notes = new ArrayList<Note>();
+		StringBuffer sql = new StringBuffer();
+		Connection con = JDBCUtil.getConnection();
+		sql.append("select noteid from note  where  note.notetitle=?   ");
+		try {
+			PreparedStatement pst = con.prepareStatement(sql.toString());
+			pst.setString(1, notetitle);
+			ResultSet rs = pst.executeQuery();
+			while(rs.next()){
+				Note note = new Note();
+				note.setNoteid(rs.getInt("noteid"));
+				notes.add(note);
+				//System.out.println(notes.size());
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return notes;
+	}
 	@Override
 	public List<Note> getnote(String n_lname,int start, int size) {
 		List<Note> notes =new  ArrayList<Note>();
@@ -76,24 +99,29 @@ public class NoteDaoimpl implements NoteDao {
 
 	@Override
 	public int insertnoteByuidAndnote(int userid, String notetitle, String notetext, String notesummary) {
-		int i =0;
+		int noteid =0;
 		StringBuffer sql = new  StringBuffer();
 		Connection con = JDBCUtil.getConnection();
 		sql.append("insert into note(userid,notetitle,notetext,notesummary) ");
 		sql.append("VALUE (?,?,?,?)");
 		try {
-			PreparedStatement pst = con.prepareStatement(sql.toString());
+			PreparedStatement pst = con.prepareStatement(sql.toString(),Statement.RETURN_GENERATED_KEYS);
 			pst.setInt(1, userid);
 			pst.setString(2, notetitle);
 			pst.setString(3, notetext);
 			pst.setString(4, notesummary);
-			i=pst.executeUpdate();
+			int i=pst.executeUpdate();
+			ResultSet rs=pst.getGeneratedKeys();
+			if(rs.next()){
+				noteid =  rs.getInt(1); 
+			}
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		return i;
+		return noteid;
 	}
 
 	@Override
@@ -221,13 +249,14 @@ public class NoteDaoimpl implements NoteDao {
 	}
 
 	@Override
-	public List<N_label> selectNotelabel() {
+	public List<N_label> selectNotelabel(int userid) {
 		List<N_label> labels = new ArrayList<N_label>();
 		StringBuffer sql = new StringBuffer();
 		Connection con = JDBCUtil.getConnection();
-		sql.append("select n_lid,n_lname from n_label");
+		sql.append("select n_lid,n_lname from n_label where userid = ?");
 		try {
 			PreparedStatement pst = con.prepareStatement(sql.toString());
+			pst.setInt(1, userid);
 			ResultSet rs = pst.executeQuery();
 			while(rs.next()){
 				N_label label = new N_label();
@@ -338,15 +367,16 @@ public class NoteDaoimpl implements NoteDao {
 		}
 
 	@Override
-	public int insertNoteTabel(String lname) {
+	public int insertNoteTabel(String lname,int userid) {
 		int i =0;
 		StringBuffer sql = new  StringBuffer();
 		Connection con = JDBCUtil.getConnection();
-		sql.append("insert into n_label(n_lname) ");
-		sql.append("value (?)");	
+		sql.append("insert into n_label(n_lname, userid) ");
+		sql.append("value (?,?)");	
 		try {
 			PreparedStatement pst = con.prepareStatement(sql.toString());
 		   pst.setString(1,lname);
+		   pst.setInt(2, userid);
 			i=pst.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -355,5 +385,7 @@ public class NoteDaoimpl implements NoteDao {
 		
 		return i;
 	}
+
+
 
 }

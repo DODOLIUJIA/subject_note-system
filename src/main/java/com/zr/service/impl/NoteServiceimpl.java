@@ -18,15 +18,19 @@ import net.sf.json.JSONObject;
 public class NoteServiceimpl implements NoteService {
      NoteDao ndao = new NoteDaoimpl();
 	@Override
-	public List<Note> getallnotesByn_lname(String n_lname) {
-		List<Note> notes = ndao.getAllnotes(n_lname);
+	public List<Note> getallnotesByn_lname(int userid , String n_lname) {
+		List<Note> notes = ndao.getAllnotes(userid,n_lname);
 		return notes;
 	}
-
 	@Override
-	public JSONObject getnoteBypageAndpagesize(String n_lname,int page, int pagesize) {
+	public List<Note> getAllnoteidBytitle(String notetitle) {
+		List<Note> noteids = ndao.getAllnoteid(notetitle);
+		return noteids;
+	}
+	@Override
+	public JSONObject getnoteBypageAndpagesize(int userid,String n_lname,int page, int pagesize) {
 		JSONObject json = new JSONObject();
-		json.put("total", ndao.getAllnotes(n_lname));
+		json.put("total", ndao.getAllnotes( userid ,n_lname));
 		json.put("rows", ndao.getnote(n_lname, (page-1)*pagesize, pagesize));
 		return json;
 	}
@@ -68,8 +72,8 @@ public class NoteServiceimpl implements NoteService {
 	}
 
 	@Override
-	public List<N_label> getNotetabel() {
-		List<N_label> labels=ndao.selectNotelabel();
+	public List<N_label> getNotetabel(int userid) {
+		List<N_label> labels=ndao.selectNotelabel(userid);
 		return labels;
 	}
 
@@ -110,9 +114,11 @@ public class NoteServiceimpl implements NoteService {
 	}
 
 	@Override
-	public int insertNoteTabel(String lname) {
-		int i =ndao.insertNoteTabel(lname);
+	public int insertNoteTabel(String lname,int userid) {
+		int i =ndao.insertNoteTabel(lname,userid);
 		return i;
 	}
+
+
 
 }

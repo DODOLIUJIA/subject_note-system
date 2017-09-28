@@ -16,7 +16,13 @@ public interface NoteDao {
 	 * @param n_lname
 	 * @return
 	 */
-	public List<Note> getAllnotes(String n_lname);
+	public List<Note> getAllnotes(int userid, String n_lname);
+	/**
+	 * 根据标题获取所有的noteid
+	 * @param notetitle
+	 * @return
+	 */
+	public List<Note> getAllnoteid(String notetitle);
 	
 	public List<Note> getnote(String n_lname,int start,int size);
 	/**
@@ -67,9 +73,10 @@ public interface NoteDao {
 	public String selectNotetitle(int noteid);
 	/**
 	 * 获取全部的笔记标签
+	 *@
 	 * @return
 	 */
-	public List<N_label> selectNotelabel();
+	public List<N_label> selectNotelabel(int userid);
 	/**
 	 * 根据笔记id修改n_lid
 	 * @param noteid
@@ -105,6 +112,6 @@ public interface NoteDao {
     * @param lname
     * @return
     */
-   public int insertNoteTabel(String lname);
+   public int insertNoteTabel(String lname,int userid);
 	
 }
