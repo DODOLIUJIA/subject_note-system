@@ -108,8 +108,9 @@ function updataSub(index){
 	$(function() {
 		$('#updataWin').window({    
 		    width:1100,    
-		    height:700,    
+		    height:600,    
 		    shadow:true,
+		    title:'修改题目',
 		}); 
 		$('#updataWin').window('center');
 		$('#updataWin').window('close');
