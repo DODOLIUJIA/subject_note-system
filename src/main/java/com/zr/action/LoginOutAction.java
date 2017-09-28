@@ -1,7 +1,6 @@
 package com.zr.action;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,10 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.zr.service.LoginService;
-import com.zr.service.impl.LoginServiceImpl;
-
-import net.sf.json.JSONObject;
 /**
  * 
  * @author zhang
@@ -33,6 +28,7 @@ public class LoginOutAction extends HttpServlet{
 		// TODO Auto-generated method stub
 		HttpSession session = req.getSession();
 		session.removeAttribute("uname");
+		session.removeAttribute("userId");
 		
 		resp.sendRedirect("index.jsp");
 	}

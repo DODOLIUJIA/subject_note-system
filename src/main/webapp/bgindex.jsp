@@ -83,7 +83,7 @@
 		$('#loginOut').click(function() {
 			$.messager.confirm('提示', '您确定要退出本次登录吗?', function(r) {
 				if (r) {
-					//location.href = '/ajax/loginout.ashx';
+					location.href = '${basePath}loginout';
 				}
 			});
 		})
@@ -168,7 +168,6 @@
 		<div id="mm-tabcloseright">当前页右侧全部关闭</div>
 		<div id="mm-tabcloseleft">当前页左侧全部关闭</div>
 		<div class="menu-sep"></div>
-		<div id="mm-exit">退出</div>
 	</div>
 </body>
 </html>

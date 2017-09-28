@@ -17,9 +17,10 @@ public class DBConnection {
 	 * @PASSWORD 数据库登录密码
 	 * @DBDRIVER 数据库驱动路径
 	 */
-	private final static String DBURL = "jdbc:mysql://182.61.32.204/sub_note?useUnicode=true&characterEncoding=utf8";
-	private final static String USERNAME = "zxy";
-	private final static String PASSWORD = "zxyzxy";
+	//private final static String DBURL = "jdbc:mysql://182.61.32.204/sub_note?useUnicode=true&characterEncoding=utf8";
+	private final static String DBURL = "jdbc:mysql://172.18.23.77:3306/sub_note?useUnicode=true&characterEncoding=utf8";
+	private final static String USERNAME = "root";
+	private final static String PASSWORD = "root";
 	private final static String DBDRIVER = "com.mysql.jdbc.Driver";
 	
 	/**
