@@ -20,57 +20,15 @@
 <script
 	src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js "></script>
 <style>
-body {
-	background-color: #eee;
-}
-
-.font {
-	position: absolute;
-	z-index: 1;
-	width: 100%;
-	text-align: center;
-	color: #fff;
-	margin-top: 2%;
-}
-
-.trasation-font {
-	width: 100%;
-	text-align: center;
-	margin-top: 4%;
-}
-
-.card {
-	border: 1px solid #aaa;
-	width: 29%;
-	height: 300px;
-	padding: 0px;
-	margin: 0px 23px;
-}
-
-.card img {
-	width: 100%;
-	height: 200px;
-}
-
-.card-block {
-	margin: 0px 15px;
-}
-
-.footer {
-	height: 150px;
-	background-color: #222;
-	margin-top: 5%;
-	color: #fff;
-	padding: 3% 10%;
-}
-
-.col-md-4 {
-	text-align: center;
-}
-
-.col-md-4 p a {
-	color: #fff;
-}
+body {background-color: #eee;}
+.font {position: absolute;	z-index: 1;	width: 100%;text-align: center;color: #fff;margin-top: 2%;}
+.trasation-font {width: 100%;text-align: center;margin-top: 4%;}
+.card {	border: 1px solid #aaa;width: 29%;height: 300px;	padding: 0px;	margin: 0px 23px;}
+.card img {width: 100%;	height: 200px;}
+.card-block {margin: 0px 15px;}
+.footer {height: 150px;	background-color: #222;margin-top: 5%;color: #fff;padding: 3% 10%;}
+.col-md-4 {text-align: center;}
+.col-md-4 p a {color: #fff;}
 </style>
 <script>
 	$(function() {
@@ -91,7 +49,9 @@ body {
 			clearTimeout(timer);
 		});
 		$(".dropdown-menu").click(function() {
-			$(".dropdown-menu").hide();
+			timer = setTimeout(function() {
+				$(".dropdown-menu").hide();
+			}, 100);
 		});
 		$(".dropdown-menu li a").mouseover(function() {
 			$(this).css("color", "black");
@@ -134,7 +94,7 @@ body {
 
 					<c:choose>
 						<c:when test="${sessionScope.uname == null }">
-							<li><a href="login.jsp">登录</a></li>
+							<li><a style="color:blue;font-size:15px;" href="login.jsp">登录</a></li>
 						</c:when>
 						<c:otherwise>
 							<a href="javascript:void(0)" class="userfun"
