@@ -18,4 +18,14 @@ public interface FunctionDao {
 	 * @return
 	 */
 public JSONArray selectFunctionsByUname(String uname,int funcpid);
+
+/**
+ * 通过角色名得到该管理员的所有功能
+ * @param uname 角色名
+ * @param funcpid 父节点id 
+ * @return
+ */
+public JSONArray selectFunctionsByRname(String Rname,int funcpid);
+
+
 }

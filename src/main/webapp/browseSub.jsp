@@ -49,7 +49,10 @@ window.onscroll = function() {
 			: document.documentElement.scrollTop;
 	var c = document.documentElement.scrollTop == 0 ? document.body.scrollHeight
 			: document.documentElement.scrollHeight;
-	if (b>= 46&&flage==true) {
+	if((a+b)/c<=0.97){
+		$("#backTop").hide();
+	}else{$("#backTop").show();}
+	if ((a+b)/c>=0.97&&flage==true) {
 		console.log(flage);
 		$.ajax({
 			url : 'selectSub?loadtimms=' + loadtimms,
@@ -134,5 +137,6 @@ $(function() {
 	<div><ul id="Subs" class="thumbnails">
 	</ul></div>
 	<div id="pullUp"><img src="statics/images/loading.gif" ></div>
+	 <div id="BackTop"><a href="#" class='bock-to-top' style="position: fixed; right: 50px;bottom: 50px;">回到顶部</a></div>
 </body>
 </html>
