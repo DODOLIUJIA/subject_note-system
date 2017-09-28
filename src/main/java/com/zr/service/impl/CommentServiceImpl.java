@@ -41,4 +41,29 @@ public class CommentServiceImpl implements CommentService {
 		return cdao.getUnLikeNums(cid);
 	}
 
+	@Override
+	public boolean deleteCommentByCID(int cid) {
+		return cdao.deleteCommentByCID(cid);
+	}
+
+	@Override
+	public List<Comment> getAllComments() {
+		return cdao.getAllComments();
+	}
+
+	@Override
+	public int getCommentsSum() {
+		return cdao.getCommentsSum();
+	}
+
+	@Override
+	public List<Comment> getCommentsByLimit(int start, int size) {
+		return cdao.getCommentsByLimit(start, size);
+	}
+
+	@Override
+	public boolean deleteCommentByCIDArray(int[] cids) {
+		return cdao.deleteCommentByCIDArray(cids);
+	}
+
 }
