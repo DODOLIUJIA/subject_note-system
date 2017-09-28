@@ -54,4 +54,38 @@ public interface CommentService {
 	 * @return 返回踩数
 	 */
 	public int getUnLikeNums(int cid);
+	
+	/**
+	 * 通过评论ID来删除某条评论
+	 * @param cid评论ID
+	 * @return
+	 */
+	public boolean deleteCommentByCID(int cid);
+	
+	/**
+	 * 获得所有的评论
+	 * @return返回一个装有所有评论的的List
+	 */
+	public List<Comment> getAllComments();
+	
+	/**
+	 * 获得所有评论的数量
+	 * @return
+	 */
+	public int getCommentsSum();
+	
+	/**
+	 * 通过limit来获得指定位置的评论
+	 * @param start开始位置
+	 * @param size一次取出评论的数量
+	 * @return
+	 */
+	public List<Comment> getCommentsByLimit(int start,int size);
+	
+	/**
+	 * 通过传入的评论ID数组来删除数组中的评论
+	 * @param cids传入的评论ID数组
+	 * @return 返回删除的结果，全部删除成功返回true，有一个删除失败则返回false
+	 */
+	public boolean deleteCommentByCIDArray(int[] cids);
 }

@@ -56,14 +56,8 @@
 	function updataSubLab(index) {
 		$('#selectSubLabel').datagrid('selectRow', index);// 关键在这里  
 		var row = $('#selectSubLabel').datagrid('getSelected');
-		var olds_lname = row.s_lname;
 		s_lid = row.s_lid;
-		console.log(olds_lname);
-		/* $("#uln").attr("value", row.s_lname); */
-		//$("#uln")[0].value = "new value";
-		//document.getElementById("uln").setAttribute("value", row.s_lname);
-		//<input id="uln" name="urname" type="text" value="" /> 
-		$("uln").val(olds_lname);
+		$('#uln').textbox('setValue', row.s_lname );
 		$("#uu").window('open');
 		
 	};
@@ -173,6 +167,8 @@
 								$.messager.confirm('提示','添加成功',function(r) {
 									if (r) {
 											$("#dd").window('close');
+											$('#uln').textbox('setValue', '' );
+											$('#newln').textbox('setValue', '' );
 									}
 							});
 							$('#selectSubLabel').datagrid('reload');
@@ -201,6 +197,8 @@
 								$.messager.confirm('提示','更新成功',function(r) {
 									if (r) {
 											$("#uu").window('close');
+											$('#uln').textbox('setValue', '' );
+											$('#newln').textbox('setValue', '' );
 									}
 							});
 							$('#selectSubLabel').datagrid('reload');
@@ -221,6 +219,8 @@
 
 			onClick : function() {
 				$("#dd").window('close');
+				$('#uln').textbox('setValue', '' );
+				$('#newln').textbox('setValue', '' );
 			}
 		});
 		$("#unot").linkbutton({
@@ -228,6 +228,8 @@
 
 			onClick : function() {
 				$("#uu").window('close');
+				$('#uln').textbox('setValue', '' );
+				$('#newln').textbox('setValue', '' );
 			}
 		});
 
