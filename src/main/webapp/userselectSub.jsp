@@ -43,13 +43,19 @@ body {background-color: #eee;}
 .nav-sidebar{
 cursor:pointer;
 }
+#main{
+position: fixed;
+}
 
+#center{
+position: absolute;right: 10px;
+}
 </style>
 
 </head>
 <script type="text/javascript">
 //题目显示栏高度
-var subHeight = 3000;
+var subHeight = 1000;
 //下拉次数
 var loadtimms = 1;
 //是否还有题目的标志
@@ -62,7 +68,7 @@ window.onscroll = function() {
 			: document.documentElement.scrollTop;
 	var c = document.documentElement.scrollTop == 0 ? document.body.scrollHeight
 			: document.documentElement.scrollHeight; 
-	if (a + b + 1 >= c&&flage==true) {
+	if (b>= 87&&flage==true) {
 		$.ajax({
 			url : 'selectAllSubject?loadtimms=' + loadtimms,
 			type : 'POST',

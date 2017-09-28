@@ -57,6 +57,8 @@ public class UserSubDaoImpl implements UserSubDao {
 				s.setSubType(rs.getInt("subtype"));
 				subs.add(s);
 			}
+			pst.close();
+			con.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -99,6 +101,8 @@ public class UserSubDaoImpl implements UserSubDao {
 				s.setSubType(rs.getInt("subtype"));
 				subs.add(s);
 			}
+			pst.close();
+			con.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -148,6 +152,8 @@ public class UserSubDaoImpl implements UserSubDao {
 				s.setSubType(rs.getInt("subtype"));
 				subs.add(s);
 			}
+			pst.close();
+			con.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

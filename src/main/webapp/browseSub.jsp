@@ -36,19 +36,20 @@ p {
 </style>
 <script type="text/javascript">
 //题目显示栏高度
-var subHeight = 3000;
+var subHeight = 1000;
 //下拉次数
 var loadtimms = 1;
 //是否还有题目的标志
 var flage = true;
+$("#pullUp").hide();
 window.onscroll = function() {
 	var a = document.documentElement.scrollTop == 0 ? document.body.clientHeight
 			: document.documentElement.clientHeight;
 	var b = document.documentElement.scrollTop == 0 ? document.body.scrollTop
 			: document.documentElement.scrollTop;
 	var c = document.documentElement.scrollTop == 0 ? document.body.scrollHeight
-			: document.documentElement.scrollHeight; 
-	if (a + b + 4 >= c&&flage==true) {
+			: document.documentElement.scrollHeight;
+	if (b>= 46&&flage==true) {
 		console.log(flage);
 		$.ajax({
 			url : 'selectSub?loadtimms=' + loadtimms,
@@ -94,7 +95,6 @@ $(function() {
 		async : false,
 		dataType : 'json',
 		success : function(data) {
-			$("#pullUp").hide();
 			if (data.Subs.length ==3) {
 				$("#pullUp").show();
 				for (var i = 0; i < data.Subs.length; i++) {
