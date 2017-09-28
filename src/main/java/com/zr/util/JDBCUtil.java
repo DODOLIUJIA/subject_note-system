@@ -13,6 +13,7 @@ public class JDBCUtil {
 	  //2.设置用户和密码
 //	  private  final  static String  USERNAME = "zxy";
 //	  private  final  static String  PASSWORD = "zxyzxy";
+
 	  private  final  static String  USERNAME = "root";
 	  private  final  static String  PASSWORD = "root";
 	  //3.设置驱动名称 (根据不同的数据标准是不一样)

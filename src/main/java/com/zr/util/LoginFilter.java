@@ -21,22 +21,26 @@ import javax.servlet.http.HttpSession;
  * @author zhang
  *
  */
-@WebFilter(value = "/node.jsp", initParams = {
+/*@WebFilter(value = "/node.jsp", initParams = {
 		@WebInitParam(name = "notCheckURLList", value = ""),
-		@WebInitParam(name = "redirectURL", value = "/login.jsp"), })
+		@WebInitParam(name = "redirectURL", value = "/login.jsp"), })*/
 public class LoginFilter implements Filter {  
   
 	protected FilterConfig filterConfig = null; 
 	 private String redirectURL = null; 
-	 private List notCheckURLList = new ArrayList();  
+	 private List notCheckURLList = new ArrayList(); 
+	 private String sessionKey = null;
 	 
 	 public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException 
 	 { 
+		 System.out.println(222);
 	  HttpServletRequest request = (HttpServletRequest) servletRequest; 
 	  HttpServletResponse response = (HttpServletResponse) servletResponse;
 
 	  HttpSession session = request.getSession(); 
-	  String sessionKey = (String)session.getAttribute("uname");
+	  sessionKey = (String)session.getAttribute("uname");
+	  System.out.println(sessionKey);
+	 
 	  if(sessionKey != null) 
 	  { 
 	   filterChain.doFilter(request, response); 
@@ -65,6 +69,7 @@ public class LoginFilter implements Filter {
 	 { 
 	  this.filterConfig = filterConfig; 
 	  redirectURL = filterConfig.getInitParameter("redirectURL"); 	 
+	 
 	  String notCheckURLListStr = filterConfig.getInitParameter("notCheckURLList");
 	  if(notCheckURLListStr != null) 
 	  { 
@@ -74,6 +79,9 @@ public class LoginFilter implements Filter {
 	   { 
 	    notCheckURLList.add(st.nextToken()); 
 	   } 
+	   
 	  } 
+	  
+	  System.out.println(111);
 	 } 
 	}

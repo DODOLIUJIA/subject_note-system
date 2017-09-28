@@ -19,8 +19,8 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 /**
- * 正常的文件上传（现只能处理图片上传） 
- * 异步的方式，返回图片存储的路径
+ * 姝ｅ父鐨勬枃浠朵笂浼狅紙鐜板彧鑳藉鐞嗗浘鐗囦笂浼狅級 
+ * 寮傛鐨勬柟寮忥紝杩斿洖鍥剧墖瀛樺偍鐨勮矾寰�
  * @author Zxy
  *
  */
@@ -36,45 +36,45 @@ public class Fileupload extends HttpServlet {
 		String savePath = this.getServletContext().getRealPath("/statics/image/tempORC");
 		File file = new File(savePath);
 
-		// 如果文件夹目录不存在
+		// 濡傛灉鏂囦欢澶圭洰褰曚笉瀛樺湪
 		if (!file.exists() && !file.isDirectory()) {
-			System.out.println(savePath + "目录不存在，需要创建");
-			// 创建目录
+			System.out.println(savePath + "鐩綍涓嶅瓨鍦紝闇�鍒涘缓");
+			// 鍒涘缓鐩綍
 			file.mkdir();
 		}
 
-		//格式化文件名命名为时间
+		//鏍煎紡鍖栨枃浠跺悕鍛藉悕涓烘椂闂�
 		SimpleDateFormat fileFormatter = new SimpleDateFormat("ddHHmmssSSS");
-		// 消息提示
+		// 娑堟伅鎻愮ず
 		String okPath = "";
 
 		try {
-			// 使用Apache文件上传组件处理文件上传步骤：
-			// 1、创建一个DiskFileItemFactory工厂
+			// 浣跨敤Apache鏂囦欢涓婁紶缁勪欢澶勭悊鏂囦欢涓婁紶姝ラ锛�
+			// 1銆佸垱寤轰竴涓狣iskFileItemFactory宸ュ巶
 			DiskFileItemFactory factory = new DiskFileItemFactory();
 
-			// 2、创建一个文件上传解析器
+			// 2銆佸垱寤轰竴涓枃浠朵笂浼犺В鏋愬櫒
 			ServletFileUpload upload = new ServletFileUpload(factory);
 
-			// 解决上传文件名的中文乱码
+			// 瑙ｅ喅涓婁紶鏂囦欢鍚嶇殑涓枃涔辩爜
 			upload.setHeaderEncoding("UTF-8");
 
-			// 3、判断提交上来的数据是否是上传表单的数据
+			// 3銆佸垽鏂彁浜や笂鏉ョ殑鏁版嵁鏄惁鏄笂浼犺〃鍗曠殑鏁版嵁
 			if (!ServletFileUpload.isMultipartContent(request)) {
-				// 按照传统方式获取数据
-				System.out.println("不是表单获取的数据。。。。");
+				// 鎸夌収浼犵粺鏂瑰紡鑾峰彇鏁版嵁
+				//System.out.println("涓嶆槸琛ㄥ崟鑾峰彇鐨勬暟鎹�銆傘�銆�);
 				return;
 			}
 
-			// 4、使用ServletFileUpload解析器解析上传数据，解析结果返回的是一个List<FileItem>集合，每一个FileItem对应一个Form表单的输入项
+			// 4銆佷娇鐢⊿ervletFileUpload瑙ｆ瀽鍣ㄨВ鏋愪笂浼犳暟鎹紝瑙ｆ瀽缁撴灉杩斿洖鐨勬槸涓�釜List<FileItem>闆嗗悎锛屾瘡涓�釜FileItem瀵瑰簲涓�釜Form琛ㄥ崟鐨勮緭鍏ラ」
 			List<FileItem> list = upload.parseRequest(request);
 
 			for (FileItem item : list) {
 
-				// 如果fileitem中封装的不是普通输入项的数据
+				// 濡傛灉fileitem涓皝瑁呯殑涓嶆槸鏅�杈撳叆椤圭殑鏁版嵁
 				if (!item.isFormField()) {
-					// fileitem中封装的是上传文件
-					// 得到上传的文件名称
+					// fileitem涓皝瑁呯殑鏄笂浼犳枃浠�
+					// 寰楀埌涓婁紶鐨勬枃浠跺悕绉�
 					String filename = item.getName();
 					System.out.println(filename);
 					
@@ -82,11 +82,11 @@ public class Fileupload extends HttpServlet {
 						continue;
 					}
 					
-					// 注意：不同的浏览器提交的文件名是不一样的，有些浏览器提交上来的文件名是带有路径的，如：
-					// c:\a\b\1.txt，而有些只是单纯的文件名，如：1.txt
-					// 处理获取到的上传文件的文件名的路径部分，只保留文件名部分
+					// 娉ㄦ剰锛氫笉鍚岀殑娴忚鍣ㄦ彁浜ょ殑鏂囦欢鍚嶆槸涓嶄竴鏍风殑锛屾湁浜涙祻瑙堝櫒鎻愪氦涓婃潵鐨勬枃浠跺悕鏄甫鏈夎矾寰勭殑锛屽锛�
+					// c:\a\b\1.txt锛岃�鏈変簺鍙槸鍗曠函鐨勬枃浠跺悕锛屽锛�.txt
+					// 澶勭悊鑾峰彇鍒扮殑涓婁紶鏂囦欢鐨勬枃浠跺悕鐨勮矾寰勯儴鍒嗭紝鍙繚鐣欐枃浠跺悕閮ㄥ垎
 					String filetype = filename.substring(filename.lastIndexOf(".") + 1);
-					// 获取item中的上传文件的输入流
+					// 鑾峰彇item涓殑涓婁紶鏂囦欢鐨勮緭鍏ユ祦
 					InputStream in = item.getInputStream();
 					
 					
@@ -96,23 +96,23 @@ public class Fileupload extends HttpServlet {
 
 					okPath = savePath + "\\" + filename;
 
-					// 创建一个文件输出流
+					// 鍒涘缓涓�釜鏂囦欢杈撳嚭娴�
 					FileOutputStream out = new FileOutputStream(okPath);
-					// 创建一个缓冲区
+					// 鍒涘缓涓�釜缂撳啿鍖�
 					byte buffer[] = new byte[1024];
-					// 判断输入流中的数据是否已经读完的标识
+					// 鍒ゆ柇杈撳叆娴佷腑鐨勬暟鎹槸鍚﹀凡缁忚瀹岀殑鏍囪瘑
 					int len = 0;
-					// 循环将输入流读入到缓冲区当中，(len=in.read(buffer))>0就表示in里面还有数据
+					// 寰幆灏嗚緭鍏ユ祦璇诲叆鍒扮紦鍐插尯褰撲腑锛�len=in.read(buffer))>0灏辫〃绀篿n閲岄潰杩樻湁鏁版嵁
 					while ((len = in.read(buffer)) > 0) {
-						// 使用FileOutputStream输出流将缓冲区的数据写入到指定的目录(savePath + "\\"
-						// + filename)当中
+						// 浣跨敤FileOutputStream杈撳嚭娴佸皢缂撳啿鍖虹殑鏁版嵁鍐欏叆鍒版寚瀹氱殑鐩綍(savePath + "\\"
+						// + filename)褰撲腑
 						out.write(buffer, 0, len);
 					}
-					// 关闭输入流
+					// 鍏抽棴杈撳叆娴�
 					in.close();
-					// 关闭输出流
+					// 鍏抽棴杈撳嚭娴�
 					out.close();
-					// 删除处理文件上传时生成的临时文件
+					// 鍒犻櫎澶勭悊鏂囦欢涓婁紶鏃剁敓鎴愮殑涓存椂鏂囦欢
 					item.delete();
 					System.out.println("okPath: " + okPath);
 				}
