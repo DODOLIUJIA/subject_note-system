@@ -68,7 +68,7 @@ body{background-color: #eee;}
 </head>
 <script type="text/javascript">
       $(function(){  
- 		  
+
  		 var timer;
          $(".userfun").mouseover(function () {
              clearTimeout(timer); 

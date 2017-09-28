@@ -195,4 +195,10 @@ public interface SubService {
 	 * @return
 	 */
 	public List<Subject> selectSubTime();
+	/**
+	 * 得到所有题目
+	 * @param loadtimms 下拉次数
+	 * @return
+	 */
+	public List<Subject> selectAllSub(int loadtimms);
 }

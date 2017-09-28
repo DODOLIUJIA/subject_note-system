@@ -231,6 +231,17 @@ public class SubServiceImpl implements SubService {
 		return times;
 	}
 
+	/**
+	 * 得到所有题目
+	 * @param loadtimms 下拉次数
+	 * @return
+	 */
+	@Override
+	public List<Subject> selectAllSub(int loadtimms) {
+		List<Subject> Subs = subDao.getSubs(loadtimms*4, 4);
+		return Subs;
+	}
+
 	public boolean updateSubject(int sid, String subSummary, String subText, int subType, String subAnswer,
 			int subTime) {
 		return sdao.updateSubject(sid, subSummary, subText, subType, subAnswer, subTime);
@@ -240,5 +251,6 @@ public class SubServiceImpl implements SubService {
 	@Override
 	public Subject getSubjectBySubid(int sid) {
 		return sdao.getSubjectBySId(sid);
+
 	}
 }

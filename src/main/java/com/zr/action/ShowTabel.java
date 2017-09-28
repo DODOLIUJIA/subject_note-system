@@ -1,7 +1,6 @@
 package com.zr.action;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -15,7 +14,6 @@ import com.zr.model.N_label;
 import com.zr.service.NoteService;
 import com.zr.service.impl.NoteServiceimpl;
 
-import net.sf.json.JSONArray;
 
 /**
  * Servlet implementation class ShowTabel
@@ -35,6 +33,7 @@ public class ShowTabel extends HttpServlet {
 		HttpSession session = request.getSession();
 		session.setAttribute("notelabels", notelabels);
 	    request.getRequestDispatcher("note.jsp").forward(request, response);
+
 	}
 
 }

@@ -11,6 +11,11 @@ import com.zr.util.JDBCUtil;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
+/**
+ * 
+ * @author zhang
+ *
+ */
 public class UserDaoImpl implements UserDao {
 	Connection con = JDBCUtil.getConnection();
 
@@ -96,7 +101,8 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public int selectUser(String uname, String password) {
+	public JSONObject selectUser(String uname, String password) {
+		JSONObject user = new JSONObject();
 		StringBuffer sql = new StringBuffer("");
 		sql.append("select * ");
 		sql.append("from user ");
@@ -106,16 +112,21 @@ public class UserDaoImpl implements UserDao {
 			PreparedStatement ps = con.prepareStatement(sql.toString());
 			ps.setString(1, uname);
 			ps.setString(2, password);
-			ResultSet result = ps.executeQuery();
-
-			if (result.next()) {
-				return 1;
+			ResultSet rs = ps.executeQuery();
+			if (rs.next()) {			
+				user.put("userId", rs.getInt("userid"));
+				user.put("roleId", rs.getInt("roleid"));
+				user.put("userName", rs.getString("username"));
+				user.put("uPassword", rs.getString("upassword"));
+				user.put("userSecurity", rs.getString("usersecurity"));
+				user.put("avator", rs.getString("avator"));
 			}
+			return user;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return -1;
+		return user;
 	}
 
 	@Override

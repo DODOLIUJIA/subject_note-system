@@ -7,7 +7,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html>
 <head>
 <meta charset="UTF-8">
-<title>千层在线学习</title>
+<title>千层在线学习系统</title>
 <link rel="stylesheet" href="${basePath}statics/css/login.css">
 <script src="${basePath}statics/js/login.js"></script>
 <script src="${basePath}statics/js/jquery-1.7.2.min.js"></script>
@@ -29,7 +29,7 @@ $(function() {
 			  dataType:'json',
 			  //成功请求之后回调的函数
 			  success:function(data){
-				if(data.result == 1){
+				if(data.result != null){
 					window.location.href='index.jsp';
 				}
 				else {
@@ -91,6 +91,7 @@ $(function() {
 	$("#register").click(function(){
 		var uname = $("#r_uname").val();
 		var password = $("#r_password").val();
+		
 		var confirm = $("#r_confirm").val();
 		if(uname == '') {
 			$("#ncue").text("请输入账号");
@@ -113,7 +114,7 @@ $(function() {
 				  //请求方式
 				  type:'post',
 				  //请求所带的数据 
-				  data:{'uname':uname},
+				  data:{'uname':uname,'password':password},
 				  //请求过后返回的类型
 				  dataType:'json',
 				  //成功请求之后回调的函数
@@ -189,6 +190,5 @@ $(function() {
 			</div>
 		</div>
 	</div>
-
 </body>
 </html>

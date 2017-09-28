@@ -21,21 +21,21 @@
                 <h3>期待你的加入</h3>
             </div>
             <div class="item active">
-                <img src="<%=basePath%>statics/zxlImgs/carousel0.jpg" alt="First slide" style="width:100%;height:300px;">
+                <img src="<%=basePath%>statics/zxlImgs/carousel3.jpg" alt="First slide" style="width:100%;height:600px;">
             </div>
             <div class="item">
-                <img src="<%=basePath%>statics/zxlImgs/carousel1.jpg" alt="Second slide" style="width:100%;height:300px;">
+                <img src="<%=basePath%>statics/zxlImgs/carousel1.jpg" alt="Second slide" style="width:100%;height:600px;">
             </div>
             <div class="item">
-                <img src="<%=basePath%>statics/zxlImgs/carousel2.jpg" alt="Third slide" style="width:100%;height:300px;">
+                <img src="<%=basePath%>statics/zxlImgs/carousel2.jpg" alt="Third slide" style="width:100%;height:600px;">
             </div>
         </div>
         <!-- 轮播（Carousel）导航 -->
         <a class="carousel-control left" href="#myCarousel" data-slide="prev">
-            <span style="padding-top:42%;position: absolute;font-size: 80px;">&lsaquo;</span>
+            <span style="padding-top:88%;position: absolute;font-size: 80px;">&lsaquo;</span>
         </a>
         <a class="carousel-control right" href="#myCarousel" data-slide="next">
-            <span style="padding-top:42%;position: absolute;font-size: 80px;opacity:5">&rsaquo;</span>
+            <span style="padding-top:88%;position: absolute;font-size: 80px;opacity:5">&rsaquo;</span>
         </a>
     </div>
     <!-- 过渡 -->

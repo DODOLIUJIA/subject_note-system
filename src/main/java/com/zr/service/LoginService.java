@@ -1,6 +1,13 @@
 package com.zr.service;
 
+import net.sf.json.JSONObject;
+
+/**
+ * 
+ * @author zhang
+ *
+ */
 public interface LoginService {
 
-	public int selectUser(String uname,String password);
+	public JSONObject selectUser(String uname,String password);
 }

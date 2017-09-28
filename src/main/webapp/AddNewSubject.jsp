@@ -8,7 +8,7 @@
 <link href="${basePath}statics/themes/bootstrap/easyui.css"
 	rel="stylesheet">
 <link href="${basePath}statics/themes/icon.css" rel="stylesheet">
-<link href="${basePath}/statics/bootstrap/css/bootstrap.min.css"
+<link href="${basePath}statics/bootstrap/css/bootstrap.min.css"
 	rel="stylesheet">
 <script src="${basePath}statics/js/jquery-1.9.1.js"></script>
 <script src="${basePath}statics/js/jquery.easyui.min.js"></script>

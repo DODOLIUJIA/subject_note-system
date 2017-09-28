@@ -1,7 +1,12 @@
 package com.zr.dao;
 
 import net.sf.json.JSONArray;
-
+import net.sf.json.JSONObject;
+/**
+ * 
+ * @author zhang
+ *
+ */
 public interface UserDao {
 
 	/**
@@ -31,7 +36,7 @@ public interface UserDao {
 	 * @param uname password
 	 * @return 若存在该用户 则返回1 否则返回-1
 	 */
-	public int selectUser(String uname,String password);
+	public JSONObject selectUser(String uname,String password);
 	
 	/**
 	 * 注册用户

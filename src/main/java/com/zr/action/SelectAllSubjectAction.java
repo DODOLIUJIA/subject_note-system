@@ -9,25 +9,25 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.zr.model.Subject;
-import com.zr.model.SubjectLabel;
 import com.zr.service.SubService;
 import com.zr.service.impl.SubServiceImpl;
 
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 
 /**
- * Servlet implementation class ShowLabelAndTimeAction
+ * Servlet implementation class SelectAllSubjectAction
  */
-@WebServlet("/showLabelAndTime")
-public class ShowLabelAndTimeAction extends HttpServlet {
+@WebServlet("/selectAllSubject")
+public class SelectAllSubjectAction extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	SubService sbs = new SubServiceImpl();
+       SubService subS = new SubServiceImpl();
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ShowLabelAndTimeAction() {
+    public SelectAllSubjectAction() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,19 +36,21 @@ public class ShowLabelAndTimeAction extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	doPost(request,response);
+		doPost(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<SubjectLabel> labels = sbs.selectSubLabel();
-		List<Subject> times = sbs.selectSubTime();
-		HttpSession session = request.getSession();
-		session.setAttribute("labels", labels);
-		session.setAttribute("times", times);
-		request.getRequestDispatcher("userselectSub.jsp").forward(request, response);
+		request.setCharacterEncoding("utf8");
+		response.setCharacterEncoding("utf8");
+		int loadtimms = Integer.parseInt(request.getParameter("loadtimms"));
+		List<Subject> Subs = subS.selectAllSub(loadtimms);
+		JSONObject S = new JSONObject();
+		PrintWriter pw = response.getWriter();
+		S.put("Subs", Subs);
+		pw.write(S.toString());
 	}
 
 }

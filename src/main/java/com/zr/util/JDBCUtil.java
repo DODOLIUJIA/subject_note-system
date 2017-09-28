@@ -2,9 +2,9 @@ package com.zr.util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
+
 
 public class JDBCUtil {
 	 //1.数据库地址  (根据不同的数据标准是不一样)

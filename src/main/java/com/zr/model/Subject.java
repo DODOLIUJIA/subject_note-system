@@ -1,11 +1,6 @@
 package com.zr.model;
 
-/**
- * 题目类
- * 
- * @author 樊庆珂
- * @date 2017/9/21
- */
+
 public class Subject {
 	private String s_label;
 	private int subId;// 题目ID

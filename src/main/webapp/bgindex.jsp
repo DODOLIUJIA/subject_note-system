@@ -21,102 +21,10 @@
 	src="${pageContext.request.contextPath}/statics/js/jquery-1.7.2.min.js"></script>
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/statics/js/jquery.easyui.min.js"></script>
-<script type="text/javascript" src='${pageContext.request.contextPath}/statics/js/outlook2.js'>
+<script type="text/javascript" src='${basePath}statics/js/outlook2.js'>
 	
 </script>
 <script type="text/javascript">
-	var _menus = {
-		"menus" : [ {
-			"menuid" : "1",
-			"menuname" : "用户管理",
-			"menus" : [ {
-				"menuid" : "2",
-				"menuname" : "删除用户",
-				"icon" : "icon-add",
-				"url" : "#"
-			}, {
-				"menuid" : "13",
-				"menuname" : "用户管理",
-				"icon" : "icon-add",
-				"url" : "AdminUserMessage.jsp"
-			}, ]
-		}, {
-			"menuid" : "8",
-			"menuname" : "评论管理",
-			"menus" : [ {
-				"menuid" : "21",
-				"menuname" : "员工列表",
-				"icon" : "icon-add",
-				"url" : "#"
-			}, {
-				"menuid" : "22",
-				"menuname" : "视频监控",
-				"icon" : "icon-add",
-				"url" : "#"
-			} ]
-		}, {
-			"menuid" : "56",
-			"menuname" : "功能管理",
-			"menus" : [ {
-				"menuid" : "31",
-				"menuname" : "添加部门",
-				"icon" : "icon-add",
-				"url" : "#"
-			}, {
-				"menuid" : "32",
-				"menuname" : "部门列表",
-				"icon" : "icon-add",
-				"url" : "#"
-			} ]
-		}, {
-			"menuid" : "28",
-			"menuname" : "题目管理",
-			"menus" : [ {
-				"menuid" : "41",
-				"menuname" : "查询题目",
-				"icon" : "icon-add",
-				"url" : "AdminSelectSub.jsp"
-			}, {
-				"menuid" : "42",
-				"menuname" : "新增题目",
-				"icon" : "icon-add",
-				"url" : "AddNewSubject.jsp"
-			}, {
-				"menuid" : "43",
-				"menuname" : "更新题目测试",
-				"icon" : "icon-add",
-				"url" : "UpdateSubject.jsp?sid=1"
-			}]
-		}, {
-			"menuid" : "54",
-			"menuname" : "题目标签管理",
-			"menus" : [ {
-				"menuid" : "55",
-				"menuname" : "查看标签",
-				"icon" : "icon-add",
-				"url" : "AdminSelectSubLabel.jsp"
-			}, {
-				"menuid" : "56",
-				"menuname" : "报表统计",
-				"icon" : "icon-add",
-				"url" : "#"
-			}, ]
-		}, {
-			"menuid" : "39",
-			"menuname" : "题目标签管理",
-			"menus" : [ {
-				"menuid" : "51",
-				"menuname" : "商品分类",
-				"icon" : "icon-add",
-				"url" : "#"
-			}, {
-				"menuid" : "52",
-				"menuname" : "商品列表",
-				"icon" : "icon-add",
-				"url" : "#"
-			}, ]
-		} ]
-	};
 	//设置登录窗口
 	function openPwd() {
 		$('#w').window({
@@ -188,17 +96,14 @@
 	<noscript>
 		<div
 			style="position: absolute; z-index: 100000; height: 2046px; top: 0px; left: 0px; width: 100%; background: white; text-align: center;">
-			<img src="<%=basePath%>/statics/zxlImgs/noscript.gif"
-				alt='抱歉，请开启脚本支持！' />
+			<img src="<%=basePath%>/statics/zxlImgs/noscript.gif" alt='抱歉，请开启脚本支持！' />
 		</div>
 	</noscript>
 	<div region="north" split="true" border="false"
 		style="overflow: hidden; height: 30px;
         background: url(${bathPath}statics/zxlImgs/layout-browser-hd-bg.gif) #7f99be repeat-x center 50%;
         line-height: 20px;color: #fff; font-family: Verdana, 微软雅黑,黑体">
-		<span style="float: right; padding-right: 20px;" class="head">欢迎
-			${username} <a href="#" id="editpass">修改密码</a> <a href="#"
-			id="loginOut">安全退出</a>
+		<span style="float: right; padding-right: 20px;" class="head">欢迎${username} <a href="#" id="editpass">修改密码</a> <a href="#"	id="loginOut">安全退出</a>
 		</span> <span style="padding-left: 10px; font-size: 16px;"><img
 			src="<%=basePath%>/statics/zxlImgs/blocks.gif" width="20" height="20" align="absmiddle" />
 			千层在线学习后台</span>
