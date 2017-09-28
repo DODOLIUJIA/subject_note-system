@@ -110,7 +110,7 @@ function updataSub(index){
 		    width:1100,    
 		    height:600,    
 		    shadow:true,
-		    title:'修改题目',
+		    title : '修改题目',
 		}); 
 		$('#updataWin').window('center');
 		$('#updataWin').window('close');
