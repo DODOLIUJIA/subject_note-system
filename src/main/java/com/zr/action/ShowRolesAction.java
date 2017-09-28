@@ -2,31 +2,33 @@ package com.zr.action;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import com.zr.service.ManagerFuncService;
-import com.zr.service.impl.ManagerFuncServiceImpl;
+import com.zr.model.Role;
+import com.zr.service.RoleService;
+import com.zr.service.impl.RoleServiceImpl;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 /**
- * Servlet implementation class GetManagerFuncsAvtion
+ * Servlet implementation class ShowRolesAction
  */
-@WebServlet("/getManagerFuncs")
-public class GetManagerFuncsAvtion extends HttpServlet {
+@WebServlet("/ShowRoles")
+public class ShowRolesAction extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	ManagerFuncService mfs = new ManagerFuncServiceImpl();
+       RoleService rs = new RoleServiceImpl();
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public GetManagerFuncsAvtion() {
+    public ShowRolesAction() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -44,13 +46,9 @@ public class GetManagerFuncsAvtion extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf8");
 		response.setCharacterEncoding("utf8");
-		HttpSession session = request.getSession();	
-		String uname = (String)session.getAttribute("uname");		
-		JSONArray funcs = mfs.selectFunctionsByUname(uname, 0);
-		JSONObject Func = new JSONObject();
-		Func.put("menus", funcs);
-		PrintWriter pw = response.getWriter();
-		pw.write(Func.toString());
+		JSONArray j = rs.selectAllRole();
+        PrintWriter pw = response.getWriter();
+        pw.write(j.toString());
 	}
 
 }

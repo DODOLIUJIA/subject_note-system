@@ -8,25 +8,25 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import com.zr.service.ManagerFuncService;
-import com.zr.service.impl.ManagerFuncServiceImpl;
+import com.zr.dao.FunctionDao;
+import com.zr.dao.impl.FunctionDaoImpl;
+import com.zr.service.RoleService;
+import com.zr.service.impl.RoleServiceImpl;
 
 import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
 
 /**
- * Servlet implementation class GetManagerFuncsAvtion
+ * Servlet implementation class ShowRoleFuncsAction
  */
-@WebServlet("/getManagerFuncs")
-public class GetManagerFuncsAvtion extends HttpServlet {
+@WebServlet("/ShowRoleFuncs")
+public class ShowRoleFuncsAction extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	ManagerFuncService mfs = new ManagerFuncServiceImpl();
+	RoleService rs =new RoleServiceImpl();
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public GetManagerFuncsAvtion() {
+    public ShowRoleFuncsAction() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -44,13 +44,10 @@ public class GetManagerFuncsAvtion extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf8");
 		response.setCharacterEncoding("utf8");
-		HttpSession session = request.getSession();	
-		String uname = (String)session.getAttribute("uname");		
-		JSONArray funcs = mfs.selectFunctionsByUname(uname, 0);
-		JSONObject Func = new JSONObject();
-		Func.put("menus", funcs);
+		String Rname = request.getParameter("rolename");
+		JSONArray j = rs.selectFuncsByRoleName(Rname);
 		PrintWriter pw = response.getWriter();
-		pw.write(Func.toString());
+		pw.write(j.toString());
 	}
 
 }
