@@ -65,4 +65,29 @@ public class SubLabelServiceImpl implements SubLabelService {
 		jo = sldao.updataS_LabAndeExist( updataS_LabName, s_lid);
 		return jo;
 	}
+
+	@Override
+	public int[] getAllSubjectLabelID() {
+		return sldao.getAllSubjectLabelID();
+	}
+
+	@Override
+	public boolean updateAllSubjectLabelCount() {
+		return sldao.updateAllSubjectLabelCount();
+	}
+
+	@Override
+	public JSONArray getAllLabelValueAndText() {
+		return sldao.getAllLabelValueAndText();
+	}
+
+	@Override
+	public boolean insertNewSSLabel(int subID, int[] lid) {
+		return sldao.insertNewSSLabel(subID, lid);
+	}
+
+	@Override
+	public boolean deleteFromSubSSLabelBySubID(int subID) {
+		return sldao.deleteFromSubSSLabelBySubID(subID);
+	}
 }

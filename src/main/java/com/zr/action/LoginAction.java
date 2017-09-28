@@ -17,27 +17,25 @@ import net.sf.json.JSONObject;
  * @author zhang
  *
  */
-@WebServlet(name="LoginAction",urlPatterns="/login")
+@WebServlet("/login")
 public class LoginAction extends HttpServlet{
 
 	private LoginService loginService = new LoginServiceImpl();
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doPost(req, resp);
 	}
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		String uname = req.getParameter("uname");
 		String password = req.getParameter("password");
 		JSONObject result = loginService.selectUser(uname, password);
 		HttpSession session = req.getSession();
 		session.setAttribute("uname", uname);
 		session.setAttribute("userId", result.get("userId"));
-		req.getServletContext().setAttribute("username", uname);
+		System.out.println("ip: "+req.getRemoteAddr());
 		
 		resp.setCharacterEncoding("utf-8");
 		JSONObject json = new JSONObject();

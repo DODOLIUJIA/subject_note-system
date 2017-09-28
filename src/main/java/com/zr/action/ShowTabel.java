@@ -14,25 +14,33 @@ import com.zr.model.N_label;
 import com.zr.service.NoteService;
 import com.zr.service.impl.NoteServiceimpl;
 
-
 /**
  * Servlet implementation class ShowTabel
  */
 @WebServlet("/showtabel")
 public class ShowTabel extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-   NoteService ns = new NoteServiceimpl();
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	   doPost(request, response);
+
+	NoteService ns = new NoteServiceimpl();
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		doPost(request, response);
 	}
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		request.setCharacterEncoding("utf8");
 		response.setCharacterEncoding("utf8");
-		List<N_label> notelabels = ns.getNotetabel();
 		HttpSession session = request.getSession();
-		session.setAttribute("notelabels", notelabels);
-		request.getRequestDispatcher("note.jsp").forward(request, response);
+
+		if (session.getAttribute("userId") != null) {
+			int userid = (int) session.getAttribute("userId");
+			List<N_label> notelabels = ns.getNotetabel(userid);
+			session.setAttribute("notelabels", notelabels);
+		}
+
+		response.sendRedirect("note.jsp");
 	}
 
 }

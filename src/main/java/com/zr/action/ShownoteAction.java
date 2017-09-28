@@ -36,12 +36,12 @@ public class ShownoteAction extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//System.out.println(1111);
 		request.setCharacterEncoding("utf8");
 		response.setCharacterEncoding("utf8");
 		HttpSession session = request.getSession();
 		String lname = (String)session.getAttribute("n_lname");
-		List<Note> notes = ns.getallnotesByn_lname(lname);
+		int userid = (int) session.getAttribute("userId");
+		List<Note> notes = ns.getallnotesByn_lname(userid,lname);
 		//System.out.println(notes.size());
 		session.setAttribute("type", lname);
 		JSONArray json = new JSONArray();

@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import com.zr.service.CommentService;
 import com.zr.service.impl.CommentServiceImpl;
 
-import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 @WebServlet("/AddLikeOrUnLikeNumsAction")

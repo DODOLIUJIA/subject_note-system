@@ -2,6 +2,7 @@ package com.zr.action;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.zr.model.Note;
 import com.zr.service.NoteService;
 import com.zr.service.impl.NoteServiceimpl;
 
@@ -29,7 +31,7 @@ public class InsertnoteAction extends HttpServlet {
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	     int i = 0;
+	     int noteid = 0;
 		String notetitle = request.getParameter("title");
 	     // System.out.println(notetitle);
 	      String notetext = request.getParameter("notetext");
@@ -37,17 +39,20 @@ public class InsertnoteAction extends HttpServlet {
 	      String notesummary =request.getParameter("notesummary");
 	       //System.out.println(notesummary);
 	      HttpSession session = request.getSession();
-	     int userid =  (int) session.getAttribute("userid");
+	     int userid =  (int) session.getAttribute("userId");
+	    // System.out.println(userid);
 		  String lname = (String)session.getAttribute("n_lname");
 	      if(""!=notetitle&&""!=notetext&&""!=notesummary){
-	    	  i = ns.insertnote(userid, notetitle, notetext, notesummary);
-		      int m = ns.getnoteid(notetitle);
+	    	  noteid = ns.insertnote(userid, notetitle, notetext, notesummary);	
+	    	  System.out.println(noteid);
 		      int q = ns.getN_lid(lname);
-		      int n = ns.insertNote_lable(m, q);
+		      //System.out.println(q);
+		      int n = ns.insertNote_lable(noteid, q);
+		     // System.out.println(n);
 	      }     
 	      JSONObject json = new JSONObject();
 	      PrintWriter pw = response.getWriter();
-	      json.put("msg", i);
+	      json.put("msg", noteid);
 	      pw.write(json.toString());
 	}
 

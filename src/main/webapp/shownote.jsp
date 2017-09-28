@@ -64,8 +64,15 @@
 	    }
       .title{
           color:blue;
+                  
           cursor:pointer;
          
+      }
+      .tr{
+        height:40px;
+      }
+      td{
+        text-align:center;
       }
      #tbody  a {	
     	font-family: "微软雅黑";
@@ -73,7 +80,6 @@
     }
   #tbody   a:hover {
 	color: black;
-	font-size: 15px;
 }
 	</style>
 </head>
@@ -87,7 +93,7 @@
 			<button class="btn btn-default " id="insert3">添加</button>
 			<input   id = "tabel" type="text" placeholder="请输入标签名">
 			<form id="form"  >
-				<table class="table table-striped" id="table" >
+				<table class="table table-hover" id="table" >
 				
 				<thead>
 					<tr>
@@ -118,8 +124,9 @@
 	    		/*   $("#tbody").empty(); */
 	    			for(var i=0 ;i<data.length ;i++){
 	    			//	console.log(data[i].noteid);
-	    				$("#tbody").append("<tr><td>"+(i+1)+"</td>"+"<td style='display:none;'>"+data[i].noteid+"</td>"+
-								"<td><a class='title'   name='"+data[i].noteid+"' href='${basePath}looknote?id="+data[i].noteid+"'>"+data[i].notetitle+"</a></td>"+"<td>"+data[i].notesummary+"</td>"+"</tr>");
+	    				$("#tbody").append("<tr class='tr'><td>"+(i+1)+"</td>"+"<td style='display:none;'>"+data[i].noteid+"</td>"+
+								"<td><a class='title'   name='"+data[i].noteid+"' href='${basePath}looknote?id="+data[i].noteid+"'>"+data[i].notetitle+
+										"</a></td>"+"<td>"+data[i].notesummary+"</td>"+"</tr>");
 					   
 	    			}
 	    	  }

@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.zr.service.NoteService;
 import com.zr.service.impl.NoteServiceimpl;
@@ -30,9 +31,11 @@ public class InsertNoteTabel extends HttpServlet {
 		request.setCharacterEncoding("utf8");
 		response.setCharacterEncoding("utf8");
 		int i =0;
+		HttpSession session = request.getSession();
+		int userid = (int)session.getAttribute("userId");
 		String lname = request.getParameter("tabel");
 		if(""!=lname){
-			 i = ns.insertNoteTabel(lname);
+			 i = ns.insertNoteTabel(lname,userid);
 		}
 		JSONObject json = new JSONObject();
 		PrintWriter pw = response.getWriter();

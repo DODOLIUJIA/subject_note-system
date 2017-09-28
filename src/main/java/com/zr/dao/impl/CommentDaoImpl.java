@@ -125,18 +125,18 @@ public class CommentDaoImpl implements CommentDao {
 
 	@Override
 	public int getLikeNums(int cid) {
-		StringBuffer sql=new StringBuffer("");
+		StringBuffer sql = new StringBuffer("");
 		sql.append("SELECT `comment`.likenums FROM `comment` WHERE `comment`.comid=?");
-		Connection conn=DBConnection.getConnection();
+		Connection conn = DBConnection.getConnection();
 		try {
-			PreparedStatement pre=conn.prepareStatement(sql.toString());
+			PreparedStatement pre = conn.prepareStatement(sql.toString());
 			pre.setInt(1, cid);
-			ResultSet res=pre.executeQuery();
-			if(res.next()){
-				int num=res.getInt("likenums");
+			ResultSet res = pre.executeQuery();
+			if (res.next()) {
+				int num = res.getInt("likenums");
 				DBConnection.CloseConnection(conn, pre, res);
 				return num;
-			}else{
+			} else {
 				DBConnection.CloseConnection(conn, pre, res);
 				return -1;
 			}
@@ -144,29 +144,166 @@ public class CommentDaoImpl implements CommentDao {
 			e.printStackTrace();
 			return -1;
 		}
-		
+
 	}
 
 	@Override
 	public int getUnLikeNums(int cid) {
-		StringBuffer sql=new StringBuffer("");
+		StringBuffer sql = new StringBuffer("");
 		sql.append("SELECT `comment`.unlikenums FROM `comment` WHERE `comment`.comid=?");
-		Connection conn=DBConnection.getConnection();
+		Connection conn = DBConnection.getConnection();
 		try {
-			PreparedStatement pre=conn.prepareStatement(sql.toString());
+			PreparedStatement pre = conn.prepareStatement(sql.toString());
 			pre.setInt(1, cid);
-			ResultSet res=pre.executeQuery();
-			if(res.next()){
-				int num=res.getInt("unlikenums");
+			ResultSet res = pre.executeQuery();
+			if (res.next()) {
+				int num = res.getInt("unlikenums");
 				DBConnection.CloseConnection(conn, pre, res);
 				return num;
-			}else{
+			} else {
 				DBConnection.CloseConnection(conn, pre, res);
 				return -1;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return -1;
+		}
+	}
+
+	@Override
+	public boolean deleteCommentByCID(int cid) {
+		StringBuffer sql = new StringBuffer("");
+		sql.append("delete from `comment` ");
+		sql.append("where `comment`.comid=?");
+		Connection conn = DBConnection.getConnection();
+		try {
+			PreparedStatement pre = conn.prepareStatement(sql.toString());
+			pre.setInt(1, cid);
+			int i = pre.executeUpdate();
+			if (i == 1) {
+				DBConnection.CloseConnection(conn, pre);
+				return true;
+			} else {
+				DBConnection.CloseConnection(conn, pre);
+				return false;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	@Override
+	public List<Comment> getAllComments() {
+		StringBuffer sql = new StringBuffer("");
+		sql.append("SELECT * FROM `comment`");
+		List<Comment> list = new ArrayList<Comment>();
+		Connection conn = DBConnection.getConnection();
+		try {
+			PreparedStatement pre = conn.prepareStatement(sql.toString());
+			ResultSet res = pre.executeQuery();
+			while (res.next()) {
+				Comment c = new Comment();
+				c.setComID(res.getInt("comid"));
+				c.setUserID(res.getInt("userid"));
+				c.setSubID(res.getInt("subid"));
+				c.setComText(res.getString("comtext"));
+				c.setLikeNums(res.getInt("likenums"));
+				c.setUnLikeNums(res.getInt("unlikenums"));
+				c.setCreate_DateTime(res.getString("create_datetime"));
+				list.add(c);
+			}
+			if (list.size() == 0) {
+				DBConnection.CloseConnection(conn, pre, res);
+				return null;
+			} else {
+				DBConnection.CloseConnection(conn, pre, res);
+				return list;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	@Override
+	public int getCommentsSum() {
+		StringBuffer sql = new StringBuffer("");
+		sql.append("select COUNT(1) from `comment`");
+		Connection conn = DBConnection.getConnection();
+		try {
+			PreparedStatement pre = conn.prepareStatement(sql.toString());
+			ResultSet res = pre.executeQuery();
+			if (res.next()) {
+				int r = res.getInt("COUNT(1)");
+				DBConnection.CloseConnection(conn, pre, res);
+				return r;
+			} else {
+				DBConnection.CloseConnection(conn, pre, res);
+				return -1;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return -1;
+		}
+	}
+
+	@Override
+	public List<Comment> getCommentsByLimit(int start, int size) {
+		StringBuffer sql = new StringBuffer("");
+		sql.append("select * from `comment` LIMIT ?,?");
+		List<Comment> list = new ArrayList<Comment>();
+		Connection conn = DBConnection.getConnection();
+		try {
+			PreparedStatement pre = conn.prepareStatement(sql.toString());
+			pre.setInt(1, start);
+			pre.setInt(2, size);
+			ResultSet res = pre.executeQuery();
+			while (res.next()) {
+				Comment c = new Comment();
+				c.setComID(res.getInt("comid"));
+				c.setUserID(res.getInt("userid"));
+				c.setSubID(res.getInt("subid"));
+				c.setComText(res.getString("comtext"));
+				c.setLikeNums(res.getInt("likenums"));
+				c.setUnLikeNums(res.getInt("unlikenums"));
+				c.setCreate_DateTime(res.getString("create_datetime"));
+				list.add(c);
+			}
+			if (list.size() == 0) {
+				DBConnection.CloseConnection(conn, pre, res);
+				return null;
+			} else {
+				DBConnection.CloseConnection(conn, pre, res);
+				return list;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	@Override
+	public boolean deleteCommentByCIDArray(int[] cids) {
+		StringBuffer sql = new StringBuffer("");
+		sql.append("delete from `comment` ");
+		sql.append("where `comment`.comid=?");
+		Connection conn = DBConnection.getConnection();
+		try {
+			conn.setAutoCommit(false);     //关闭自动提交
+			for (int i : cids) {
+				PreparedStatement pre=conn.prepareStatement(sql.toString());
+				pre.setInt(1, i);
+				pre.executeUpdate();
+				pre.close();
+			}
+			conn.commit();
+			conn.setAutoCommit(true);
+			conn.close();
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
 		}
 	}
 

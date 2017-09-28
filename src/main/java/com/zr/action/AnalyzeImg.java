@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.zr.util.Ocr;
 
-
 /**
  * Servlet implementation class AnalyzeImg
  */
@@ -29,12 +28,12 @@ public class AnalyzeImg extends HttpServlet {
 		try {
 			Ocr ocr = new Ocr(request.getServletContext().getRealPath(""));
 			result = ocr.getResult(imgPath);
-			
+
 			System.out.println(result);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		response.getWriter().write(result);
 	}
 
