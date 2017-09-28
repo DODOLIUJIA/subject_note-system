@@ -1,5 +1,20 @@
 PROJECT： QC_Sub_Note 1.0
 
+This system include modules of frontend and backend.
+
+Frontend:
+	Users module(Login and register, Center of individual-not complete)
+	Subject module(Show all of subjects,  Classifies it as label and date)
+	Note module(Manage personal notes, Provides label of category for users)
+	Barrage module(Real-time communication)
+	
+Backend:
+	Admin module(Login, Distribution of Role, Distribution of authority)
+	Subject module(Subjects management, Labels management)
+	Comment module(Comment management)
+	
+	
+
 在线题库查看，个人笔记管理系统
 
 系统拥有前后台
