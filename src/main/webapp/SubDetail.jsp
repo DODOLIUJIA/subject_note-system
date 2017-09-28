@@ -31,19 +31,9 @@
 	margin: auto;
 	margin-top: 50px;
 	position: absolute;
-	left: 198px;
+	left: 200px;
 	top: 14px;
-	width: 1000px;
-	height: 600px;
-	filter: alpha(Opacity = 60);
-	-moz-opacity: 0.6;
-	opacity: 0.6;
-	border: 2px solid #ffcc00;
-	-moz-opacity: 0.6;
-	opacity: 0.6;
-	left: 198px;
-	top: 14px;
-	width: 1000px;
+	width: 1100px;
 	height: 600px;
 	filter: alpha(Opacity = 60);
 	-moz-opacity: 0.6;
@@ -51,7 +41,7 @@
 }
 
 #barrage div {
-	width: 20%;
+	width: 50%;
 	height: 20px;
 	line-height: 20px;
 	position: absolute;
@@ -67,6 +57,7 @@
 #text {
 	font-size: 20px;
 	height: 30px;
+	width: 350px;
 	border-radius: 4px;
 	border: 1px solid #c8cccf;
 	color: #6a6f77;
@@ -154,10 +145,12 @@
 			<div class="col-md-6 col-sm-6 col-xs-6">
 				<botton id="showAnswer" type="button" class="btn btn-default"
 					style="margin-left: 40%;z-index: 10;" onclick="show()">显示答案以及评论</botton>
+
+				<!-- 发送弹幕的input 和 按钮 -->
 				<div id="btn">
-					<input type="text" id="text"></input> <input style="z-index: 10;"
-						type="button" id="submit" onclick="sendMsg()" value="发送"></input>
+					<input type="text" id="text" placeholder = "在这里输入弹幕 回车发送"></input>
 				</div>
+
 			</div>
 			<div class="col-md-3 col-sm-3 col-xs-3"></div>
 		</div>
@@ -202,7 +195,16 @@
 
 		clearInterval(timer);//清除定时器  
 
-		timer = setInterval(move, 20);//开启定时器 
+		timer = setInterval(move, 30);//开启定时器 
+
+		$("#text").on('keypress', function(event) {
+				
+			if (event.keyCode == 13)
+			{
+				if($("#text").val() != "")
+					sendMsg();
+			}
+		});
 	});
 
 	function create(msg) {//创建一个弹幕  
@@ -211,9 +213,9 @@
 		var t = random(0, num.length - 1);
 		node.style.top = num[t] * 20 + "px";//从划分的块中随机选中一块。  
 		Delete(num[t]);//删除已被选中的块   
-		node.style.left = "950px";
+		node.style.left = ($("#barrage").get(0).offsetWidth - 100) + "px";
 		node.style.color = "#" + randomColor();//随机颜色  
-		node.style.fontSize = random(20, 40) + "px";
+		node.style.fontSize = random(20 , 30) + "px";//弹幕字体大小
 		$("#barrage").append(node);//插入子节点  
 	}
 
@@ -224,7 +226,7 @@
 			//将每个弹幕距左边边框的距离分别存储在newarr数组中  
 			newarr.push(arr[i].offsetLeft);
 			arr[i].style.left = newarr[i] + "px";//更新距离  
-			newarr[i] = newarr[i] - 2;//每次减少2px  
+			newarr[i] = newarr[i] - 3;//每次减少2px  
 
 			if (newarr[i] < 0) {
 				arr[i].remove();
