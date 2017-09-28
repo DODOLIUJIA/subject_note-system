@@ -21,7 +21,7 @@ import javax.servlet.http.HttpSession;
  * @author zhang
  *
  */
-@WebFilter(value = "*.do", initParams = { 
+@WebFilter(value = "*.jsp", initParams = { 
 		@WebInitParam(name = "notCheckURLList", value = "/login.jsp;/index.jsp;/index_content.jsp;/SubDetail.jsp;/userselectSub.jsp;/userPage.jsp;/browseSub.jsp;/bglogin.jsp;"),
 		@WebInitParam(name = "redirectURL", value = "/login.jsp"), })
 public class LoginFilter implements Filter {
@@ -43,6 +43,7 @@ public class LoginFilter implements Filter {
 		// 只要登录就放行
 		if (sessionKey != null) {
 			filterChain.doFilter(request, response);
+			return;
 		}
 
 		// 没登录又访问了必须要登录才能访问的页面就 return
