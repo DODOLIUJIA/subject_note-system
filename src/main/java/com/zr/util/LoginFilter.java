@@ -38,7 +38,7 @@ public class LoginFilter implements Filter {
 
 		HttpSession session = request.getSession();
 		sessionKey = (String) session.getAttribute("uname");
-		System.out.println(sessionKey);
+		//System.out.println(sessionKey);
 
 		// 只要登录就放行
 		if (sessionKey != null) {
