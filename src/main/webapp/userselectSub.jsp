@@ -43,19 +43,17 @@ body {background-color: #eee;}
 .nav-sidebar{
 cursor:pointer;
 }
-#main{
-position: fixed;
+
+#backTop{
+	display: none;
 }
 
-#center{
-position: absolute;right: 10px;
-}
 </style>
 
 </head>
 <script type="text/javascript">
 //题目显示栏高度
-var subHeight = 1000;
+var subHeight = 3000;
 //下拉次数
 var loadtimms = 1;
 //是否还有题目的标志
@@ -67,8 +65,11 @@ window.onscroll = function() {
 	var b = document.documentElement.scrollTop == 0 ? document.body.scrollTop
 			: document.documentElement.scrollTop;
 	var c = document.documentElement.scrollTop == 0 ? document.body.scrollHeight
-			: document.documentElement.scrollHeight; 
-	if (b>= 87&&flage==true) {
+			: document.documentElement.scrollHeight;
+	if((a+b)/c<=0.98){
+		$("#backTop").hide();
+	}else{$("#backTop").show();}
+	if ((a+b)/c>=0.98&&flage==true) {
 		$.ajax({
 			url : 'selectAllSubject?loadtimms=' + loadtimms,
 			type : 'POST',
@@ -332,6 +333,8 @@ window.onscroll = function() {
   
 		</div>
 	</div>
+   <div id="backTop"><a href="#" class='bock-to-top' style="position: fixed; right: 50px;bottom: 50px;">回到顶部</a></div>
+
    <!-- 尾部 -->
 	<footer class="footer row">
 		<div class="col-md-4">

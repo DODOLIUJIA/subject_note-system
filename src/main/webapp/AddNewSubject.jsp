@@ -34,7 +34,9 @@
 			<option value="2">2 填空题</option>
 			<option value="3">3 单选题</option>
 			<option value="4">4 多选题</option>
-		</select>
+		</select>&nbsp;
+		题目标签 
+		<input id="Label"  style="width: 300px;height : 40px;">
 	</div><br>
 	<div>
 		创建年份
@@ -46,8 +48,6 @@
 		</select>
 	</div><br>
 	<button type="button" class="btn btn-default" onclick="isnertSubject()">插入</button>  	
-	
-	
 
 </body>
 <script>

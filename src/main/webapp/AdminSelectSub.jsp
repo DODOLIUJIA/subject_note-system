@@ -39,7 +39,8 @@ function updateSubject() {
 			sum : $('#summary').val(),
 			ans : $('#answer').val(),
 			type : $('#type').val(),
-			time : $('#Time').val()
+			time : $('#Time').val(),
+			Lids : $('#Label').combobox('getValues')
 		},
 		dataType : 'text',
 		success : function(data) {
@@ -71,7 +72,6 @@ function deleteSub(index){
 	    	$.ajax({
 				url:'DeleteSub?subId='+row.subId,
 				type : 'post',
-				
 			});
 			$('#selectsub').datagrid('reload');
 		}
@@ -101,6 +101,7 @@ function updataSub(index){
 			$("#answer").val(sub.subanswer);
 			$("#type").val(sub.subtype);
 			$("#Time").val(sub.subtime);
+			
 		}
 	})
 }
@@ -133,6 +134,19 @@ function updataSub(index){
 		    valueField:'id',    
 		    textField:'text',
 		});
+		$('#Label').combobox({ 
+		    required:true,    
+		    multiple:true   
+		});  
+		$.ajax({
+			url : 'GetAllSLabelAction',
+			type : 'post',
+			dataType : 'text',
+			success : function(data){
+				da = $.parseJSON(data);
+				$("#Label").combobox("loadData", da);
+			}
+		})
 		
 		//配置提交按钮
 		$("#Search").linkbutton({    
@@ -239,7 +253,9 @@ function updataSub(index){
 			<option value="2">2 填空题</option>
 			<option value="3">3 单选题</option>
 			<option value="4">4 多选题</option>
-		</select>
+		</select>&nbsp;
+		题目标签 
+		<input id="Label"  style="width: 300px;height : 40px;">
 	</div>
 	<br>
 	<div>

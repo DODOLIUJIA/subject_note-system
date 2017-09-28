@@ -9,7 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.zr.service.SubLabelService;
 import com.zr.service.SubService;
+import com.zr.service.impl.SubLabelServiceImpl;
 import com.zr.service.impl.SubServiceImpl;
 
 /**
@@ -21,6 +23,7 @@ import com.zr.service.impl.SubServiceImpl;
 public class UpdateSubjectAction extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	SubService sService = new SubServiceImpl();
+	SubLabelService slService = new SubLabelServiceImpl();
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -37,8 +40,16 @@ public class UpdateSubjectAction extends HttpServlet {
 		int type = Integer.parseInt(request.getParameter("type"));
 		int time = Integer.parseInt(request.getParameter("time"));
 		int id = Integer.parseInt(request.getParameter("id"));
+		String[] L = request.getParameterValues("Lids[]");
+		int[] lids = new int[L.length];
+		for (int i = 0; i < L.length; i++) {
+			lids[i] = Integer.parseInt(L[i]);
+		}
+		slService.deleteFromSubSSLabelBySubID(id);
 		boolean b = sService.updateSubject(id, summary, content, type, answer, time);
-		if (b == true) {
+		boolean a = slService.insertNewSSLabel(id, lids);
+		slService.updateAllSubjectLabelCount();
+		if (b == true&&a==true) {
 			out.write("success");
 		} else {
 			out.write("fail");
