@@ -9,6 +9,7 @@ import java.util.List;
 
 import com.zr.dao.SubLabelDao;
 import com.zr.model.SubjectLabel;
+import com.zr.util.DBConnection;
 import com.zr.util.JDBCUtil;
 
 import net.sf.json.JSONArray;
@@ -52,7 +53,7 @@ public class SubLabelDaoImpl implements SubLabelDao {
 	@Override
 	public List<SubjectLabel> getsub_label() {
 		List<SubjectLabel> sllist = new ArrayList<SubjectLabel>();
-		
+
 		Connection con = null;
 		PreparedStatement pst = null;
 		StringBuffer sql = new StringBuffer("");
@@ -61,7 +62,7 @@ public class SubLabelDaoImpl implements SubLabelDao {
 			con = JDBCUtil.getConnection();
 			pst = con.prepareStatement(sql.toString());
 			ResultSet rs = pst.executeQuery();
-			while(rs.next()) {
+			while (rs.next()) {
 				SubjectLabel sl = new SubjectLabel();
 				sl.setS_lname(rs.getString(2));
 				sl.setSubcount(rs.getInt(3));
@@ -69,7 +70,7 @@ public class SubLabelDaoImpl implements SubLabelDao {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}finally {
+		} finally {
 			try {
 				JDBCUtil.closeJDBC(pst, con);
 			} catch (SQLException e) {
@@ -78,9 +79,8 @@ public class SubLabelDaoImpl implements SubLabelDao {
 		}
 
 		return sllist;
-		}
+	}
 
-	
 	@Override
 	public JSONArray getSubLabels(int start, int pageSize) {
 
@@ -184,10 +184,10 @@ public class SubLabelDaoImpl implements SubLabelDao {
 			con = JDBCUtil.getConnection();
 			pst = con.prepareStatement(sql.toString());
 			pst.setString(1, newLabName);
-			ResultSet rs =pst.executeQuery();
-			if(rs.next()) {
+			ResultSet rs = pst.executeQuery();
+			if (rs.next()) {
 				flag = true;
-			}else {
+			} else {
 				flag = false;
 			}
 		} catch (SQLException e) {
@@ -199,7 +199,7 @@ public class SubLabelDaoImpl implements SubLabelDao {
 				e.printStackTrace();
 			}
 		}
-		
+
 		return flag;
 	}
 
@@ -248,7 +248,7 @@ public class SubLabelDaoImpl implements SubLabelDao {
 	public JSONObject updataS_LabAndeExist(String updataS_LabName, int s_lid) {
 		JSONObject jo = new JSONObject();
 		boolean flag = false;
-		if(!subLabelExist(updataS_LabName)) {
+		if (!subLabelExist(updataS_LabName)) {
 			Connection con = null;
 			PreparedStatement pst1 = null;
 			StringBuffer sql1 = new StringBuffer("UPDATE s_label SET s_label.s_lname = ? WHERE s_label.s_lid = ? ");
@@ -271,6 +271,120 @@ public class SubLabelDaoImpl implements SubLabelDao {
 		}
 		jo.put("success", flag);
 		return jo;
+	}
+
+	@Override
+	public int[] getAllSubjectLabelID() {
+		StringBuffer sql = new StringBuffer("");
+		List<Integer> list = new ArrayList<Integer>();
+		sql.append("SELECT s_label.s_lid from s_label");
+		Connection conn = DBConnection.getConnection();
+		try {
+			PreparedStatement pre = conn.prepareStatement(sql.toString());
+			ResultSet res = pre.executeQuery();
+			while (res.next()) {
+				list.add(res.getInt("s_lid"));
+			}
+			int[] i = new int[list.size()];
+			for (int j = 0; j < i.length; j++) {
+				i[j] = list.get(j);
+			}
+			DBConnection.CloseConnection(conn, pre, res);
+			return i;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	@Override
+	public boolean updateAllSubjectLabelCount() {
+		StringBuffer sql = new StringBuffer("");
+		sql.append("call updatecount();");
+		Connection conn = DBConnection.getConnection();
+		try {
+			PreparedStatement pre = conn.prepareStatement(sql.toString());
+			pre.executeUpdate();
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	@Override
+	public JSONArray getAllLabelValueAndText() {
+		StringBuffer sql =new StringBuffer("");
+		JSONArray json =new JSONArray();
+		sql.append("SELECT s_label.s_lid,s_label.s_lname ");
+		sql.append("from s_label");
+		Connection conn=DBConnection.getConnection();
+		try {
+			PreparedStatement pre=conn.prepareStatement(sql.toString());
+			ResultSet res=pre.executeQuery();
+			while(res.next()){
+				JSONObject j=new JSONObject();
+				j.put("value", res.getInt("s_lid"));
+				j.put("text", res.getString("s_lname"));
+				json.add(j);
+			}
+			return json;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	public static void main(String[] args) {
+		SubLabelDaoImpl s=new SubLabelDaoImpl();
+		System.out.println(s.getAllLabelValueAndText().toString());
+	}
+
+	@Override
+	public boolean insertNewSSLabel(int subID, int[] lid) {
+		StringBuffer sql=new StringBuffer("");
+		sql.append("INSERT INTO subject_s_label(subject_s_label.s_lid,subject_s_label.subid) ");
+		sql.append("VALUES (?,?)");
+		Connection conn=DBConnection.getConnection();
+		try {
+			conn.setAutoCommit(false);
+			PreparedStatement pre=conn.prepareStatement(sql.toString());
+			for (int i : lid) {
+				pre.setInt(1, i);
+				pre.setInt(2, subID);
+				pre.executeUpdate();
+			}
+			conn.commit();
+			DBConnection.CloseConnection(conn, pre);
+			return true;
+		} catch (SQLException e) {
+			try {
+				conn.rollback();
+				conn.close();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	@Override
+	public boolean deleteFromSubSSLabelBySubID(int subID) {
+		StringBuffer sql=new StringBuffer("");
+		sql.append("delete from subject_s_label ");
+		sql.append("where subject_s_label.subid=?");
+		Connection conn=DBConnection.getConnection();
+		try {
+			PreparedStatement pre=conn.prepareStatement(sql.toString());
+			pre.setInt(1, subID);
+			pre.executeUpdate();
+			DBConnection.CloseConnection(conn, pre);
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 }

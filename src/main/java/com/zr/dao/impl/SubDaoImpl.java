@@ -691,4 +691,31 @@ public class SubDaoImpl implements SubDao {
 		}
 
 	}
+
+	@Override
+	public int getSubIDBySummaryAndTextAndType(String summary, String text, int type) {
+		StringBuffer sql=new StringBuffer("");
+		sql.append("select `subject`.subid from `subject` ");
+		sql.append("where `subject`.subsummary=? ");
+		sql.append("and `subject`.subtext=? and `subject`.subtype=? ");
+		Connection conn=DBConnection.getConnection();
+		try {
+			PreparedStatement pre=conn.prepareStatement(sql.toString());
+			pre.setString(1, summary);
+			pre.setString(2, text);
+			pre.setInt(3, type);
+			ResultSet res=pre.executeQuery();
+			if(res.next()){
+				int i=res.getInt("subid");
+				DBConnection.CloseConnection(conn, pre, res);
+				return i;
+			}else{
+				DBConnection.CloseConnection(conn, pre, res);
+				return -1;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return -1;
+		}
+	}
 }
