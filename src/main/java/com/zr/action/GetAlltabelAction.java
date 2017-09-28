@@ -28,7 +28,6 @@ public class GetAlltabelAction extends HttpServlet {
 		doPost(request, response);
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//System.out.println(1111);
 		request.setCharacterEncoding("utf8");
 		response.setCharacterEncoding("utf8");
 		List<N_label> labels = ns.getNotetabel();

@@ -36,7 +36,6 @@ public class ShownoteAction extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//System.out.println(1111);
 		request.setCharacterEncoding("utf8");
 		response.setCharacterEncoding("utf8");
 		HttpSession session = request.getSession();

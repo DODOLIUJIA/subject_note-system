@@ -21,67 +21,60 @@ import javax.servlet.http.HttpSession;
  * @author zhang
  *
  */
-/*@WebFilter(value = "/node.jsp", initParams = {
-		@WebInitParam(name = "notCheckURLList", value = ""),
-		@WebInitParam(name = "redirectURL", value = "/login.jsp"), })*/
-public class LoginFilter implements Filter {  
-  
-	protected FilterConfig filterConfig = null; 
-	 private String redirectURL = null; 
-	 private List notCheckURLList = new ArrayList(); 
-	 private String sessionKey = null;
-	 
-	 public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException 
-	 { 
-		 System.out.println(222);
-	  HttpServletRequest request = (HttpServletRequest) servletRequest; 
-	  HttpServletResponse response = (HttpServletResponse) servletResponse;
+@WebFilter(value = "*.do", initParams = { 
+		@WebInitParam(name = "notCheckURLList", value = "/login.jsp;/index.jsp;/index_content.jsp;/SubDetail.jsp;/userselectSub.jsp;/userPage.jsp;/browseSub.jsp;/bglogin.jsp;"),
+		@WebInitParam(name = "redirectURL", value = "/login.jsp"), })
+public class LoginFilter implements Filter {
 
-	  HttpSession session = request.getSession(); 
-	  sessionKey = (String)session.getAttribute("uname");
-	  System.out.println(sessionKey);
-	 
-	  if(sessionKey != null) 
-	  { 
-	   filterChain.doFilter(request, response); 
-	   return; 
-	  } 
-	  if((!checkRequestURIIntNotFilterList(request)) && session.getAttribute("uname") == null) 
-	  { 
-	   response.sendRedirect(request.getContextPath() + redirectURL); 
-	   return; 
-	  } 
-	  filterChain.doFilter(servletRequest, servletResponse); 
-	 }
+	protected FilterConfig filterConfig = null;
+	private String redirectURL = null;
+	private List<String> notCheckURLList = new ArrayList<String>();
+	private String sessionKey = null;
 
-	 public void destroy() 
-	 { 
-	  notCheckURLList.clear(); 
-	 }
+	public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
+			throws IOException, ServletException {
+		HttpServletRequest request = (HttpServletRequest) servletRequest;
+		HttpServletResponse response = (HttpServletResponse) servletResponse;
 
-	 private boolean checkRequestURIIntNotFilterList(HttpServletRequest request) 
-	 { 
-	  String uri = request.getServletPath() + (request.getPathInfo() == null ? "" : request.getPathInfo()); 
-	  return notCheckURLList.contains(uri); 
-	 }
+		HttpSession session = request.getSession();
+		sessionKey = (String) session.getAttribute("uname");
+		System.out.println(sessionKey);
 
-	 public void init(FilterConfig filterConfig) throws ServletException 
-	 { 
-	  this.filterConfig = filterConfig; 
-	  redirectURL = filterConfig.getInitParameter("redirectURL"); 	 
-	 
-	  String notCheckURLListStr = filterConfig.getInitParameter("notCheckURLList");
-	  if(notCheckURLListStr != null) 
-	  { 
-	   StringTokenizer st = new StringTokenizer(notCheckURLListStr, ";"); 
-	   notCheckURLList.clear(); 
-	   while(st.hasMoreTokens()) 
-	   { 
-	    notCheckURLList.add(st.nextToken()); 
-	   } 
-	   
-	  } 
-	  
-	  System.out.println(111);
-	 } 
+		// 只要登录就放行
+		if (sessionKey != null) {
+			filterChain.doFilter(request, response);
+		}
+
+		// 没登录又访问了必须要登录才能访问的页面就 return
+		if ((!checkRequestURIIntNotFilterList(request)) && session.getAttribute("uname") == null) {
+			System.out.println("过滤到非法请求,请求的路径为： "+request.getServletPath());
+			response.sendRedirect(request.getContextPath() + redirectURL);
+			return;
+		}
+
+		filterChain.doFilter(request, response);
 	}
+
+	public void destroy() {
+		notCheckURLList.clear();
+	}
+
+	private boolean checkRequestURIIntNotFilterList(HttpServletRequest request) {
+		String uri = request.getServletPath() + (request.getPathInfo() == null ? "" : request.getPathInfo());
+		return notCheckURLList.contains(uri);
+	}
+
+	public void init(FilterConfig filterConfig) throws ServletException {
+		this.filterConfig = filterConfig;
+		redirectURL = filterConfig.getInitParameter("redirectURL");
+
+		String notCheckURLListStr = filterConfig.getInitParameter("notCheckURLList");
+		if (notCheckURLListStr != null) {
+			StringTokenizer st = new StringTokenizer(notCheckURLListStr, ";");
+			notCheckURLList.clear();
+			while (st.hasMoreTokens()) {
+				notCheckURLList.add(st.nextToken());
+			}
+		}
+	}
+}

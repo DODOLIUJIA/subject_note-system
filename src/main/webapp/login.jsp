@@ -93,7 +93,10 @@ $(function() {
 		var password = $("#r_password").val();
 		
 		var confirm = $("#r_confirm").val();
-		if(uname == '') {
+		if($("#ncue").text() != ""){
+			return;
+		}
+		else if(uname == '') {
 			$("#ncue").text("请输入账号");
 		}
 		 else if(password == ''){
@@ -120,7 +123,7 @@ $(function() {
 				  //成功请求之后回调的函数
 				  success:function(data){
 					if(data.result == 1){
-						cambiar_login()
+						window.location.href='index.jsp';
 					}
 					else {
 						$(":input").val('');
@@ -153,7 +156,7 @@ $(function() {
 							<p>
 								Layer online learning platform<br>qianceng
 							</p>
-							<button class="btn_sign_up" onClick="cambiar_sign_up()">注册</button>
+							<button id="btn_sign_up" class="btn_sign_up" onClick="cambiar_sign_up()">注册</button>
 						</div>
 					</div>
 				</div>

@@ -32,7 +32,7 @@ public class ShowTabel extends HttpServlet {
 		List<N_label> notelabels = ns.getNotetabel();
 		HttpSession session = request.getSession();
 		session.setAttribute("notelabels", notelabels);
-		request.getRequestDispatcher("note.jsp").forward(request, response);
+		response.sendRedirect("note.jsp");
 	}
 
 }

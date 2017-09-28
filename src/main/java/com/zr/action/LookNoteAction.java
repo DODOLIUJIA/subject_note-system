@@ -23,11 +23,9 @@ public class LookNoteAction extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//System.out.println(1111);
 	    String id = request.getParameter("id");
 	    int noteid = Integer.parseInt(id);
 	   String text =  ns.getNotetext(noteid);
-	  // System.out.println(text);
 	   String title = ns.getNotetitle(noteid);
 	   HttpSession session = request.getSession();
 	   session.setAttribute("noteid", noteid);
