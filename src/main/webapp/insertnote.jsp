@@ -319,6 +319,7 @@ body {
 		});
 	}
 	$(function() {
+		var isCommitted = false;//按钮是否已经提交标识，默认为false
 		var timer;
 		$(".userfun").mouseover(function() {
 			clearTimeout(timer);
@@ -366,35 +367,58 @@ body {
 			var content = CKEDITOR.instances.editor.getData();
 			return content;
 		}
-		$("#insert1").click(
-				function() {
-					var title = $("#title").val();
-					var keyword = $("#keyword").val();
-					console.log(keyword)
-					var content = getContent();
-					$.ajax({
-						url : '${basePath}insertnote',
-						data : "title=" + title + "&notetext=" + content
-								+ "&notesummary=" + keyword,
-						type : 'post',
-						dataType : 'json',
-						success : function(data) {
-							console.log(data.msg)
-							if (data.msg == 1) {
-								location.href = 'note.jsp';
-							} else {
-								$.messager.alert('提示', "添加失败", 'info',
-										function() {
-										});
-
-							}
+		$("#insert1").click(function() {
+			   var title = $("#title").val();
+				var keyword = $("#keyword").val();
+				//console.log(keyword)
+				var content = getContent();
+		/* 		$.ajax({
+					url : '${basePath}insertnote',
+					data : "title=" + title + "&notetext=" + content
+							+ "&notesummary=" + keyword,
+					type : 'post',
+					dataType : 'json',
+					success : function(data) {
+						console.log(data.msg)
+						if (data.msg == 1) {
+							location.href = 'note.jsp';
+						} else {
+							$.messager.alert('提示', "添加失败", 'info',
+									function() {
+									});
 						}
-					});
-				});
-		$("#cancel").click(function() {
-			location.href = 'note.jsp';
-		});
+					}
+				}); */
+	 	if(isCommitted==false){
+                isCommitted = true;//提交表单后，将表单是否已经提交标识设置为true
+                var title = $("#title").val();
+				var keyword = $("#keyword").val();
+				//console.log(keyword)
+				var content = getContent();
+				$.ajax({
+					url : '${basePath}insertnote',
+					data : "title=" + title + "&notetext=" + content
+							+ "&notesummary=" + keyword,
+					type : 'post',
+					dataType : 'json',
+					success : function(data) {
+						//console.log(data.msg)
+						if (data.msg!=0) {
+							location.href = '${basePath}showtabel';
+						} else {
+							$.messager.alert('提示', "添加失败", 'info',
+									function() {
+									});
 
+						}
+					}
+				});
+				   return true;//返回true让表单正常提交
+				  }else{
+				           return false;//返回false那么表单将不提交
+				          } 
+			
+				});
 		$("#insert1").linkbutton({
 			iconCls : 'icon-ok',
 			onClick : function() {
@@ -404,7 +428,8 @@ body {
 		$("#cancel").linkbutton({
 			iconCls : 'icon-cancel',
 			onClick : function() {
-				$("#").form('submit');
+				location.href='note.jsp';
+				//window.history.back(-1);
 			}
 		});
 	});

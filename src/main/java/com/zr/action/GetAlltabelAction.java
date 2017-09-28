@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.zr.model.N_label;
 import com.zr.service.NoteService;
@@ -30,7 +31,9 @@ public class GetAlltabelAction extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf8");
 		response.setCharacterEncoding("utf8");
-		List<N_label> labels = ns.getNotetabel();
+		HttpSession session = request.getSession();
+		int userid = (int)session.getAttribute("userId");
+		List<N_label> labels = ns.getNotetabel(userid);
 		JSONArray json = new JSONArray();
 		json=JSONArray.fromObject(labels);
 		PrintWriter pw = response.getWriter();
