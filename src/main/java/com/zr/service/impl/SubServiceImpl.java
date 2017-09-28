@@ -253,4 +253,9 @@ public class SubServiceImpl implements SubService {
 		return sdao.getSubjectBySId(sid);
 
 	}
+
+	@Override
+	public int getSubIDBySummaryAndTextAndType(String summary, String text, int type) {
+		return sdao.getSubIDBySummaryAndTextAndType(summary, text, type);
+	}
 }

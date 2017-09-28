@@ -8,9 +8,22 @@ $(function() {
 	$('#type').textbox({
 		height : 40,
 	})
+	$('#Label').combobox({ 
+	    required:true,    
+	    multiple:true   
+	});  
+	$.ajax({
+		url : 'GetAllSLabelAction',
+		type : 'post',
+		dataType : 'text',
+		success : function(data){
+			da = $.parseJSON(data);
+			$("#Label").combobox("loadData", da);
+		}
+		
+	})
 })
 function isnertSubject() {
-	// var content = CKEDITOR.instances.editor.getData();
 	$.ajax({
 		url : 'InsertNewSubjectAction',
 		type : 'post',
@@ -19,7 +32,8 @@ function isnertSubject() {
 			sum : $('#summary').val(),
 			ans : $('#answer').val(),
 			type : $('#type').val(),
-			time : $('#Time').val()
+			time : $('#Time').val(),
+			Lids : $('#Label').combobox('getValues')
 		},
 		dataType : 'text',
 		success : function(data) {
@@ -38,4 +52,10 @@ function isnertSubject() {
 			}
 		}
 	})
+}
+
+function test(){
+	console.log(111);
+	var text=$('#Label').combobox('getValues');
+	console.log(text);
 }

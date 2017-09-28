@@ -151,5 +151,14 @@ public interface SubDao {
 	 */
 	public boolean updateSubject(int sid, String subSummary, String subText, int subType, String subAnswer,
 			int subTime);
+	
+	/**
+	 * 通过题目描述、内容以及题型来获得该题的题号
+	 * @param summary题目描述
+	 * @param text题目内容
+	 * @param type题目类型
+	 * @return返回该题的题号
+	 */
+	public int getSubIDBySummaryAndTextAndType(String summary,String text,int type);
 
 }
