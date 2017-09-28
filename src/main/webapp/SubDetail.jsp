@@ -4,10 +4,6 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<meta name="Generator" content="EditPlus®">
-<meta name="Author" content="natural_live">
-<meta name="Keywords" content="barrage">
-<meta name="Description" content="">
 <title>详细题目</title>
 <link href="${basePath}statics/themes/bootstrap/easyui.css"
 	rel="stylesheet">
@@ -73,12 +69,14 @@
 </style>
 
 <script type="text/javascript">
+	var host = "localhost"; //172.18.23.77
+
 	function handleOnMessage() {
 		console.log("收到消息");
 	}
 
 	//打开webSocket连接
-	var webSocket = new WebSocket("ws://172.18.23.77:8080/sub_note/DanMuServer");
+	var webSocket = new WebSocket("ws://"+host+":8080/sub_note/DanMuServer");
 
 	//-----------websocket事件注册--------------
 	//websocket连接事件

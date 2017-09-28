@@ -56,13 +56,15 @@
 }
 </style>
 <script type="text/javascript">
+	var host = "localhost"; //172.18.23.77
+
 	function handleOnMessage(){
 		console.log("收到消息");
 	}
 
 
 	//打开webSocket连接
-	var webSocket = new WebSocket("ws://172.18.23.77:8080/sub_note/DanMuServer");
+	var webSocket = new WebSocket("ws://"+host+":8080/sub_note/DanMuServer");
 
 	//-----------websocket事件注册--------------
 	//websocket连接事件
@@ -97,26 +99,15 @@
 		var newarr = [];//存储每个弹幕距左边框的距离  
 		var num = new Array();//数组，用来存储划分每个块的序号  
 
-		function $(id) {
-			return document.getElementById(id);
-		}
 		for (var i = 0; i < $("barrage").offsetHeight / 20 - 1; i++) {
 			num.splice(i, 0, i);//将整个显示框划分成多个块，并对每个块进行标号  
-			//console.log(num)  
+			 
 		}
-		//console.log(num)  
-		//console.log(num.length)  
 
 		window.onload = function() {//加载页面发生的事件  
 
-			/* clearInterval(timer);//清除定时器  
-			for (var i = 0; i < 10; i++) {
-				setTimeout(function() {
-					var word = words[random(0, words.length - 1)];//随机产生一个弹幕的内容  
-					create(word);//创建一个弹幕  
-				}, 100 * random(10, 100))//给弹幕随机加一个延迟  
-
-			} */
+			clearInterval(timer);//清除定时器  
+		
 			timer = setInterval(move, 20);//开启定时器  
 		}
 
@@ -156,7 +147,6 @@
 			
 		}
 
-		//console.log(num)  
 		function Delete(m) {//从预选块中删除已被选择的块  
 			for (var i = 0; i < num.length; i++) {
 				if (num[i] == m) {
