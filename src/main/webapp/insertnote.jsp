@@ -168,7 +168,7 @@ body {
 			<ul class="nav navbar-nav">
 				<li id="index" class="active"><a href="index.jsp">首页</a></li>
 				<li id="sub"><a href="userselectSub.jsp">题库</a></li>
-				<li id="note"><a href="note.jsp">我的笔记</a></li>
+				<li id="note"><a href="${basePath}showtabel">我的笔记</a></li>
 			</ul>
 			<form id="form" class="navbar-form navbar-left">
 				<div class="form-group">
@@ -330,9 +330,9 @@ body {
 						}
 					});
 				});
-		$("#cancel").click(function() {
-			location.href = 'note.jsp';
-		});
+		/* $("#cancel").click(function() {
+			 $(window).load('note.jsp');  
+		}); */
 
 		$("#insert1").linkbutton({
 			iconCls : 'icon-ok',
@@ -343,7 +343,8 @@ body {
 		$("#cancel").linkbutton({
 			iconCls : 'icon-cancel',
 			onClick : function() {
-				$("#").form('submit');
+				location.href='note.jsp';
+				
 			}
 		});
 	});

@@ -68,15 +68,7 @@ body{background-color: #eee;}
 </head>
 <script type="text/javascript">
       $(function(){  
- 		  $.ajax({
- 	    		url:'${basePath}showtabel',
- 	    		data:'',
- 	    		  type:'post',
- 		    	  dataType:'json',
- 		    	  success:function(data){
- 		    		  
- 		    	  }
- 	    	 });
+ 		  
  		 var timer;
          $(".userfun").mouseover(function () {
              clearTimeout(timer); 
