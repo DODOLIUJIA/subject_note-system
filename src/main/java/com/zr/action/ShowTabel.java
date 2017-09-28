@@ -28,9 +28,10 @@ public class ShowTabel extends HttpServlet {
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf8");
-		response.setCharacterEncoding("utf8");
-		List<N_label> notelabels = ns.getNotetabel();
+		response.setCharacterEncoding("utf8");	
 		HttpSession session = request.getSession();
+		int userid = (int)session.getAttribute("userId");
+		List<N_label> notelabels = ns.getNotetabel(userid);
 		session.setAttribute("notelabels", notelabels);
 	    request.getRequestDispatcher("note.jsp").forward(request, response);
 

@@ -19,14 +19,20 @@ public interface NoteService {
 	 * @param n_lname   笔记标签名
 	 * @return
 	 */
-	public List<Note> getallnotesByn_lname(String n_lname);
+	public List<Note> getallnotesByn_lname( int userid ,String n_lname);
+	/**
+	 * 根据标题得到所有的noteid
+	 * @param notetitle
+	 * @return
+	 */
+	public List<Note> getAllnoteidBytitle(String notetitle);
 	/**
 	 * 通过页码和页面大小得到笔记
 	 * @param page    页码
 	 * @param pagesize   页面大小
 	 * @return
 	 */
-	public JSONObject getnoteBypageAndpagesize(String n_lname,int page ,int pagesize);
+	public JSONObject getnoteBypageAndpagesize(int userid,String n_lname,int page ,int pagesize);
 	/**
 	 * 插入
 	 * @param userid
@@ -77,7 +83,7 @@ public interface NoteService {
 	 * 得到所有标签
 	 * @return
 	 */
-	public List<N_label> getNotetabel();
+	public List<N_label> getNotetabel(int userid);
 	
 	/**
 	 * 根据笔记id 修改标签
@@ -114,6 +120,8 @@ public interface NoteService {
 	 * @param lname
 	 * @return
 	 */
-	public int insertNoteTabel(String lname);
+	public int insertNoteTabel(String lname,int userid);
+	
+	
 	
 }

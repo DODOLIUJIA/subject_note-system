@@ -25,7 +25,6 @@
 .li {
 	display: flock;
 	background: blanchedalmond;
-	margin-right: 50px;
 	padding-top:10px;
 	margin-top:20px;
 	display: block;
@@ -42,7 +41,6 @@
 #ul a {	
 	font-family: "微软雅黑";
 	text-decoration : none;
-	text-align: center;
 }
 #ul a:hover {
 	color: black;
@@ -55,6 +53,29 @@
 #center{  
    
 }
+   #insert{
+	       float: right;
+	       margin-right: 50px;
+	       margin-top: 10px;
+	    }
+	      #insert1{
+	       float: right;
+	       margin-right: 50px;
+	       margin-top: 10px;
+	       display: none;
+	    }
+	     #cancel{
+	       float: right;
+	       margin-right: 50px;
+	       margin-top: 10px;
+	       display: none;
+	    }
+	      #tabel{
+	       float: right;
+	       margin-right: 20px;
+	       margin-top: 13px;
+	       display: none;
+	    }
 body{background-color: #eee;}
        .font{position: absolute;z-index: 1;width: 100%;text-align: center;color: #fff;margin-top:2%;}
         .trasation-font{width: 100%;text-align: center;margin-top: 4%;}
@@ -111,7 +132,60 @@ body{background-color: #eee;}
     	 	    	 }); 
     	 		 
     	 }); 
-    	
+    	 $("#insert").click(function(){
+ 			var insert = $("#insert");
+ 			var insert1 = $("#insert1");
+ 			var tabel = $("#tabel");
+ 			var cancel = $("#cancel")
+ 			insert.css("display","none");
+ 			insert1.css("display","block");
+ 			tabel.css("display","block");
+ 			cancel.css("display","block");
+ 		});
+ 		$("#insert1").click(function(){
+ 			var type = $("#tabel").val();
+ 			$.ajax({
+ 				url:'${basePath}insertTabel',
+ 				data:'tabel='+type,
+ 				type : 'post',
+ 				dataType : 'json',
+ 				success:function(data){
+ 					if(data.msg==1){
+ 						var insert = $("#insert");
+ 						var insert1 = $("#insert1");
+ 						var tabel = $("#tabel");
+ 						var cancel = $("#cancel")
+ 						insert.css("display","block");
+ 						insert1.css("display","none");
+ 						tabel.css("display","none");
+ 						cancel.css("display","none");
+ 						 location.href="${basePath}showtabel";
+ 						
+ 					}else{
+ 						$.messager.alert('提示',"添加失败,标签名不能为空",'info',function(){
+ 			        	});
+ 						var insert = $("#insert");
+ 						var insert1 = $("#insert1");
+ 						var tabel = $("#tabel");
+ 						var cancel = $("#cancel")
+ 						insert.css("display","block");
+ 						insert1.css("display","none");
+ 						tabel.css("display","none");
+ 						cancel.css("display","none");
+ 					}
+ 				}
+ 			});
+ 		});
+ 		$("#cancel").click(function(){
+ 			var insert = $("#insert");
+				var insert1 = $("#insert1");
+				var tabel = $("#tabel");
+				var cancel = $("#cancel")
+				insert.css("display","block");
+				insert1.css("display","none");
+				tabel.css("display","none");
+				cancel.css("display","none");
+ 		});
      })
 </script>
 <body>
@@ -170,6 +244,12 @@ body{background-color: #eee;}
 					</ul>	
 			</div>
 			<div id="center" class="col-md-10" >	
+			          <div>
+			          <button class="btn btn-default " id="insert">添加标签</button>
+			           <button class="btn btn-default " id="insert1">添加</button>
+			           <button class="btn btn-default " id="cancel">取消</button>
+			           <input   id = "tabel" type="text" placeholder="请输入标签名">
+			           </div> 
 			      	   <img id="img" alt="" src="${basePath}statics/zxlImgs/lj.jpg">
  			</div>	
 		</div>
