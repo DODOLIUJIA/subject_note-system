@@ -91,7 +91,7 @@ function test(){
 	</div><br>
 	<div>
 		题目类型 
-		<select id="typee" class="" name="dept" style="width: 300px;height : 40px;">
+		<select id="typee" name="dept" style="width: 300px;height : 40px;">
 			<option value="1">1 简答题</option>
 			<option value="2">2 填空题</option>
 			<option value="3">3 单选题</option>
@@ -102,7 +102,7 @@ function test(){
 	</div><br>
 	<div>
 		创建年份
-		<select id="Time" class="" name="dept" style="width: 300px;height : 40px;">
+		<select id="Time" name="dept" style="width: 300px;height : 40px;">
 			<option value="2014">2014</option>
 			<option value="2015">2015</option>
 			<option value="2016">2016</option>

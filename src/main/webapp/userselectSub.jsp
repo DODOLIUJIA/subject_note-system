@@ -123,7 +123,7 @@ window.onscroll = function() {
 		$(".dropdown-menu").mouseover(function() {
 			clearTimeout(timer);
 		});
-		$(".dropdown-menu").click(function() {
+		$(".dropdown-menu").mouseout(function() {
 			timer = setTimeout(function() {
 				$(".dropdown-menu").hide();
 			}, 100);
@@ -236,16 +236,12 @@ window.onscroll = function() {
 			<div class="collapse navbar-collapse"
 				id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav">
-					<li id="index" class="active"><a href="index.jsp">首页</a></li>
-					<li id="sub"><a href="${basePath}showLabelAndTime">题库</a></li>
+					<li id="index"><a href="index.jsp">首页</a></li>
+					<li id="sub" class="active"><a href="${basePath}showLabelAndTime">题库</a></li>
 					<li id="note"><a href="${basePath}showtabel">我的笔记</a></li>
 				</ul>
-				<form class="navbar-form navbar-left">
-					<div class="form-group">
-						<input type="text" class="form-control" placeholder="Search...">
-					</div>
-					<span class="glyphicon glyphicon-search" style="margin-left: -15%;"></span>
-				</form>
+				
+
 				<ul class="nav navbar-nav navbar-right">
 
 					<c:choose>

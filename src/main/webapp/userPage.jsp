@@ -18,15 +18,17 @@
 		body{background-color: #eee;}
        .font{position: absolute;z-index: 1;width: 100%;text-align: center;color: #fff;margin-top:2%;}
         .trasation-font{width: 100%;text-align: center;margin-top: 4%;}
-        .card {border: 1px solid #aaa; width: 29%; height: 300px; padding: 0px; margin: 0px 23px;}
-        .card img {width: 100%;height: 200px;}
-        .card-block {margin: 0px 15px;}
         .footer {height: 150px;background-color: #222;margin-top: 5%;color: #fff;padding: 3% 10%;}
         .col-md-4 {text-align: center;}
         .col-md-4 p a{color: #fff;}
+        .card {	border: 1px solid #aaa;width: 25%;height: 200px;	padding: 0px;	margin: 0px 23px;}
+.card img {width: 100%;	height: 100px;}
+.card-block {margin: 0px 15px;}
     .left-bar {background-color: #222;padding: 5% 8%;margin-bottom: 10%;}
-    .user-info{background-color: #222;padding: 5% 8%;text-align: center;}
+    .user-info{background-color: #222;padding: 5% 8%;text-align: center;height:400px;}
     .content{height: 100%;padding: 8% 10%;color: #fff;}
+    .study-content-info{background-color:#222;height:400px;padding:4% 5%; margin: 0px;margin-top: 3.5%;}
+    .dropdown-li {width:25%;}
     </style>
     <script>
         $(function(){
@@ -40,13 +42,15 @@
             $(".userfun").mouseout(function () {
                 timer0 = setTimeout(function () {
                     $(".dropdown-menu").hide();
-                },100);
+                },500);
             });
             $(".dropdown-menu").mouseover(function () {
                 clearTimeout(timer0);
             });
-            $(".dropdown-menu").click(function () {
-                $(".dropdown-menu").hide();
+            $(".dropdown-menu").mouseout(function () {
+            	timer0 = setTimeout(function () {
+                    $(".dropdown-menu").hide();
+                },100);
             });
             $(".dropdown-menu li a").mouseover(function(){
                 $(this).css("color","black");
@@ -62,20 +66,17 @@
             $(".dropdown").mouseout(function () {
                 timer = setTimeout(function () {
                     $(".menu").hide();
-                },100);
+                },500);
             });
             $(".menu").mouseover(function () {
                 clearTimeout(timer);
             });
-            $(".menu").click(function () {
-                $(".menu").hide();
+            $(".menu").mouseout(function () {
+            	timer = setTimeout(function () {
+                    $(".menu").hide();
+                },100);
             });
-            $(".menu li a").mouseover(function(){
-                $(this).css("color","black");
-            });
-            $(".menu li a").mouseout(function(){
-                $(this).css("color","white");
-            })
+           
         });
 
     </script>
@@ -95,12 +96,8 @@
                 <li id="sub" ><a href="userselectSub.jsp">题库</a></li>
                 <li id="note" ><a href="note.jsp">我的笔记</a></li>
             </ul>
-            <form class="navbar-form navbar-left">
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Search...">
-                </div>
-                <span class="glyphicon glyphicon-search" style="margin-left: -15%;"></span>
-            </form>
+            
+
             <ul class="nav navbar-nav navbar-right">
                 <a  href="javascript:void(0)" class=" active userfun"
                     style="padding: 0px;"aria-expanded="false">
@@ -124,8 +121,8 @@
 	<div class="left-menu" style="float:left;width:25%;">
 		<div class="left-bar">
 			<div class="sign-time">
-				<div class="sign-week">周一</div>
-				<div>09-25</div>
+				<div class="sign-week">周六</div>
+				<div>09-30</div>
 			</div>		
 		</div>
 		<div class="user-info">
@@ -135,19 +132,17 @@
 			<h3 class="side-profile-name level-color-5">${uname}</h3>
 		</div>
 		<div class="profile-count-box">
-			<a class="btn btn-primary" href="/">返回首页</a> 
+			<a class="btn btn-primary" href="index.jsp">返回首页</a> 
 			<a class="btn btn-primary" href="/">编辑资料</a>
 		</div>					
 	</div>	
 	</div>
 	<!-- 右侧操作内容 -->
-	<div class="study-content" style="float:left;padding:0% 7%;width:100%; width: 75%;">
-	<nav class="navbar navbar-dark navbar-inverse">
+	<div class="study-content" style="float:left;padding:0% 3%;width: 75%;">
+	<nav class="navbar navbar-dark navbar-inverse" style="height:66px;padding:0px;">
         <div class="container-fluid">
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-left">
-	         	<a  href="javascript:void(0)" class="dropdown"
-	            aria-expanded="false" >刷题</a>
 	            <ul class="dropdown-menu menu" style="text-align:center;padding:0px;background-color: #222;">
 	            	<li><a href="userPage.jsp" style="color:#fff;height:35px;line-height:33px">Java基础</a></li>
 	                <li role="separator" class="divider" style="margin:0px;"></li>
@@ -156,41 +151,41 @@
 	                <li><a href="login.jsp" style="color:#fff;height:35px;line-height:33px">C++入门</a></li>
 	            </ul>
 	         </ul>
-	         <ul class="nav navbar-nav">
-               <li><a href="#">笔记</a></li>
-               <li><a href="#">个人资料</a></li>
-                <li><a href="#">设置</a></li>
+	         <ul class="nav navbar-nav" style="width:100%;font-size:18px;text-align:center;">
+	            <li class="dropdown-li"><a  href="javascript:void(0)" class="dropdown"
+	            aria-expanded="false" >刷题</a></li>
+                <li class="dropdown-li"><a href="node.jsp">笔记</a></li>
+                <li class="dropdown-li"><a href="#">个人资料</a></li>
+                <li class="dropdown-li"><a href="#">设置</a></li>
             </ul>
        </div>
     </div><!-- /.container-fluid -->
 </nav>
 	
-		<div class="study-content-info" style="backgroun-color:#222;">
-			<h1>看过的试题</h1>
-			<ul class="paper-list">
-				<li class="paper-item">
-					<a href="#">
-						<div class="paper-title">编译和体系结构,加密和安全等专项练习</div>
-						<div class="paper-type">专 项 练 习</div>
-					</a>
-					<ul class="paper-result">
-						<a href="#">
-							<li><i class="finish-time"></i>完成时间： 2017-09-18</li>
-						</a>
-						<li>
-							<a href="">
-							<i class="finish-score"></i>得分：50 </a>
-							<a href=" class="link-green link-again">再做一次</a>
-						</li>
-						<li style="visibility: hidden">
-							<i class="finish-rank"></i>排名：1
-						</li>
-						<li style="visibility: hidden">
-							<i class="legend-label"></i>已练习数：1
-						</li>
-					</ul>
-				</li>
-			</ul>
+		<div class="row study-content-info">
+		<h3>看过的试题</h1>
+        <div class="card col-md-4">
+            <img class="card-img-top"  src="<%=basePath%>/statics/zxlImgs/c++.jpg"/>
+            <div class="card-block">
+                <h4 class="card-title">C++入门</h4>
+                <button class="btn btn-primary btn-sm">继续查看</button>
+            </div>
+        </div>
+        <div class="card col-md-4">
+            <img class="card-img-top"  src="<%=basePath%>/statics/zxlImgs/java.jpg"/>
+            <div class="card-block">
+                <h4 class="card-title">Java基础</h4>
+                <button class="btn btn-primary btn-sm">继续查看</button>
+            </div>
+        </div>
+        <div class="card col-md-4">
+            <img class="card-img-top"  src="<%=basePath%>/statics/zxlImgs/node.jpg"/>
+            <div class="card-block">
+                <h4 class="card-title">nodeJs练习</h4>
+               <button class="btn btn-primary btn-sm">继续查看</button>
+            </div>
+        </div>
+    </div>
 		</div>					
 	</div>
 </div>
