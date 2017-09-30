@@ -22,7 +22,7 @@ import javax.servlet.http.HttpSession;
  *
  */
 @WebFilter(value = "*.jsp", initParams = { 
-		@WebInitParam(name = "notCheckURLList", value = "/login.jsp;/index.jsp;/subDetail.jsp;/SubDetail.jsp;/index_content.jsp;/userselectSub.jsp;/userPage.jsp;/browseSub.jsp;/bglogin.jsp;"),
+		@WebInitParam(name = "notCheckURLList", value = "/login.jsp;/index.jsp;/subDetail.jsp;/SubDetail.jsp;/index_content.jsp;/userselectSub.jsp;/browseSub.jsp;/bglogin.jsp;"),
 		@WebInitParam(name = "redirectURL", value = "/login.jsp"), })
 public class LoginFilter implements Filter {
 

@@ -133,7 +133,7 @@
 		</div>
 		<div class="profile-count-box">
 			<a class="btn btn-primary" href="index.jsp">返回首页</a> 
-			<a class="btn btn-primary" href="/">编辑资料</a>
+			<a class="btn btn-primary" href="#">编辑资料</a>
 		</div>					
 	</div>	
 	</div>
@@ -154,7 +154,7 @@
 	         <ul class="nav navbar-nav" style="width:100%;font-size:18px;text-align:center;">
 	            <li class="dropdown-li"><a  href="javascript:void(0)" class="dropdown"
 	            aria-expanded="false" >刷题</a></li>
-                <li class="dropdown-li"><a href="node.jsp">笔记</a></li>
+                <li class="dropdown-li"><a href="note.jsp">笔记</a></li>
                 <li class="dropdown-li"><a href="#">个人资料</a></li>
                 <li class="dropdown-li"><a href="#">设置</a></li>
             </ul>
