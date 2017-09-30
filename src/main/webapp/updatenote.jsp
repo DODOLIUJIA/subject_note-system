@@ -82,12 +82,8 @@
                 <li id="sub"><a href="userselectSub.jsp">题库</a></li>
                 <li id="note" ><a href="${basePath}showtabel">我的笔记</a></li>
             </ul>
-            <form id="form" class="navbar-form navbar-left">
-                <div class="form-group">
-                    <input id="search" type="text" class="form-control" placeholder="Search...">
-                </div>
-                <span class="glyphicon glyphicon-search" style="margin-left: -15%;"></span>
-            </form>
+            
+
             <ul class="nav navbar-nav navbar-right">
 	            <c:choose>
 					<c:when test="${sessionScope.uname == null}">

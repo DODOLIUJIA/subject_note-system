@@ -199,16 +199,12 @@ body{background-color: #eee;}
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li id="index" class="active"><a href="index.jsp">首页</a></li>
+                <li id="index" ><a href="index.jsp">首页</a></li>
                 <li id="sub"><a href="userselectSub.jsp">题库</a></li>
-                <li id="note" ><a href="note.jsp">我的笔记</a></li>
+                <li id="note" class="active"><a href="note.jsp">我的笔记</a></li>
             </ul>
-            <form id="form" class="navbar-form navbar-left">
-                <div class="form-group">
-                    <input id="search" type="text" class="form-control" placeholder="Search...">
-                </div>
-                <span class="glyphicon glyphicon-search" style="margin-left: -15%;"></span>
-            </form>
+           
+
             <ul class="nav navbar-nav navbar-right">
 	            <c:choose>
 					<c:when test="${sessionScope.uname == null}">

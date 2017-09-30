@@ -48,7 +48,7 @@ body {background-color: #eee;}
 		$(".dropdown-menu").mouseover(function() {
 			clearTimeout(timer);
 		});
-		$(".dropdown-menu").click(function() {
+		$(".dropdown-menu").mouseout(function() {
 			timer = setTimeout(function() {
 				$(".dropdown-menu").hide();
 			}, 100);
@@ -84,12 +84,8 @@ body {background-color: #eee;}
 					<li id="sub"><a href="${basePath}showLabelAndTime">题库</a></li>
 					<li id="note"><a href="${basePath}showtabel">我的笔记</a></li>
 				</ul>
-				<form class="navbar-form navbar-left">
-					<div class="form-group">
-						<input type="text" class="form-control" placeholder="Search...">
-					</div>
-					<span class="glyphicon glyphicon-search" style="margin-left: -15%;"></span>
-				</form>
+				
+
 				<ul class="nav navbar-nav navbar-right">
 
 					<c:choose>

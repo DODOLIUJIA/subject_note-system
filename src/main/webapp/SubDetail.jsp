@@ -76,7 +76,7 @@
 	}
 
 	//打开webSocket连接
-	var webSocket = new WebSocket("ws://"+host+":8080/sub_note/DanMuServer");
+	var webSocket = new WebSocket("ws://" + host + ":8080/sub_note/DanMuServer");
 
 	//-----------websocket事件注册--------------
 	//websocket连接事件
@@ -91,9 +91,9 @@
 
 	//websocket消息响应事件
 	webSocket.onmessage = function(msg) {
-		console.log("123: " + msg.data);
-		create(msg.data);
-		$("#peopleNums").val();
+		var obj = JSON.parse(msg.data);
+		create(obj.message);
+		$("#peopleNums").text(obj.num);
 	}
 
 	//-------------end-----------------------
@@ -101,16 +101,12 @@
 
 
 <body>
-	
+
 	<div id="barrage"></div>
 	<!-- 使用户知道这是个导航栏 -->
 	<nav class="navbar navbar-default">
 	<div class="container=fluid">
 		<div class="navbar-header">
-			<ul class="nav navbar-nav navbar-left">
-				<li><a href="" style="color: gray">上一题</a></li>
-				<li><a href="" style="color: gray">下一题</a></li>
-			</ul>
 			<!-- 导航栏左边 -->
 			<a class="navbar-brand" style="color: gray"></a>
 		</div>
@@ -118,14 +114,16 @@
 			id="bs-example-navbar-collapse-1">
 			<!-- 导航栏右边 -->
 			<ul class="nav navbar-nav navbar-right">
-				<li><a href="" style="color: gray">退出</a></li>
+				<li><a href="${basePath}userselectSub.jsp" style="color: gray">返回</a></li>
 			</ul>
 		</div>
 	</div>
 	</nav>
-	
-	<div id="peopleNums">当前在线人数：   </div>
-	
+
+	<div>
+		当前在线人数： <span id="peopleNums"></span>
+	</div>
+
 	<div>
 		<div class="row">
 			<div class="col-md-3 col-sm-3 col-xs-3"></div>
@@ -148,16 +146,13 @@
 				<botton id="showAnswer" type="button" class="btn btn-default"
 					style="margin-left: 40%;z-index: 10;" onclick="show()">显示答案以及评论</botton>
 
-				<!-- 发送弹幕的input 和 按钮 -->
-				<div id="btn">
-					<input type="text" id="text" placeholder = "在这里输入弹幕 回车发送"></input>
-				</div>
+
 
 			</div>
 			<div class="col-md-3 col-sm-3 col-xs-3"></div>
 		</div>
 	</div>
-	<div id="anwerAndcomment" name="anwerAndcomment" style="display: none">
+	<div id="anwerAndcomment" name="anwerAndcomment" style="display: none;z-index: 10;">
 		<div class="row">
 			<div class="col-md-3 col-sm-3 col-xs-3"></div>
 			<div class="col-md-6 col-sm-6 col-xs-6">
@@ -174,14 +169,17 @@
 				<div style="display: inline">
 					<a class="btn btn-default" id="addComment" role="button"
 						onclick="addNewComment()">发表评论</a> <a class="btn btn-default"
-						role="button">添加笔记</a>
+						role="button" href="${basePath}insertnote.jsp">添加笔记</a>
 				</div>
 			</div>
 			<div class="col-md-3 col-sm-3 col-xs-3"></div>
 		</div>
-
 		<div id="comment"></div>
 	</div>
+	<!-- 发送弹幕的input 和 按钮 -->
+		<div id="btn" style = "left: 650px;top: 60px;position: absolute; z-index: 10;">
+			<input type="text" id="text" placeholder="在这里输入弹幕 回车发送"></input>
+		</div>
 	<br>
 </body>
 <script>
@@ -200,10 +198,9 @@
 		timer = setInterval(move, 30);//开启定时器 
 
 		$("#text").on('keypress', function(event) {
-				
-			if (event.keyCode == 13)
-			{
-				if($("#text").val() != "")
+
+			if (event.keyCode == 13) {
+				if ($("#text").val() != "")
 					sendMsg();
 			}
 		});
@@ -217,7 +214,7 @@
 		Delete(num[t]);//删除已被选中的块   
 		node.style.left = ($("#barrage").get(0).offsetWidth - 100) + "px";
 		node.style.color = "#" + randomColor();//随机颜色  
-		node.style.fontSize = random(20 , 30) + "px";//弹幕字体大小
+		node.style.fontSize = random(20, 30) + "px";//弹幕字体大小
 		$("#barrage").append(node);//插入子节点  
 	}
 
