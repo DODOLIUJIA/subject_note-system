@@ -100,6 +100,8 @@
 
 
 <body>
+
+	<div id="barrage"></div>
 	<!-- 使用户知道这是个导航栏 -->
 	<nav class="navbar navbar-default">
 	<div class="container=fluid">
@@ -120,7 +122,6 @@
 		</div>
 	</div>
 	</nav>
-	<div id="barrage"></div>
 
 	<div>
 		<div class="row">

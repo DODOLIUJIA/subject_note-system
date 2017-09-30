@@ -194,7 +194,7 @@ body{background-color: #eee;}
     <div class="container-fluid" style="margin-left: 10%;margin-right: 10%;">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header" >
-        	<img class="navbar-brand" src="<%=basePath%>statics/zxlImgs/logo.jpg" style="padding: 0px;"/>
+        	<img class="navbar-brand" src="<%=basePath%>statics/zxlImgs/logo2.jpg" style="padding: 0px;"/>
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">

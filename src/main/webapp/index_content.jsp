@@ -24,10 +24,10 @@
                 <img src="<%=basePath%>statics/zxlImgs/carousel3.jpg" alt="First slide" style="width:100%;height:600px;">
             </div>
             <div class="item">
-                <img src="<%=basePath%>statics/zxlImgs/carousel1.jpg" alt="Second slide" style="width:100%;height:600px;">
+                <img src="<%=basePath%>statics/zxlImgs/timg1.jpg" alt="Second slide" style="width:100%;height:600px;">
             </div>
             <div class="item">
-                <img src="<%=basePath%>statics/zxlImgs/carousel2.jpg" alt="Third slide" style="width:100%;height:600px;">
+                <img src="<%=basePath%>statics/zxlImgs/timg2.jpg" alt="Third slide" style="width:100%;height:600px;">
             </div>
         </div>
         <!-- 轮播（Carousel）导航 -->
