@@ -73,7 +73,7 @@ body {background-color: #eee;}
 			<div class="navbar-header">
 
 				<img class="navbar-brand"
-					src="<%=basePath%>statics/zxlImgs/logo.jpg" style="padding: 0px;" />
+					src="<%=basePath%>statics/zxlImgs/logo2.jpg" style="padding: 0px;" />
 
 			</div>
 			<!-- Collect the nav links, forms, and other content for toggling -->
