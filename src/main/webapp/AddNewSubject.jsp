@@ -17,6 +17,68 @@
 <script src="${basePath}statics/js/AddNewSubject.js"></script>
 
 </head>
+<script type="text/javascript">
+$(function() {
+	$('#summary').textbox({
+		height : 40,
+	})
+	$('#answer').textbox({
+		height : 40,
+	})
+	$('#Label').combobox({ 
+	    required:true,    
+	    multiple:true   
+	});  
+	$.ajax({
+		url : 'GetAllSLabelAction',
+		type : 'post',
+		dataType : 'text',
+		success : function(data){
+			da = $.parseJSON(data);
+			$("#Label").combobox("loadData", da);
+		}
+		
+	})
+})
+function isnertSubject() {
+	$.ajax({
+		url : 'InsertNewSubjectAction',
+		type : 'post',
+		data : {
+			content : CKEDITOR.instances.editor.getData(),
+			sum : $('#summary').val(),
+			ans : $('#answer').val(),
+			type : $("#typee").val(),
+			time : $("#Time").val(),
+			Lids : $('#Label').combobox('getValues')
+		},
+		dataType : 'text',
+		success : function(data) {
+			if(data=="Insert Success"){
+				$.messager.alert('警告', '插入成功', 'info', function() {
+					$('#summary').val("");
+					$('#answer').val("");
+					$('#typee').val("");
+					$('#Time').val("");
+					CKEDITOR.instances.editor.setData('');
+				});
+			}else{
+				$.messager.alert('警告', '插入失败', 'info', function() {
+					
+				});
+			}
+		}
+	})
+}
+
+function test(){
+	console.log(111);
+	var text=$('#Label').combobox('getValues');
+	console.log(text);
+}
+
+
+</script>
 <body>
 	<textarea id="editor"></textarea>
 	<h3>请在上面输入题目，若该题是选择题，请输入选项</h3>
@@ -29,7 +91,7 @@
 	</div><br>
 	<div>
 		题目类型 
-		<select id="type" class="easyui-combobox" name="dept" style="width: 300px;">
+		<select id="typee" class="" name="dept" style="width: 300px;height : 40px;">
 			<option value="1">1 简答题</option>
 			<option value="2">2 填空题</option>
 			<option value="3">3 单选题</option>
@@ -40,7 +102,7 @@
 	</div><br>
 	<div>
 		创建年份
-		<select id="Time" class="easyui-combobox" name="dept" style="width: 300px;">
+		<select id="Time" class="" name="dept" style="width: 300px;height : 40px;">
 			<option value="2014">2014</option>
 			<option value="2015">2015</option>
 			<option value="2016">2016</option>
