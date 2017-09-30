@@ -33,22 +33,15 @@ public class InsertnoteAction extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	     int noteid = 0;
 		String notetitle = request.getParameter("title");
-	     // System.out.println(notetitle);
 	      String notetext = request.getParameter("notetext");
-	     // System.out.println(notetext);
 	      String notesummary =request.getParameter("notesummary");
-	       //System.out.println(notesummary);
 	      HttpSession session = request.getSession();
 	     int userid =  (int) session.getAttribute("userId");
-	    // System.out.println(userid);
 		  String lname = (String)session.getAttribute("n_lname");
 	      if(""!=notetitle&&""!=notetext&&""!=notesummary){
 	    	  noteid = ns.insertnote(userid, notetitle, notetext, notesummary);	
-	    	  System.out.println(noteid);
 		      int q = ns.getN_lid(lname);
-		      //System.out.println(q);
 		      int n = ns.insertNote_lable(noteid, q);
-		     // System.out.println(n);
 	      }     
 	      JSONObject json = new JSONObject();
 	      PrintWriter pw = response.getWriter();

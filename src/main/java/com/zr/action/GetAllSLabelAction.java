@@ -25,7 +25,6 @@ public class GetAllSLabelAction extends HttpServlet {
 		response.setCharacterEncoding("utf-8");
 		PrintWriter out=response.getWriter();
 		String s=sService.getAllLabelValueAndText().toString();
-		System.out.println(s);
 		out.write(s);
 	}
 

@@ -19,7 +19,6 @@ public class jsonTest {
 		}
 		
 		JSONArray ja = JSONArray.fromObject(names);
-		System.out.println(ja.toString());
 		
 	}
 }

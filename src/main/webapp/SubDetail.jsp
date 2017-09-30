@@ -69,7 +69,7 @@
 </style>
 
 <script type="text/javascript">
-	var host = "localhost"; //172.18.23.77
+	var host = "172.18.23.77"; //172.18.23.77
 
 	function handleOnMessage() {
 		console.log("收到消息");
@@ -93,6 +93,7 @@
 	webSocket.onmessage = function(msg) {
 		console.log("123: " + msg.data);
 		create(msg.data);
+		$("#peopleNums").val();
 	}
 
 	//-------------end-----------------------
@@ -100,7 +101,7 @@
 
 
 <body>
-
+	
 	<div id="barrage"></div>
 	<!-- 使用户知道这是个导航栏 -->
 	<nav class="navbar navbar-default">
@@ -122,7 +123,9 @@
 		</div>
 	</div>
 	</nav>
-
+	
+	<div id="peopleNums">当前在线人数：   </div>
+	
 	<div>
 		<div class="row">
 			<div class="col-md-3 col-sm-3 col-xs-3"></div>

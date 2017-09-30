@@ -36,6 +36,10 @@ public class InsertNewSubjectAction extends HttpServlet {
 		String answer = request.getParameter("ans");
 		int type = Integer.parseInt(request.getParameter("type"));
 		int time = Integer.parseInt(request.getParameter("time"));
+		
+		System.out.println("type: "+type);
+		System.out.println("Time: "+time);
+		
 		String[] L = request.getParameterValues("Lids[]");
 		int[] lids = new int[L.length];
 		for (int i = 0; i < L.length; i++) {

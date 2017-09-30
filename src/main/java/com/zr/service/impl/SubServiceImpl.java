@@ -42,19 +42,21 @@ public class SubServiceImpl implements SubService {
 	@Override
 	public String changeSubtypeIntToString(int subType) {
 		String subtypeS = "";
-		/*if (subType == 1) {
-			subtypeS = "绠�瓟棰�;
+		if (subType == 1) {
+			subtypeS = "简答题";
 		} else if (subType == 2) {
-			subtypeS = "濉┖棰�;
+			subtypeS = "填空题";
 		} else if (subType == 3) {
-			subtypeS = "鍗曢�棰�;
+			subtypeS = "单选题";
 		} else if (subType == 4) {
-			subtypeS = "澶氶�棰�;
+			subtypeS = "多选题";
 		} else {
-			subtypeS = "鎵�湁";
-		}*/
+			subtypeS = "所有";
+		}
 		return subtypeS;
 	}
+
+
 
 	@Override
 	public boolean insertNewSub(String subSummary, String subText, int subType, String subAnswer, int subTime) {
@@ -64,15 +66,15 @@ public class SubServiceImpl implements SubService {
 	@Override
 	public int changeSubtypeStringToInt(String subType) {
 		int subtypeI = 0;
-		/*if (subType.equals("绠�瓟棰�)) {
+		if (subType.equals("简答题")) {
 			subtypeI = 1;
-		} else if (subType.equals("濉┖棰�)) {
+		} else if (subType.equals("填空题")) {
 			subtypeI = 2;
-		} else if (subType.equals("鍗曢�棰�)) {
+		} else if (subType.equals("单选题")) {
 			subtypeI = 3;
-		} else if (subType.equals("澶氶�棰�)) {
+		} else if (subType.equals("多选题")) {
 			subtypeI = 4;
-		}*/
+		}
 		return subtypeI;
 	}
 
@@ -181,7 +183,6 @@ public class SubServiceImpl implements SubService {
 
 	public static void main(String[] args) {
 		SubServiceImpl s = new SubServiceImpl();
-		System.out.println(s.getSubjectBySid(1));
 	}
 
 	/**

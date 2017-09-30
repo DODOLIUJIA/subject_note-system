@@ -42,13 +42,11 @@ public class ShownoteAction extends HttpServlet {
 		String lname = (String)session.getAttribute("n_lname");
 		int userid = (int) session.getAttribute("userId");
 		List<Note> notes = ns.getallnotesByn_lname(userid,lname);
-		//System.out.println(notes.size());
 		session.setAttribute("type", lname);
 		JSONArray json = new JSONArray();
 		 json = JSONArray.fromObject(notes);
 		 PrintWriter pw = response.getWriter();
 		pw.write(json.toString());
-		//System.out.println(json.toString());
 	}
 
 }

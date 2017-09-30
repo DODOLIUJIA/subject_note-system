@@ -30,7 +30,6 @@ public class UpdateNoteAction extends HttpServlet {
 		HttpSession session = request.getSession();
 		int noteid = (int) session.getAttribute("noteid");
 		String lname = request.getParameter("type");
-		System.out.println(lname);
 		String title = request.getParameter("title");
 		String notetext = request.getParameter("notetext");
 		//int n_lid = Integer.parseInt(lid);
@@ -43,8 +42,6 @@ public class UpdateNoteAction extends HttpServlet {
 	      json.put("msg", i);
 	      json.put("msg1", j);
 	      pw.write(json.toString());
-	     // System.out.println(json.toString());
-		
 	}
 
 }

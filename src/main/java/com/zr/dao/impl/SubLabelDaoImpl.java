@@ -337,7 +337,6 @@ public class SubLabelDaoImpl implements SubLabelDao {
 	
 	public static void main(String[] args) {
 		SubLabelDaoImpl s=new SubLabelDaoImpl();
-		System.out.println(s.getAllLabelValueAndText().toString());
 	}
 
 	@Override

@@ -22,7 +22,7 @@ import javax.servlet.http.HttpSession;
  *
  */
 @WebFilter(value = "*.jsp", initParams = { 
-		@WebInitParam(name = "notCheckURLList", value = "/login.jsp;/index.jsp;/index_content.jsp;/SubDetail.jsp;/userselectSub.jsp;/userPage.jsp;/browseSub.jsp;/bglogin.jsp;"),
+		@WebInitParam(name = "notCheckURLList", value = "/login.jsp;/index.jsp;/subDetail.jsp;/SubDetail.jsp;/index_content.jsp;/userselectSub.jsp;/userPage.jsp;/browseSub.jsp;/bglogin.jsp;"),
 		@WebInitParam(name = "redirectURL", value = "/login.jsp"), })
 public class LoginFilter implements Filter {
 
@@ -38,12 +38,19 @@ public class LoginFilter implements Filter {
 
 		HttpSession session = request.getSession();
 		sessionKey = (String) session.getAttribute("uname");
-		//System.out.println(sessionKey);
 
 		// 只要登录就放行
 		if (sessionKey != null) {
 			filterChain.doFilter(request, response);
 			return;
+		}
+		
+		//过滤直接输入SubDetail.jsp
+		if("/SubDetail.jsp".equals(request.getServletPath()) || "/subDetail.jsp".equals(request.getServletPath())){
+			if(request.getParameter("sid") == null){
+				response.sendRedirect(request.getContextPath() + "/index.jsp");
+				return;
+			}
 		}
 
 		// 没登录又访问了必须要登录才能访问的页面就 return

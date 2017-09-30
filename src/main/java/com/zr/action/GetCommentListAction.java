@@ -37,7 +37,6 @@ public class GetCommentListAction extends HttpServlet {
 		JSONObject json=new JSONObject();
 		json.put("total", cService.getCommentsSum());
 		json.put("rows", list);
-		System.out.println(json.toString());
 		PrintWriter out=response.getWriter();
 		out.write(json.toString());
 	}

@@ -52,7 +52,6 @@ public class AdminUserMessageAction extends HttpServlet {
 
 		PrintWriter pw = response.getWriter();
 		pw.write(j.toString());
-		System.out.println(j);
 	}
 
 }

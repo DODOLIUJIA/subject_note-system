@@ -38,7 +38,6 @@ public class GetAlltabelAction extends HttpServlet {
 		json=JSONArray.fromObject(labels);
 		PrintWriter pw = response.getWriter();
 		pw.write(json.toString());
-		//System.out.println(json.toString());
 	}
 
 }

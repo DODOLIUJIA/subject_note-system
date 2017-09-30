@@ -58,7 +58,6 @@ public class OcrTest {
 		try {
 			instance.setLanguage("chi_sim");
 			String result = instance.doOCR(change(imgFile));
-			System.out.println(imgFile.getName() +" result："+  result);
 			
 		} catch (TesseractException e) {
 			e.printStackTrace();

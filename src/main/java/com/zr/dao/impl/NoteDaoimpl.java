@@ -37,7 +37,6 @@ public class NoteDaoimpl implements NoteDao {
 				note.setNotetitle(rs.getString("notetitle"));
 				note.setNotesummary(rs.getString("notesummary"));
 				notes.add(note);
-				//System.out.println(notes.size());
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -59,7 +58,6 @@ public class NoteDaoimpl implements NoteDao {
 				Note note = new Note();
 				note.setNoteid(rs.getInt("noteid"));
 				notes.add(note);
-				//System.out.println(notes.size());
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -138,7 +136,6 @@ public class NoteDaoimpl implements NoteDao {
 			ResultSet rs = pst.executeQuery();
 			if(rs.next()){
 				nid = rs.getInt("noteid");
-			//	System.out.println(nid);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -199,7 +196,6 @@ public class NoteDaoimpl implements NoteDao {
 			ResultSet rs = pst.executeQuery();
 			if(rs.next()){
 				lid = rs.getInt("n_lid");
-				//System.out.println(lid);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -323,7 +319,6 @@ public class NoteDaoimpl implements NoteDao {
 			ResultSet rs = pst.executeQuery();
 			if(rs.next()){
 				lname =rs.getString("n_lname");
-				//System.out.println(lid);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

@@ -21,8 +21,9 @@ public class ChartAction extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
 		JSONArray result = sub_label.getSubLabelsCount();
-		System.out.println(result.toString());
 		response.getWriter().write(result.toString());
 	}
 
