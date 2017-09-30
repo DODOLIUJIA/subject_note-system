@@ -38,7 +38,6 @@ public class GetAllCommentBySID extends HttpServlet {
 		int sid = Integer.parseInt(request.getParameter("sid"));
 		List<Comment> list = cService.getCommentBySubID(sid);
 		JSONArray json=JSONArray.fromObject(list);
-		System.out.println(json.toString());
 		out.write(json.toString());
 
 	}

@@ -58,7 +58,6 @@ public class Fileupload extends HttpServlet {
 
 				if (!item.isFormField()) {
 					String filename = item.getName();
-					System.out.println(filename);
 					
 					if (filename == null || filename.trim().equals("")) {
 						continue;
@@ -83,7 +82,6 @@ public class Fileupload extends HttpServlet {
 					in.close();
 					out.close();
 					item.delete();
-					System.out.println("okPath: " + okPath);
 				}
 			}
 		} catch (Exception e) {

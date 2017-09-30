@@ -125,7 +125,6 @@ public class FunctionDaoImpl implements FunctionDao{
 				continue;
 			}else{
 				int currentId =	Integer.parseInt(funcs.getJSONObject(i).getString("id"));
-				//System.out.println("currentId:"+currentId);
 				JSONArray   children  =  this.selectFunctionsByRname(Rname, currentId);
 				funcs.getJSONObject(i).put("children", children);
 			}		

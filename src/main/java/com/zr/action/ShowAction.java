@@ -25,11 +25,8 @@ public class ShowAction extends HttpServlet {
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String lname = request.getParameter("n_lname");
-		//System.out.println(lname);
 		HttpSession session = request.getSession();
 		session.setAttribute("n_lname", lname);
-		//request.getRequestDispatcher("shownote.jsp");
-		// response.sendRedirect("shownote.jsp");
 	}
 
 }

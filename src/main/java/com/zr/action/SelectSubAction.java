@@ -51,8 +51,6 @@ public class SelectSubAction extends HttpServlet {
 		String sublabel = (String) session.getAttribute("sublabel");
 		int subCrateTime = (int) session.getAttribute("subCrateTime");
 		int loadtimms = Integer.parseInt(request.getParameter("loadtimms"));
-		System.out.println("sublabel = "+sublabel);
-		System.out.println("subCrateTime = "+subCrateTime);
 		List<Subject> subs = new ArrayList<Subject>();
 		subs = sbs.selectSubsByMsg(sublabel, subCrateTime, loadtimms);
 		PrintWriter pw = response.getWriter();

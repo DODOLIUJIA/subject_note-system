@@ -22,7 +22,6 @@ public class ChartAction extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		JSONArray result = sub_label.getSubLabelsCount();
-		System.out.println(result.toString());
 		response.getWriter().write(result.toString());
 	}
 

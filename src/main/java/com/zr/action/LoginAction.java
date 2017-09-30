@@ -35,7 +35,6 @@ public class LoginAction extends HttpServlet{
 		HttpSession session = req.getSession();
 		session.setAttribute("uname", uname);
 		session.setAttribute("userId", result.get("userId"));
-		System.out.println("ip: "+req.getRemoteAddr());
 		
 		resp.setCharacterEncoding("utf-8");
 		JSONObject json = new JSONObject();

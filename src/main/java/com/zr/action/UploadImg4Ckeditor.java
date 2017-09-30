@@ -24,7 +24,7 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 @WebServlet(value = "/uploadImg", initParams = { @WebInitParam(name = "baseDir", value = "/statics/"),
-		@WebInitParam(name = "enabled", value = "true"), @WebInitParam(name = "debug", value = "true"),
+		@WebInitParam(name = "enabled", value = "true"), @WebInitParam(name = "debug", value = "false"),
 		@WebInitParam(name = "AllowedExtensionsFile", value = ""),
 		@WebInitParam(name = "DeniedExtensionsFile", value = "html|htm|php|php2|php3|php4|php5|phtml|pwml|inc|asp|aspx|ascx|jsp|cfm|cfc|pl|bat|exe|com|dll|vbs|js|reg|cgi|htaccess|asis|ftl"),
 		@WebInitParam(name = "AllowedExtensionsImage", value = "jpg|gif|jpeg|png|bmp"),

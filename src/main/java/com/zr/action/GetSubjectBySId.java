@@ -37,7 +37,6 @@ public class GetSubjectBySId extends HttpServlet {
 		int sid=Integer.parseInt(request.getParameter("sid"));
 		PrintWriter out=response.getWriter();
 		JSONObject json = sService.getSubjectBySid(sid);
-		//System.out.println("getSubjectBySId涓殑杈撳嚭锛�+json.toString());
 		out.write(json.toString());
 	}
 

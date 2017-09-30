@@ -181,7 +181,6 @@ public class SubServiceImpl implements SubService {
 
 	public static void main(String[] args) {
 		SubServiceImpl s = new SubServiceImpl();
-		System.out.println(s.getSubjectBySid(1));
 	}
 
 	/**

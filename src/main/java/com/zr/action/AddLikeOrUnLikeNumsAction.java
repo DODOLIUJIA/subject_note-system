@@ -36,11 +36,9 @@ public class AddLikeOrUnLikeNumsAction extends HttpServlet {
 			if(b==true){
 				json.put("result", "success");
 				json.put("likeNums", likeNum);
-				System.out.println(json.toString());
 				out.write(json.toString());
 				}else{
 				json.put("result", "fail");
-				System.out.println(json.toString());
 				out.write(json.toString());
 			}
 		}else{
@@ -49,11 +47,9 @@ public class AddLikeOrUnLikeNumsAction extends HttpServlet {
 			if(b==true){
 				json.put("result", "success");
 				json.put("unLikeNums", unLikeNum);
-				System.out.println(json.toString());
 				out.write(json.toString());
 			}else{
 				json.put("result", "fail");
-				System.out.println(json.toString());
 				out.write(json.toString());
 			}
 		}

@@ -54,7 +54,6 @@ public class GetSubMsg extends HttpServlet {
 		
 		session.setAttribute("sublabel", sublabel);
 		session.setAttribute("subCrateTime", subCrateTime);
-		System.out.println("subCrateTime = "+subCrateTime);
 		JSONObject j = new JSONObject();
 		PrintWriter pw = response.getWriter();
 		pw.write(j.toString());
